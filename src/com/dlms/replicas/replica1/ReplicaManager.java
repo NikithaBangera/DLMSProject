@@ -4,6 +4,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 public class ReplicaManager {
 
@@ -33,7 +34,23 @@ public class ReplicaManager {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
+			
+			PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
+
+			String message[] = queue.poll().split(",");
+			String operation = message[0];
+			String managerID = message[1];
+			String userID = message[2];
+			String itemID = message[3];
+			String newItemID = message[4];
+			String oldItemID = message[5];
+			String itemName = message[6];
+			int quantity = Integer.parseInt(message[7]);
+			String failureType = message[8];
+			
+			
+			
 		}
 
 	}
