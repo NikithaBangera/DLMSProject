@@ -1,4 +1,4 @@
-package com.dlms.replicas.replica1;
+package com.dlms.replicas.replica3;
 
 public interface ActionService {
 	public String addItem(String managerID, String itemID, String itemName, int quantity);
