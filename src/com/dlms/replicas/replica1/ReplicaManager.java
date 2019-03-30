@@ -25,8 +25,8 @@ public class ReplicaManager {
 				byte[] buffer = new byte[1000];
 				DatagramPacket request = new DatagramPacket(buffer, buffer.length);
 				aSocket.receive(request);
-				System.out.println("abcd---"+request.getData().toString());
-				String stringdata=new String (request.getData());
+				System.out.println("abcd---" + request.getData().toString());
+				String stringdata = new String(request.getData());
 				System.out.println(stringdata);
 				String indexi[] = stringdata.split(",");
 				System.out.println("index length--" + indexi.length);

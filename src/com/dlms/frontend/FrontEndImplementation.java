@@ -14,9 +14,10 @@ import java.util.concurrent.TimeoutException;
 
 import org.omg.CORBA.ORB;
 
-import com.dlms.client.LibraryPOA;
 
-public class FrontEndImplementation extends LibraryPOA {
+import ActionServiceApp.ActionServicePOA;
+
+public class FrontEndImplementation extends ActionServicePOA {
 	private String replicaName;
 
 	private ORB orb;
@@ -80,7 +81,7 @@ public class FrontEndImplementation extends LibraryPOA {
 	}
 
 	@Override
-	public String waitingQueue(String userID, String itemID) {
+	public String waitList(String userID, String itemID, int numberOfDays) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -255,6 +256,7 @@ public class FrontEndImplementation extends LibraryPOA {
 		return majorityElement + "," + invalidElement;
 
 	}
+
 	
 	
 

@@ -6,9 +6,6 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 
-import com.dlms.client.Library;
-import com.dlms.client.LibraryHelper;
-
 public class FrontEndServer {
 
 	public static void main(String[] args) throws Exception {
