@@ -6,12 +6,10 @@ import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
 
 import ActionServiceApp.ActionService;
 import ActionServiceApp.ActionServiceHelper;
@@ -20,6 +18,9 @@ import java.util.logging.*;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
+
+import ActionServiceApp.ActionService;
+import ActionServiceApp.ActionServiceHelper;
 
 public class DLMSClientImplementation {
 
@@ -455,21 +456,21 @@ public class DLMSClientImplementation {
 
 	// This method calls library server implementation to borrow a new item id
 
-	public void borrowNewItem(String userId, String itemID, int days) {
+	public void borrowNewItem(String userId, String itemID, int numberOfDays) {
 
 		String response;
 
 		try {
 			if (initialID.equalsIgnoreCase("CON")) {
 				logger.info("Sending request to user library: Concordia Library ");
-				result = conStub.borrowItem(id, itemID, days);
+				result = conStub.borrowItem(id, itemID, numberOfDays);
 				
 				logger.info("Reply recieved from Concordia Library");
 				
 			} else if (initialID.equalsIgnoreCase("MCG")) {
 				
 				logger.info("Sending request to user library: Mcgill Library ");
-				result = mcstub.borrowItem(id, itemID, days);
+				result = mcstub.borrowItem(id, itemID, numberOfDays);
 				logger.info("Reply recieved from Mcgill Library");
 
 			}
@@ -477,7 +478,7 @@ public class DLMSClientImplementation {
 			else {
 				
 				logger.info("Sending request to user library: Montreal Library ");
-				result = montStub.borrowItem(id, itemID, days);
+				result = montStub.borrowItem(id, itemID, numberOfDays);
 				logger.info("Reply recieved from Montreal Library");
 
 			}
@@ -493,19 +494,19 @@ public class DLMSClientImplementation {
 				if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("CON")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-//					result = conStub.waitList(userId, initialItemID, numberOfDays);
+					result = conStub.waitList(userId, initialItemID, numberOfDays);
 					logger.info("User added in the waiting queue. ");
 
 				} else if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("MCG")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-//					result = mcstub.waitList(userId, initialItemID, numberOfDays);
+					result = mcstub.waitList(userId, initialItemID, numberOfDays);
 					logger.info("User added in the waiting queue. ");
 
 				} else if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("MON")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-//					result = montStub.waitList(userId, initialItemID, numberOfDays);
+					result = montStub.waitList(userId, initialItemID, numberOfDays);
 					logger.info("User added in the waiting queue. ");
 					
 				} else if (s.equalsIgnoreCase("N")) {
