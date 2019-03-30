@@ -44,7 +44,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	@Override
 	public String addItem(String managerID, String itemID, String itemName, int quantity) {
 
-		String result = sendToSequencerManager("additem", managerID, itemID, itemName, quantity, null);
+		String result = sendToSequencerManager("addItem", managerID, itemID, itemName, quantity, null);
 
 		return result; 
 	}
