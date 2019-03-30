@@ -24,33 +24,33 @@ public class ConcordiaLibrary {
 
 	public static void main(String[] args) throws Exception {
 
-//		try {
-//			
-//			ORB orb = ORB.init(args, null);
-//			POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-//			rootpoa.the_POAManager().activate();
-//
-//			ActionserviceImpl conStub = new ActionserviceImpl("Concordia");
-//			conStub.setORB(orb);
-//
-//			org.omg.CORBA.Object ref = rootpoa.servant_to_reference(conStub);
-//			Library href = LibraryHelper.narrow(ref);
-//
-//			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-//			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-//
-//			NameComponent path[] = ncRef.to_name("concordiaStub");
-//			ncRef.rebind(path, href);
-//
-//			System.out.println("Concordia Library Server has been started successfully");
-//			for (;;) {
-//				new Thread(() -> receiverequest(conStub)).start();
-//				orb.run();
-//
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			
+			ORB orb = ORB.init(args, null);
+			POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+			rootpoa.the_POAManager().activate();
+
+			ActionserviceImpl conStub = new ActionserviceImpl("Concordia");
+			conStub.setORB(orb);
+
+			org.omg.CORBA.Object ref = rootpoa.servant_to_reference(conStub);
+			Library href = LibraryHelper.narrow(ref);
+
+			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+
+			NameComponent path[] = ncRef.to_name("concordiaStub");
+			ncRef.rebind(path, href);
+
+			System.out.println("Concordia Library Server has been started successfully");
+			for (;;) {
+				new Thread(() -> receiverequest(conStub)).start();
+				orb.run();
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
