@@ -21,12 +21,7 @@ import java.util.Map.Entry;
 
 import org.omg.CORBA.ORB;
 
-import com.ds.idlpackage.dlms.LibraryIDLInterfacePOA;
-import com.ds.idlpackage.dlms.server.ConcordiaServer;
-import com.ds.idlpackage.dlms.server.McgillServer;
-import com.ds.idlpackage.dlms.server.MontrealServer;
-
-public class LibraryServerImpl extends LibraryIDLInterfacePOA {
+public class ActionServiceImpl implements ActionService {
 	private static final long serialVersionUID = 1L;
 //	ConcordiaServer conObj = new ConcordiaServer();
 //	McgillServer mcgObj = new McgillServer();
@@ -36,10 +31,11 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 	public String response = "";
 	Map<String, String> waitList = null;
 	HashMap<String, String> userItems = new HashMap<String, String>();
-	private ORB orb;
+//	private ORB orb;
 
 	/**
-	 * Method to add item into the library which is performed by the library managers.
+	 * Method to add item into the library which is performed by the library
+	 * managers.
 	 */
 	public String addItem(String managerID, String itemID, String itemName, int quantity) {
 		String serverName = (managerID.substring(0, 3).equalsIgnoreCase("CON") ? "Concordia"
@@ -177,7 +173,8 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 	}
 
 	/**
-	 * Method to remove item from the library which is performed by the library managers.
+	 * Method to remove item from the library which is performed by the library
+	 * managers.
 	 */
 	public String removeItem(String managerID, String itemID, int quantity) {
 		String serverName = (managerID.substring(0, 3).equalsIgnoreCase("CON") ? "Concordia"
@@ -265,8 +262,9 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 		return null;
 	}
 
-	/** 
+	/**
 	 * Method to remove items from userHistory list.
+	 * 
 	 * @param itemID
 	 * @param quantity
 	 * @param serverName
@@ -316,7 +314,8 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 	}
 
 	/**
-	 * Method to list the items available in the library which performed by the library manager.
+	 * Method to list the items available in the library which performed by the
+	 * library manager.
 	 */
 	public String listItemAvailability(String managerID) {
 		String serverName = (managerID.substring(0, 3).equalsIgnoreCase("CON") ? "Concordia"
@@ -375,7 +374,8 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 	}
 
 	/**
-	 * Method to borrow item from the library which is performed by the library user.
+	 * Method to borrow item from the library which is performed by the library
+	 * user.
 	 */
 	public String borrowItem(String userID, String itemID, int numberOfDays) {
 		// The user borrows the book.
@@ -502,6 +502,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 	/**
 	 * Method the validate whether the book is available in the library.
+	 * 
 	 * @param userID
 	 * @param itemID
 	 * @return itemAvailable
@@ -521,6 +522,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 	/**
 	 * Method to log information on the respective server files.
+	 * 
 	 * @param userID
 	 * @param item
 	 * @param serverResponse
@@ -646,7 +648,8 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 	}
 
 	/**
-	 * Method to return item back to the library which is performed by the library user.
+	 * Method to return item back to the library which is performed by the library
+	 * user.
 	 */
 	public String returnItem(String userID, String itemID) {
 		HashMap<String, String> returnItems = new HashMap<String, String>();
@@ -766,6 +769,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 	/**
 	 * Method to allocate item to the user who is the waitlist.
+	 * 
 	 * @param userID
 	 * @param itemID
 	 * @param server
@@ -851,6 +855,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 	/**
 	 * Method to remove user from the waitlist.
+	 * 
 	 * @param allocatedUser
 	 * @param itemID
 	 */
@@ -880,6 +885,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 	/**
 	 * Method to populate the waitlist.
+	 * 
 	 * @param server
 	 */
 	private void populateWaitList(String server) {
@@ -1015,7 +1021,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 	}
 
-	public String addToWaitList(String userID, String itemID) {
+	public String waitList(String userID, String itemID, int numberOfDays) {
 		// TODO Auto-generated method stub
 		String returnMsg = "";
 		String userServer = (userID.substring(0, 3).equalsIgnoreCase("CON") ? "Concordia"
@@ -1030,7 +1036,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 			switch (userID.substring(0, 3)) {
 			case "CON":
 				if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
-					returnMsg = ConcordiaServer.addToWaitList(userID, itemID);
+					returnMsg = ConcordiaServer.waitList(userID, itemID);
 					if (returnMsg.equalsIgnoreCase("Success")) {
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
 						returnMsg = userID + " added to the waitlist successfully!";
@@ -1045,7 +1051,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 			case "MCG":
 				if (itemID.substring(0, 3).equalsIgnoreCase("MCG")) {
-					returnMsg = McgillServer.addToWaitList(userID, itemID);
+					returnMsg = McgillServer.waitList(userID, itemID);
 					if (returnMsg.equalsIgnoreCase("Success")) {
 						returnMsg = userID + " added to the waitlist successfully!";
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
@@ -1060,7 +1066,7 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 			case "MON":
 				if (itemID.substring(0, 3).equalsIgnoreCase("MON")) {
-					returnMsg = MontrealServer.addToWaitList(userID, itemID);
+					returnMsg = MontrealServer.waitList(userID, itemID);
 					if (returnMsg.equalsIgnoreCase("Success")) {
 						returnMsg = userID + " added to the waitlist successfully!";
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
@@ -1142,11 +1148,11 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 	}
 
-	public void setOrb(ORB orb) {
-		this.orb = orb;
-	}
+//	public void setOrb(ORB orb) {
+//		this.orb = orb;
+//	}
 
-	public String exchangeItem(String userID, String newItemID, String oldItemID, int numberOfDays) {
+	public String exchangeItem(String userID, String newItemID, String oldItemID) {
 
 		userItems = new HashMap<String, String>();
 		String userServer = (userID.substring(0, 3).equalsIgnoreCase("CON") ? "Concordia"
@@ -1166,7 +1172,8 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 
 				if (isExchangeItemAvailable) {
 					if (!userID.substring(0, 3).equalsIgnoreCase(newItemID.substring(0, 3))
-							&& (!borrowItemFromOtherLibrary(newItemID) && !(oldItemID.substring(0, 3).equalsIgnoreCase(newItemID.substring(0, 3))))) {
+							&& (!borrowItemFromOtherLibrary(newItemID)
+									&& !(oldItemID.substring(0, 3).equalsIgnoreCase(newItemID.substring(0, 3))))) {
 						logInformationOnServer(userID, oldItemID, "Failure", "ExchangeItem", false, userServer);
 						return "Cannot borrow more books from this library.";
 					} else {
@@ -1230,4 +1237,5 @@ public class LibraryServerImpl extends LibraryIDLInterfacePOA {
 		}
 		return false;
 	}
+
 }

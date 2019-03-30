@@ -1,4 +1,4 @@
-package libraryImplementation;
+package com.dlms.replicas.replica3;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +20,10 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import org.omg.CORBA.ORB;
-import concordiaServer.library.LibraryPOA;
-import libraryClients1.LibraryClientImplementation;
 
-public class LibraryImplementation extends LibraryPOA {
+import com.dlms.replicas.replica1.ActionServiceImpl;
+
+public class ActionserviceImpl implements ActionService {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class LibraryImplementation extends LibraryPOA {
 
 	Queue<String> waitingQueue = new LinkedList<String>();
 
-	public Logger LOG = Logger.getLogger(LibraryClientImplementation.class.getName());
+	public Logger LOG = Logger.getLogger(ActionServiceImpl.class.getName());
 
 	String id, message;
 
@@ -91,7 +91,7 @@ public class LibraryImplementation extends LibraryPOA {
 
 	}
 
-	public LibraryImplementation(String library) {
+	public ActionserviceImpl(String library) {
 
 		createLoggingFile(library);
 
@@ -193,7 +193,7 @@ public class LibraryImplementation extends LibraryPOA {
 				LOG.info("SUCCESS");
 
 				if (a == 0) {
-					String result = waitingQueue(null, itemID);
+					String result = waitList(null, itemID, 0);
 					message1 = message1 + "\nThe following user from wait list have been issued the item";
 
 					String answer = null;
@@ -203,7 +203,7 @@ public class LibraryImplementation extends LibraryPOA {
 						answer = borrowItem(s[0], s[1], 10);
 
 						message1 = message1 + "\n" + answer;
-						result = waitingQueue(null, itemID);
+						result = waitList(null, itemID, 0);
 						--b;
 						libraryInfo.get(itemID).put(itemName.toUpperCase(), b);
 						LOG.info(result + "\n");
@@ -227,7 +227,7 @@ public class LibraryImplementation extends LibraryPOA {
 			message1 = "Item with Item ID:  " + itemID + "  has been successfully added in the library";
 			LOG.info("SUCCESS");
 			int b = libraryInfo.get(itemID).get(itemName.toUpperCase());
-			String result = waitingQueue(null, itemID);
+			String result = waitList(null, itemID, 0);
 
 			String answer = null;
 			while (result != null && b != 0) {
@@ -236,7 +236,7 @@ public class LibraryImplementation extends LibraryPOA {
 				answer = borrowItem(s[0], s[1], 10);
 
 				message1 = message1 + "\n" + answer;
-				result = waitingQueue(null, itemID);
+				result = waitList(null, itemID, 0);
 				--b;
 				libraryInfo.get(itemID).put(itemName.toUpperCase(), b);
 
@@ -584,7 +584,7 @@ public class LibraryImplementation extends LibraryPOA {
 
 					LOG.info("Extracting out first user from waiting queue to issue this item.");
 
-					String result = waitingQueue(null, itemID);
+					String result = waitList(null, itemID, 0);
 
 					if (result == null) {
 
@@ -651,7 +651,7 @@ public class LibraryImplementation extends LibraryPOA {
 
 	}
 
-	public String waitingQueue(String userID, String itemID) {
+	public String waitList(String userID, String itemID, int numberOfDays) {
 
 		if (!waitListMap.containsKey(itemID) & userID != null) {
 

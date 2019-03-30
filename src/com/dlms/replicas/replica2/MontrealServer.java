@@ -23,10 +23,6 @@ import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
-import com.ds.idlpackage.dlms.LibraryIDLInterface;
-import com.ds.idlpackage.dlms.LibraryIDLInterfaceHelper;
-import com.ds.idlpackage.dlms.server.impl.LibraryServerImpl;
-
 public class MontrealServer {
 
 	public static Map<String, String> monLibrary = new TreeMap<String, String>();
@@ -80,7 +76,7 @@ public class MontrealServer {
 	 */
 	public static void main(String[] args) {
 
-		try {
+	//	try {
 
 //			MontrealServer monServer = new MontrealServer();
 //
@@ -89,7 +85,7 @@ public class MontrealServer {
 //			POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
 //			rootPOA.the_POAManager().activate();
 //
-//			LibraryServerImpl serverImpl = new LibraryServerImpl();
+//			ActionServiceImpl serverImpl = new ActionServiceImpl();
 //			serverImpl.setOrb(orb);
 //
 //			Object serverInterfaceRef = rootPOA.servant_to_reference(serverImpl);
@@ -102,22 +98,21 @@ public class MontrealServer {
 //			NameComponent path[] = nameService.to_name(name);
 //			nameService.rebind(path, serverInterface);
 
-			System.out.println("Montreal server is running...");
-			startUDP();
+//			System.out.println("Montreal server is running...");
+//			startUDP();
 
-	//		orb.run();
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error in Montreal Server :" + e);
-			e.printStackTrace();
-		}
+//			orb.run();
+//		} catch (Exception e) {
+//			System.out.println("Error in Montreal Server :" + e);
+//			e.printStackTrace();
+//		}
 
 	}
 
 	/**
 	 * Method to start the thread for UDP communication.
 	 */
-	private static void startUDP() {
+	public static void startUDP() {
 
 		// UDP communication
 		Runnable task = () -> {
@@ -194,7 +189,7 @@ public class MontrealServer {
 					} else if (data[0].equalsIgnoreCase("ReturnItem")) {
 						returnAction = returnItem(data[1], data[2]);
 					} else if (data[0].equalsIgnoreCase("WaitList")) {
-						returnAction = addToWaitList(data[1], data[2]);
+						returnAction = waitList(data[1], data[2]);
 					} else if (data[0].equalsIgnoreCase("RemoveAllItems")) {
 						returnAction = removeUserItemsList(data[1]);
 					} else if (data[0].equalsIgnoreCase("AllocateItem")) {
@@ -321,7 +316,7 @@ public class MontrealServer {
 	 * @param itemID
 	 * @return returnMsg
 	 */
-	public static String addToWaitList(String userID, String itemID) {
+	public static String waitList(String userID, String itemID) {
 		String waitList = null;
 		String returnMsg = "";
 		waitList = monWaitlist.get(itemID);

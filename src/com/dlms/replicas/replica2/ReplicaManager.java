@@ -8,7 +8,17 @@ import java.net.SocketException;
 
 public class ReplicaManager {
 	
-	
+	public static void main(String[] args) {
+		try {
+			ConcordiaServer.startUDP();
+			McgillServer.startUDP();
+			MontrealServer.startUDP();
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
