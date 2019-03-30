@@ -6,25 +6,25 @@ import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
-import java.util.logging.*;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
+import ActionServiceApp.ActionService;
+import ActionServiceApp.ActionServiceHelper;
 
 public class DLMSClientImplementation {
 
 	String userID;
 	String managerID;
-	Library conStub;
-	Library mcstub;
-	Library montStub;
+	ActionService conStub;
+	ActionService mcstub;
+	ActionService montStub;
 	
 	String result;
 
@@ -42,9 +42,9 @@ public class DLMSClientImplementation {
 			// -ORBInitialPort 1050 -ORBInitialHost localhost
 			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
 			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-			conStub = (Library) LibraryHelper.narrow(ncRef.resolve_str("libraryStub"));
-			mcstub = (Library) LibraryHelper.narrow(ncRef.resolve_str("libraryStub"));
-			montStub = (Library) LibraryHelper.narrow(ncRef.resolve_str("libraryStub"));
+			conStub = (ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("ActionService"));
+			mcstub = (ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("ActionService"));
+			montStub = (ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("ActionService"));
 			
 
 		}
@@ -490,19 +490,19 @@ public class DLMSClientImplementation {
 				if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("CON")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-					result = conStub.waitingQueue(userId, itemID);
+					result = conStub.waitList(userId, itemID, 0);
 					logger.info("User added in the waiting queue. ");
 
 				} else if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("MCG")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-					result = mcstub.waitingQueue(userId, itemID);
+					result = mcstub.waitList(userId, itemID, 0);
 					logger.info("User added in the waiting queue. ");
 
 				} else if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("MON")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-					result = montStub.waitingQueue(userId, itemID);
+					result = montStub.waitList(userId, itemID,0);
 					logger.info("User added in the waiting queue. ");
 					
 				} else if (s.equalsIgnoreCase("N")) {
