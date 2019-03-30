@@ -22,9 +22,6 @@ import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.PortableServer.POA;
 
-import com.rmi.action.ActionServiceObj;
-
-import ActionServiceApp.ActionServiceHelper;
 
 public class Montreal {
 

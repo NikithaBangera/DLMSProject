@@ -23,9 +23,6 @@ import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
-import com.ds.idlpackage.dlms.LibraryIDLInterface;
-import com.ds.idlpackage.dlms.LibraryIDLInterfaceHelper;
-import com.ds.idlpackage.dlms.server.impl.LibraryServerImpl;
 
 public class McgillServer {
 
@@ -82,30 +79,30 @@ public class McgillServer {
 
 		try {
 
-			McgillServer mcgServer = new McgillServer();
-
-			ORB orb = ORB.init(args, null);
-
-			POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-			rootPOA.the_POAManager().activate();
-
-			LibraryServerImpl serverImpl = new LibraryServerImpl();
-			serverImpl.setOrb(orb);
-
-			Object serverInterfaceRef = rootPOA.servant_to_reference(serverImpl);
-			LibraryIDLInterface serverInterface = LibraryIDLInterfaceHelper.narrow(serverInterfaceRef);
-
-			Object nameServerRef = orb.resolve_initial_references("NameService");
-			NamingContextExt nameServer = NamingContextExtHelper.narrow(nameServerRef);
-
-			String name = "Mcgill";
-			NameComponent path[] = nameServer.to_name(name);
-			nameServer.rebind(path, serverInterface);
+//			McgillServer mcgServer = new McgillServer();
+//
+//			ORB orb = ORB.init(args, null);
+//
+//			POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+//			rootPOA.the_POAManager().activate();
+//
+//			ActionServiceImpl serverImpl = new ActionServiceImpl();
+//			serverImpl.setOrb(orb);
+//
+//			Object serverInterfaceRef = rootPOA.servant_to_reference(serverImpl);
+//			LibraryIDLInterface serverInterface = LibraryIDLInterfaceHelper.narrow(serverInterfaceRef);
+//
+//			Object nameServerRef = orb.resolve_initial_references("NameService");
+//			NamingContextExt nameServer = NamingContextExtHelper.narrow(nameServerRef);
+//
+//			String name = "Mcgill";
+//			NameComponent path[] = nameServer.to_name(name);
+//			nameServer.rebind(path, serverInterface);
 
 			System.out.println("McGill server is Running...");
 			startUDP();
 
-			orb.run();
+//			orb.run();
 
 		} catch (Exception e) {
 			System.out.println("Error in McGill Server :" + e);
@@ -116,7 +113,7 @@ public class McgillServer {
 	/**
 	 * Method to start the thread for UDP communication.
 	 */
-	private static void startUDP() {
+	public static void startUDP() {
 
 		// UDP communication
 		Runnable task = () -> {
@@ -195,7 +192,7 @@ public class McgillServer {
 					} else if (data[0].equalsIgnoreCase("ReturnItem")) {
 						returnAction = returnItem(data[1], data[2]);
 					} else if (data[0].equalsIgnoreCase("WaitList")) {
-						returnAction = addToWaitList(data[1], data[2]);
+						returnAction = waitList(data[1], data[2]);
 					} else if (data[0].equalsIgnoreCase("RemoveAllItems")) {
 						returnAction = removeUserItemsList(data[1]);
 					} else if (data[0].equalsIgnoreCase("AllocateItem")) {
@@ -331,7 +328,7 @@ public class McgillServer {
 	 * @param itemID
 	 * @return returnMsg
 	 */
-	public static String addToWaitList(String userID, String itemID) {
+	public static String waitList(String userID, String itemID) {
 		String waitList = null;
 		String returnMsg = "";
 		waitList = mcgWaitlist.get(itemID);

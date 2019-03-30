@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-public class ActionServiceObj implements ActionService {
+public class ActionServiceImpl implements ActionService {
 //	private static ORB orb;
 
 //	public void setORB(ORB orb_value) {
