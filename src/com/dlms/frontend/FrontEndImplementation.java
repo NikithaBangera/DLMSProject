@@ -40,7 +40,6 @@ public class FrontEndImplementation extends LibraryPOA {
 		orb = orb_val;
 	}
 
-	@Override
 	public String addItem(String managerID, String itemID, String itemName, int quantity) {
 
 		String result = sendToSequencerManager("additem", managerID, itemID, itemName, quantity, null);
@@ -48,44 +47,37 @@ public class FrontEndImplementation extends LibraryPOA {
 		return result; 
 	}
 
-	@Override
 	public String removeItem(String managerID, String itemID, int quantity) {
 
 		System.out.println(this);
 		return "DONE";
 	}
 
-	@Override
 	public String listItemAvailability(String managerID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String borrowItem(String userID, String itemID, int numberOfDays) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String findItem(String userID, String itemName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String returnItem(String userID, String itemID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String waitingQueue(String userID, String itemID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String exchangeItem(String userID, String newItemID, String oldItemID) {
 		// TODO Auto-generated method stub
 		return null;
