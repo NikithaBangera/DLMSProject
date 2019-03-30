@@ -1,4 +1,4 @@
-package montrealServer;
+package com.dlms.replicas.replica3;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -15,45 +15,42 @@ import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
-import concordiaServer.library.Library;
-import concordiaServer.library.LibraryHelper;
-import libraryImplementation.LibraryImplementation;
+
 
 public class MontrealLibrary {
 
-	public static void main(String[] args) throws Exception {
-
+	public static void startMontrealLibrary() {
 		try {
+//
+//			System.out.println("Montreal Library Server has been started successfully");
+//
+//			ORB orb = ORB.init(args, null);
+//
+//			POA rootpoa = (POA) orb.resolve_initial_references("RootPOA");
+//
+//			rootpoa.the_POAManager().activate();
+//
+//			
+			ActionserviceImpl monStub = new ActionserviceImpl("Montreal");
 
-			System.out.println("Montreal Library Server has been started successfully");
+//			monStub.setORB(orb);
+//
+//			
+//			org.omg.CORBA.Object ref = rootpoa.servant_to_reference(monStub);
+//			Library href = LibraryHelper.narrow(ref);
+//
+//			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+//			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
 
-			ORB orb = ORB.init(args, null);
-
-			POA rootpoa = (POA) orb.resolve_initial_references("RootPOA");
-
-			rootpoa.the_POAManager().activate();
-
-			
-			LibraryImplementation monStub = new LibraryImplementation("Montreal");
-
-			monStub.setORB(orb);
-
-			
-			org.omg.CORBA.Object ref = rootpoa.servant_to_reference(monStub);
-			Library href = LibraryHelper.narrow(ref);
-
-			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-
-			NameComponent path[] = ncRef.to_name("montrealStub");
-			ncRef.rebind(path, href);
+//			NameComponent path[] = ncRef.to_name("montrealStub");
+//			ncRef.rebind(path, href);
 
 			System.out.println("Montreal Server ready and waiting ...");
-			for (;;) {
+			
 				new Thread(() -> receiverequest(monStub)).start();
-				orb.run();
+				
 
-			}
+			
 
 		}
 
@@ -65,7 +62,7 @@ public class MontrealLibrary {
 	}
 
 	
-	static void receiverequest(LibraryImplementation monStub) {
+	static void receiverequest(ActionserviceImpl monStub) {
 
 		DatagramSocket aSocket = null;
 		try {
@@ -165,7 +162,7 @@ public class MontrealLibrary {
 								monStub.LOG.info("Checking waitlist to find any users registered for this item. ");
 
 								monStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue() + 1);
-								String result = monStub.waitingQueue(null, itemID);
+								String result = monStub.waitList(null, itemID,0);
 								if (result == null) {
 
 									monStub.LOG.info("No users has been registered for this item. ");
