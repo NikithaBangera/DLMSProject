@@ -6,20 +6,12 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import org.omg.CORBA.ORB;
+public class ActionServiceObj implements ActionService {
+//	private static ORB orb;
 
-import com.rmi.libraries.Concordia;
-import com.rmi.libraries.McGill;
-import com.rmi.libraries.Montreal;
-
-import ActionServiceApp.ActionServicePOA;
-
-public class ActionServiceObj extends ActionServicePOA {
-	private static ORB orb;
-
-	public void setORB(ORB orb_value) {
-		orb = orb_value;
-	}
+//	public void setORB(ORB orb_value) {
+//		orb = orb_value;
+//	}
 
 	@Override
 	public synchronized String addItem(String managerID, String itemID, String itemName, int quantity) {
