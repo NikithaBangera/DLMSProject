@@ -82,30 +82,30 @@ public class MontrealServer {
 
 		try {
 
-			MontrealServer monServer = new MontrealServer();
-
-			ORB orb = ORB.init(args, null);
-
-			POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-			rootPOA.the_POAManager().activate();
-
-			LibraryServerImpl serverImpl = new LibraryServerImpl();
-			serverImpl.setOrb(orb);
-
-			Object serverInterfaceRef = rootPOA.servant_to_reference(serverImpl);
-			LibraryIDLInterface serverInterface = LibraryIDLInterfaceHelper.narrow(serverInterfaceRef);
-
-			Object nameServiceRef = orb.resolve_initial_references("NameService");
-			NamingContextExt nameService = NamingContextExtHelper.narrow(nameServiceRef);
-
-			String name = "Montreal";
-			NameComponent path[] = nameService.to_name(name);
-			nameService.rebind(path, serverInterface);
+//			MontrealServer monServer = new MontrealServer();
+//
+//			ORB orb = ORB.init(args, null);
+//
+//			POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+//			rootPOA.the_POAManager().activate();
+//
+//			LibraryServerImpl serverImpl = new LibraryServerImpl();
+//			serverImpl.setOrb(orb);
+//
+//			Object serverInterfaceRef = rootPOA.servant_to_reference(serverImpl);
+//			LibraryIDLInterface serverInterface = LibraryIDLInterfaceHelper.narrow(serverInterfaceRef);
+//
+//			Object nameServiceRef = orb.resolve_initial_references("NameService");
+//			NamingContextExt nameService = NamingContextExtHelper.narrow(nameServiceRef);
+//
+//			String name = "Montreal";
+//			NameComponent path[] = nameService.to_name(name);
+//			nameService.rebind(path, serverInterface);
 
 			System.out.println("Montreal server is running...");
 			startUDP();
 
-			orb.run();
+	//		orb.run();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error in Montreal Server :" + e);
