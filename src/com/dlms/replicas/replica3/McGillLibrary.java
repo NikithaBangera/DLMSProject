@@ -1,4 +1,4 @@
-package mcgillServer;
+package com.dlms.replicas.replica3;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -16,42 +16,41 @@ import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
-import mcgillServer.library.*;
-
-import libraryImplementation.LibraryImplementation;
 
 public class McGillLibrary {
 
-	public static void main(String[] args) throws Exception {
-		
+	
+	
+	public static void startMcgillLibrary() {
 		try {
 
+//		
+//		ORB orb = ORB.init(args, null);
+//		POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+//		rootpoa.the_POAManager().activate();
+
 		
-		ORB orb = ORB.init(args, null);
-		POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-		rootpoa.the_POAManager().activate();
-
-		LibraryImplementation mcStub = new LibraryImplementation("McGill");
-		mcStub.setORB(orb);
-
-		org.omg.CORBA.Object ref = rootpoa.servant_to_reference(mcStub);
-		Library href = LibraryHelper.narrow(ref);
-
-		org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-		NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-
-		NameComponent path[] = ncRef.to_name("mcgillStub");
-		ncRef.rebind(path,href);
-		
-		System.out.println("McGill Library Server has been started successfully");
-		
-		for (;;) {
-			
-			
+//		mcStub.setORB(orb);
+//
+//		org.omg.CORBA.Object ref = rootpoa.servant_to_reference(mcStub);
+//		Library href = LibraryHelper.narrow(ref);
+//
+//		org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+//		NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+//
+//		NameComponent path[] = ncRef.to_name("mcgillStub");
+//		ncRef.rebind(path,href);
+//		
+//		System.out.println("McGill Library Server has been started successfully");
+//		
+//		for (;;) {
+//			
+//			
+			ActionserviceImpl mcStub = new ActionserviceImpl("McGill");
 			new Thread(() -> receiverequest(mcStub)).start();
-			orb.run();
-			
-		}
+//			orb.run();
+//			
+		
 		
 		}
 		catch(Exception e)
@@ -63,7 +62,7 @@ public class McGillLibrary {
 		
 	}
 
-	static void receiverequest(LibraryImplementation mcStub) {
+	static void receiverequest(ActionserviceImpl mcStub) {
 
 		DatagramSocket aSocket = null;
 		try {
@@ -164,7 +163,7 @@ public class McGillLibrary {
 
 							mcStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue() + 1);
 							mcStub.LOG.info("Checking waitlist to find any users registered for this item. ");
-							String result = mcStub.waitingQueue(null, itemID);
+							String result = mcStub.waitList(null, itemID,0);
 							if (result == null) {
 								
 								mcStub.LOG.info("No users has been registered for this item. ");

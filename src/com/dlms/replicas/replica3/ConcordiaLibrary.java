@@ -1,4 +1,4 @@
-package concordiaServer;
+package com.dlms.replicas.replica3;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -15,9 +15,7 @@ import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
-import libraryImplementation.LibraryImplementation;
-import mcgillServer.library.Library;
-import mcgillServer.library.LibraryHelper;
+
 import java.util.concurrent.*;
 
 public class ConcordiaLibrary {
@@ -30,7 +28,7 @@ public class ConcordiaLibrary {
 //			POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
 //			rootpoa.the_POAManager().activate();
 //
-//			ActionserviceImpl conStub = new ActionserviceImpl("Concordia");
+			ActionserviceImpl conStub = new ActionserviceImpl("Concordia");
 //			conStub.setORB(orb);
 //
 //			org.omg.CORBA.Object ref = rootpoa.servant_to_reference(conStub);
@@ -44,7 +42,7 @@ public class ConcordiaLibrary {
 //
 //			System.out.println("Concordia Library Server has been started successfully");
 //			for (;;) {
-//				new Thread(() -> receiverequest(conStub)).start();
+				new Thread(() -> receiverequest(conStub)).start();
 //				orb.run();
 //
 //			}
@@ -153,7 +151,7 @@ public class ConcordiaLibrary {
 
 							conStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue() + 1);
 							conStub.LOG.info("Checking waitlist to find any users registered for this item. ");
-							String result = conStub.waitingQueue(null, itemID);
+							String result = conStub.waitList(null, itemID,0);
 							if (result == null) {
 
 								conStub.LOG.info("No users has been registered for this item. ");
