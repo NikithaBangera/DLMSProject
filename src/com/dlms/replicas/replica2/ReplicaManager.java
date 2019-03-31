@@ -16,7 +16,6 @@ public class ReplicaManager {
 			MontrealServer.startUDP();
 			
 			PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
-
 			String message[] = queue.poll().split(",");
 			String operation = message[0];
 			String managerID = message[1];

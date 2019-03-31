@@ -1,4 +1,4 @@
-package com.dlms.replicas.replica1;
+package com.dlms.replicas.replica3;
 
 import java.util.Comparator;
 

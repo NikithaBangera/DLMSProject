@@ -1,4 +1,4 @@
-package com.dlms.replicas.replica1;
+package com.dlms.replicas.replica2;
 
 import java.util.Comparator;
 
@@ -25,6 +25,7 @@ public class MessageComparator implements Comparator {
 		} else if (seq1 > seq2) {
 
 			return 1;
+			
 		} else {
 
 			return 0;

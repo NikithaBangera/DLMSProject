@@ -6,8 +6,8 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 
-import com.dlms.client.Library;
-import com.dlms.client.LibraryHelper;
+import ActionServiceApp.ActionService;
+import ActionServiceApp.ActionServiceHelper;
 
 public class FrontEndServer {
 
@@ -30,7 +30,7 @@ public class FrontEndServer {
 
 			
 			org.omg.CORBA.Object ref = rootpoa.servant_to_reference(libraryStub);
-			Library href = LibraryHelper.narrow(ref);
+			ActionService href = ActionServiceHelper.narrow(ref);
 
 			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
 			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
