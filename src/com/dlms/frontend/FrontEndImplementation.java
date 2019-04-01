@@ -87,16 +87,16 @@ public class FrontEndImplementation extends ActionServicePOA {
 		return result;
 	}
 
-	@Override
-	public boolean validateUser(String userID) {
-		String result = sendToSequencer("validateUser", null, userID, null, null, null, 0, 0, null);
-		if (result.contains("success:")) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
+//	@Override
+//	public boolean validateUser(String userID) {
+//		String result = sendToSequencer("validateUser", null, userID, null, null, null, 0, 0, null);
+//		if (result.contains("success:")) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//
+//	}
 
 //	public synchronized String sendToSequencerUser(String operation, String userID, String exchangeItemID,
 //			String itemID, String itemName, String newItemID, String oldItemID, int noOfDays, String failureType) {
