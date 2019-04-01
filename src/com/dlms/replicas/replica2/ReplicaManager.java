@@ -13,6 +13,7 @@ import com.dlms.replicas.replica1.MessageComparator;
 public class ReplicaManager {
 	
 	private static String result = "";
+	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 	
 	public static void main(String[] args) {
 		try {
@@ -25,7 +26,7 @@ public class ReplicaManager {
 			MulticastSocket 
 			aSocket = new MulticastSocket(1313);
 
-			aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
+			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
 			System.out.println("Server Started............");
 			new Thread(()-> {
@@ -43,8 +44,8 @@ public class ReplicaManager {
 				System.out.println(data);
 //				String dataArray[] = data.split(",");
 				// set data in queue
+				queue.add(data);
 				
-				PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 
 				String message[] = queue.poll().split(",");
 				String operation = message[0];
@@ -81,6 +82,7 @@ public class ReplicaManager {
 						result = actionServiceImpl.exchangeItem(userID, newItemID, oldItemID);
 					}
 				}
+				sendUDPMessage(11111, result);
 
 			}
 			});
@@ -90,7 +92,7 @@ public class ReplicaManager {
 		}
 	}
 	
-	public void sendUDPMessage(int serverPort, String message) {
+	static public void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
 		try {
 			aSocket = new DatagramSocket();

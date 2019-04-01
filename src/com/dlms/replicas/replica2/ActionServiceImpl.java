@@ -334,10 +334,8 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator.next();
 					conItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(":" + pair.getKey() + "," + pair.getValue())
-							: itemsList.concat(pair.getKey() + "," + pair.getValue());
-//					booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
-//							+ thisEntry.getValue().split(",")[1] + ";");
+					itemsList = itemsList.length() > 0 ? itemsList.concat(";" + pair.getKey() + "-" + pair.getValue())
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue());
 				}
 				String[] conItemsArray = new String[conItems.size()];
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
@@ -350,10 +348,9 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator1.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator1.next();
 					mcgItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(":" + pair.getKey() + "," + pair.getValue())
-							: itemsList.concat(pair.getKey() + "," + pair.getValue());
-//					booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
-//							+ thisEntry.getValue().split(",")[1] + ";");
+					itemsList = itemsList.length() > 0 ? itemsList.concat(";" + pair.getKey() + "-" + pair.getValue())
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue());
+		
 				}
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
 				String[] mcgItemsArray = new String[mcgItems.size()];
@@ -366,10 +363,9 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator2.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator2.next();
 					monItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(":" + pair.getKey() + "," + pair.getValue())
-							: itemsList.concat(pair.getKey() + "," + pair.getValue());
-//					booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
-//							+ thisEntry.getValue().split(",")[1] + ";");
+					itemsList = itemsList.length() > 0 ? itemsList.concat(";" + pair.getKey() + "-" + pair.getValue())
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue());
+
 				}
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
 				String[] monItemsArray = new String[monItems.size()];

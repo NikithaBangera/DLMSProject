@@ -368,7 +368,7 @@ public class ActionserviceImpl implements ActionService {
 			quantity = entry.getValue();
 //			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 //					+ thisEntry.getValue().split(",")[1] + ";");
-			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n";
+			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
 
 		}
 		LOG.info("--SUCCESS--");
@@ -658,6 +658,16 @@ public class ActionserviceImpl implements ActionService {
 		return message;
 
 	}
+	public void crashListItemAvailability(String managerID) {
+		
+		System.exit(0);
+		
+//		int n = 50/0;
+//		
+//		return "Replica 3 Crashed";	
+	}
+	
+	
 
 	public String waitList(String userID, String itemID, int numberOfDays) {
 

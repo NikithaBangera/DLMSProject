@@ -9,7 +9,9 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.omg.CORBA.ORB;
 
@@ -24,6 +26,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	String majorityElement;
 	private int invalidElement;
 	private HashMap<Integer, Integer> badReplicaMap = new HashMap<Integer, Integer>();
+	private Set<String> successSet = new HashSet<String>();
 
 	public FrontEndImplementation(String replicaName) {
 
@@ -42,7 +45,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	// operation,managerID,userID,exchangeItemID,itemID,itemName,quantity,numberOfDays,failureType
 
 	public String addItem(String managerID, String itemID, String itemName, int quantity) {
-
+		
 		String result = sendToSequencer("addItem", managerID, null, null, itemID, itemName, quantity, 0, null);
 
 		return result;
@@ -186,9 +189,9 @@ public class FrontEndImplementation extends ActionServicePOA {
 				validateReplicaAndSend(2, aSocket, aHost);
 
 			} else if (invalidElement == 3) {
-				badReplicaMap.put(3, badReplicaMap.get(1) + 1);
+				badReplicaMap.put(3, badReplicaMap.get(3) + 1);
 				badReplicaMap.put(2, 0);
-				badReplicaMap.put(3, 0);
+				badReplicaMap.put(1, 0);
 				validateReplicaAndSend(3, aSocket, aHost);
 
 			}
@@ -226,6 +229,24 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 		majorityElement = null;
 		invalidElement = 0;
+		int i;
+		successSet.clear();
+		if(message1.contains("success") || message1.contains("Success")) {
+			successSet.add(message1);
+			i=1;
+			
+		}
+		if(message2.contains("success") || message1.contains("Success")) {
+			successSet.add(message2);
+			i=2;
+		}
+		if(message3.contains("success") || message1.contains("Success")) {
+			successSet.add(message3);
+			i=3;
+		}
+		
+		
+		
 		if (message1.equalsIgnoreCase(message2) && message2.equalsIgnoreCase(message3)) {
 
 			majorityElement = message1;
