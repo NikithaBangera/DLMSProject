@@ -17,6 +17,7 @@ import com.dlms.replicas.replica1.Montreal;
 public class ReplicaManager {
 
 	private static String result = "";
+	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 	private static int crashCounter = 0;
 	static ActionserviceImpl conStub;
 	static ActionserviceImpl mcStub;
@@ -75,8 +76,7 @@ public class ReplicaManager {
 					System.out.println(data);
 //				String dataArray[] = data.split(",");
 					// set data in queue
-
-					PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
+					queue.add(data);
 
 					String message[] = queue.poll().split(",");
 					String operation = message[0];

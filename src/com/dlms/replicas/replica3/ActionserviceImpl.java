@@ -368,7 +368,7 @@ public class ActionserviceImpl implements ActionService {
 			quantity = entry.getValue();
 //			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 //					+ thisEntry.getValue().split(",")[1] + ";");
-			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n";
+			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
 
 		}
 		LOG.info("--SUCCESS--");
@@ -1088,43 +1088,43 @@ public class ActionserviceImpl implements ActionService {
 
 	}
 
-	@Override
-	public boolean validateUser(String userID) {
-		boolean flag = false;
-		switch (userID.substring(0, 3)) {
-		case "CON":
-			if (userID.charAt(3) == 'U') {
-				if (userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-		case "MON":
-			if (userID.charAt(3) == 'U') {
-				if (userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-
-		case "MCG":
-			if (userID.charAt(3) == 'U') {
-				if (userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-		}
-		return flag;
-	}
+//	@Override
+//	public boolean validateUser(String userID) {
+//		boolean flag = false;
+//		switch (userID.substring(0, 3)) {
+//		case "CON":
+//			if (userID.charAt(3) == 'U') {
+//				if (userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//		case "MON":
+//			if (userID.charAt(3) == 'U') {
+//				if (userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//
+//		case "MCG":
+//			if (userID.charAt(3) == 'U') {
+//				if (userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//		}
+//		return flag;
+//	}
 
 }

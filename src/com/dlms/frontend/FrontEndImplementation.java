@@ -87,16 +87,16 @@ public class FrontEndImplementation extends ActionServicePOA {
 		return result;
 	}
 
-	@Override
-	public boolean validateUser(String userID) {
-		String result = sendToSequencer("validateUser", null, userID, null, null, null, 0, 0, null);
-		if (result.contains("success:")) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
+//	@Override
+//	public boolean validateUser(String userID) {
+//		String result = sendToSequencer("validateUser", null, userID, null, null, null, 0, 0, null);
+//		if (result.contains("success:")) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//
+//	}
 
 //	public synchronized String sendToSequencerUser(String operation, String userID, String exchangeItemID,
 //			String itemID, String itemName, String newItemID, String oldItemID, int noOfDays, String failureType) {
@@ -189,9 +189,9 @@ public class FrontEndImplementation extends ActionServicePOA {
 				validateReplicaAndSend(2, aSocket, aHost);
 
 			} else if (invalidElement == 3) {
-				badReplicaMap.put(3, badReplicaMap.get(1) + 1);
+				badReplicaMap.put(3, badReplicaMap.get(3) + 1);
 				badReplicaMap.put(2, 0);
-				badReplicaMap.put(3, 0);
+				badReplicaMap.put(1, 0);
 				validateReplicaAndSend(3, aSocket, aHost);
 
 			}
