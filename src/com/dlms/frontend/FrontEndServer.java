@@ -15,7 +15,7 @@ public class FrontEndServer {
 
 		try {
 
-			System.out.println("Montreal Library Server has been started successfully");
+			System.out.println("Front-End Server has been started successfully");
 
 			ORB orb = ORB.init(args, null);
 
@@ -38,7 +38,7 @@ public class FrontEndServer {
 			NameComponent path[] = ncRef.to_name("libraryStub");
 			ncRef.rebind(path, href);
 
-			System.out.println("Montreal Server ready and waiting ...");
+			System.out.println("Front-End Server ready and waiting ...");
 			for (;;) {
 			//	new Thread(() -> receiverequest(libraryStub)).start();
 				orb.run();
