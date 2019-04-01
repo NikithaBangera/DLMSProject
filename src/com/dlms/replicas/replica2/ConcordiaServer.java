@@ -76,7 +76,7 @@ public class ConcordiaServer {
 	 */
 	public static void main(String[] args) {
 
-		try {
+	//	try {
 
 //			ConcordiaServer conServer = new ConcordiaServer();
 //
@@ -98,16 +98,16 @@ public class ConcordiaServer {
 //			NameComponent path[] = nameServer.to_name(name);
 //			nameServer.rebind(path, serverInterface);
 
-			System.out.println("Concordia Server is Running...");
-			startUDP();
+//			System.out.println("Concordia Server is Running...");
+//			startUDP();
 
 //			orb.run();
 
-		} catch (Exception e) {
+//		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("Error in Concordia Server :" + e);
-			e.printStackTrace();
-		}
+//			System.out.println("Error in Concordia Server :" + e);
+//			e.printStackTrace();
+//		}
 
 	}
 
