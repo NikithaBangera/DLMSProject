@@ -19,18 +19,18 @@ public class Sequencer {
 
 		System.out.println("Sequencer has been started successfully");
 
-		new Thread(() -> receiverequest()).start();
+		new Thread(() -> receiveRequest()).start();
 
 	}
 
-	static void receiverequest() {
+	static void receiveRequest() {
 
 		aSocket = null;
 		int sequenceNumber = 0;
 		try {
 
-			aSocket = new DatagramSocket(3333);
-			System.out.println("Server 3333 Started............");
+			aSocket = new DatagramSocket(1313);
+			System.out.println("Server 1313 Started............");
 			while (true) {
 				byte[] bufferData = new byte[1024];
 				DatagramPacket request = null;
@@ -49,7 +49,7 @@ public class Sequencer {
 					 * Attaching a unique sequencer number and multi-casting message to all replicas
 					 */
 					sequenceNumber++;
-					message = message + "," + sequenceNumber;
+					message = sequenceNumber+","+message;
 					multicastMessage(message);
 					DatagramPacket reply = null;
 					

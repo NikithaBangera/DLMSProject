@@ -43,7 +43,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	public String addItem(String managerID, String itemID, String itemName, int quantity) {
 
-		String result = sendToSequencerManager("additem", managerID, itemID, itemName, quantity, null);
+		String result = sendToSequencerManager("addItem", managerID, itemID, itemName, quantity, null);
 
 		return result; 
 	}

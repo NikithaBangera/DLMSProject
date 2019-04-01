@@ -6,25 +6,29 @@ import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
+
+import ActionServiceApp.ActionService;
+import ActionServiceApp.ActionServiceHelper;
 
 import java.util.logging.*;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
+import ActionServiceApp.ActionService;
+import ActionServiceApp.ActionServiceHelper;
+
 public class DLMSClientImplementation {
 
 	String userID;
 	String managerID;
-	Library conStub;
-	Library mcstub;
-	Library montStub;
+	ActionService conStub;
+	ActionService mcstub;
+	ActionService montStub;
 	
 	String result;
 
@@ -42,9 +46,9 @@ public class DLMSClientImplementation {
 			// -ORBInitialPort 1050 -ORBInitialHost localhost
 			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
 			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-			conStub = (Library) LibraryHelper.narrow(ncRef.resolve_str("libraryStub"));
-			mcstub = (Library) LibraryHelper.narrow(ncRef.resolve_str("libraryStub"));
-			montStub = (Library) LibraryHelper.narrow(ncRef.resolve_str("libraryStub"));
+			conStub = (ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("libraryStub"));
+			mcstub = (ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("libraryStub"));
+			montStub = (ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("libraryStub"));
 			
 
 		}
@@ -452,21 +456,21 @@ public class DLMSClientImplementation {
 
 	// This method calls library server implementation to borrow a new item id
 
-	public void borrowNewItem(String userId, String itemID, int days) {
+	public void borrowNewItem(String userId, String itemID, int numberOfDays) {
 
 		String response;
 
 		try {
 			if (initialID.equalsIgnoreCase("CON")) {
 				logger.info("Sending request to user library: Concordia Library ");
-				result = conStub.borrowItem(id, itemID, days);
+				result = conStub.borrowItem(id, itemID, numberOfDays);
 				
 				logger.info("Reply recieved from Concordia Library");
 				
 			} else if (initialID.equalsIgnoreCase("MCG")) {
 				
 				logger.info("Sending request to user library: Mcgill Library ");
-				result = mcstub.borrowItem(id, itemID, days);
+				result = mcstub.borrowItem(id, itemID, numberOfDays);
 				logger.info("Reply recieved from Mcgill Library");
 
 			}
@@ -474,7 +478,7 @@ public class DLMSClientImplementation {
 			else {
 				
 				logger.info("Sending request to user library: Montreal Library ");
-				result = montStub.borrowItem(id, itemID, days);
+				result = montStub.borrowItem(id, itemID, numberOfDays);
 				logger.info("Reply recieved from Montreal Library");
 
 			}
@@ -490,19 +494,19 @@ public class DLMSClientImplementation {
 				if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("CON")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-					result = conStub.waitingQueue(userId, itemID);
+					result = conStub.waitList(userId, initialItemID, numberOfDays);
 					logger.info("User added in the waiting queue. ");
 
 				} else if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("MCG")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-					result = mcstub.waitingQueue(userId, itemID);
+					result = mcstub.waitList(userId, initialItemID, numberOfDays);
 					logger.info("User added in the waiting queue. ");
 
 				} else if (s.equalsIgnoreCase("Y") & initialItemID.equalsIgnoreCase("MON")) {
 					
 					logger.info("User has chosen to be added in the waiting queue. ");
-					result = montStub.waitingQueue(userId, itemID);
+					result = montStub.waitList(userId, initialItemID, numberOfDays);
 					logger.info("User added in the waiting queue. ");
 					
 				} else if (s.equalsIgnoreCase("N")) {

@@ -4,10 +4,15 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.util.PriorityQueue;
 
+import com.dlms.replicas.replica1.MessageComparator;
+
 public class ReplicaManager {
+	
+	private static String result = "";
 	
 	public static void main(String[] args) {
 		try {
@@ -15,19 +20,64 @@ public class ReplicaManager {
 			McgillServer.startUDP();
 			MontrealServer.startUDP();
 			
-			PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
-			String message[] = queue.poll().split(",");
-			String operation = message[0];
-			String managerID = message[1];
-			String userID = message[2];
-			String itemID = message[3];
-			String newItemID = message[4];
-			String oldItemID = message[5];
-			String itemName = message[6];
-			int quantity = Integer.parseInt(message[7]);
-			String failureType = message[8];
+			ActionServiceImpl actionServiceImpl = new ActionServiceImpl();
 			
-			
+			MulticastSocket aSocket = null;
+			aSocket = new MulticastSocket(1313);
+
+			aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
+
+			System.out.println("Server Started............");
+
+			while (true) {
+				byte[] buffer = new byte[1000];
+				DatagramPacket request = new DatagramPacket(buffer, buffer.length);
+				aSocket.receive(request);
+				System.out.println("abcd---" + request.getData().toString());
+				String data = new String(request.getData());
+				System.out.println(data);
+//				String dataArray[] = data.split(",");
+				// set data in queue
+				
+				PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
+
+				String message[] = queue.poll().split(",");
+				String operation = message[0];
+				String managerID = message[1];
+				String userID = message[2];
+				String itemID = message[3];
+				String newItemID = message[4];
+				String oldItemID = message[5];
+				String itemName = message[6];
+				int quantity = Integer.parseInt(message[7]);
+				int numberOfDays = Integer.parseInt(message[8]);
+				String failureType = message[9];
+
+				if (failureType.equalsIgnoreCase("faultyBug")) {
+
+				} else if (failureType.equalsIgnoreCase("faultyCrash")) {
+
+				} else {
+					if (operation.equalsIgnoreCase("addItem")) {
+						result = actionServiceImpl.addItem(managerID, oldItemID, itemName, quantity);
+					} else if (operation.equalsIgnoreCase("removeItem")) {
+						result = actionServiceImpl.removeItem(managerID, oldItemID, quantity);
+					} else if (operation.equalsIgnoreCase("listItemAvailability")) {
+						result = actionServiceImpl.listItemAvailability(managerID);
+					} else if (operation.equalsIgnoreCase("borrowItem")) {
+						result = actionServiceImpl.borrowItem(userID, oldItemID, numberOfDays);
+					} else if (operation.equalsIgnoreCase("waitList")) {
+						result = actionServiceImpl.waitList(userID, oldItemID, numberOfDays);
+					} else if (operation.equalsIgnoreCase("findItem")) {
+						result = actionServiceImpl.findItem(userID, itemName);
+					} else if (operation.equalsIgnoreCase("returnItem")) {
+						result = actionServiceImpl.returnItem(userID, oldItemID);
+					} else if (operation.equalsIgnoreCase("exchangeItem")) {
+						result = actionServiceImpl.exchangeItem(userID, newItemID, oldItemID);
+					}
+				}
+
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
