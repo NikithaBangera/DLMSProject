@@ -20,10 +20,11 @@ import java.util.concurrent.*;
 
 public class ConcordiaLibrary {
 
-	static ActionserviceImpl conStub = new ActionserviceImpl("Concordia");
+	static ActionserviceImpl conStub;
 
 	public static void startConcordiaLibrary() {
 		try {
+			conStub = new ActionserviceImpl("Concordia");
 
 			System.out.println("Concordia Server ready and waiting ...");
 

@@ -658,6 +658,16 @@ public class ActionserviceImpl implements ActionService {
 		return message;
 
 	}
+	public void crashListItemAvailability(String managerID) {
+		
+		System.exit(0);
+		
+//		int n = 50/0;
+//		
+//		return "Replica 3 Crashed";	
+	}
+	
+	
 
 	public String waitList(String userID, String itemID, int numberOfDays) {
 
