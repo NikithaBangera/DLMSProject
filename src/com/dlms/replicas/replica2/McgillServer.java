@@ -77,7 +77,7 @@ public class McgillServer {
 	 */
 	public static void main(String[] args) {
 
-		try {
+//		try {
 
 //			McgillServer mcgServer = new McgillServer();
 //
@@ -99,15 +99,15 @@ public class McgillServer {
 //			NameComponent path[] = nameServer.to_name(name);
 //			nameServer.rebind(path, serverInterface);
 
-			System.out.println("McGill server is Running...");
-			startUDP();
+//			System.out.println("McGill server is Running...");
+//			startUDP();
 
 //			orb.run();
 
-		} catch (Exception e) {
-			System.out.println("Error in McGill Server :" + e);
-			e.printStackTrace();
-		}
+//		} catch (Exception e) {
+//			System.out.println("Error in McGill Server :" + e);
+//			e.printStackTrace();
+//		}
 	}
 
 	/**

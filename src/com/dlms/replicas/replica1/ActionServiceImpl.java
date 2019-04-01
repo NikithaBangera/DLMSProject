@@ -13,6 +13,9 @@ public class ActionServiceImpl implements ActionService {
 //		orb = orb_value;
 //	}
 
+	String success = "success: ";
+	String fail = "fail: ";
+
 	@Override
 	public synchronized String addItem(String managerID, String itemID, String itemName, int quantity) {
 		itemID = itemID.toUpperCase();
@@ -54,25 +57,25 @@ public class ActionServiceImpl implements ActionService {
 							}
 							Concordia.logger.info(" Users removed from the waitlist\n ");
 
-							operation = "Item " + itemID + " exists, hence increased item's quantity by " + quantity
-									+ " Successfully, and assigned to users existed in Waitlist";
+							operation = success + "Item " + itemID + " exists, hence increased item's quantity by "
+									+ quantity + " Successfully, and assigned to users existed in Waitlist";
 							Concordia.logger.info("Request successfully completed,\n");
 						}
 						if (ulist.isEmpty()) {
 							Concordia.waitlistBook.remove(itemID);
 						}
 					} else {
-						operation = "Item " + itemID + " exists, hence increased item's quantity by " + quantity
-								+ " Successfully";
+						operation = success + "Item " + itemID + " exists, hence increased item's quantity by "
+								+ quantity + " Successfully";
 						Concordia.logger.info("Request successfully completed,\n");
 					}
 
 				} else {
-					operation = "A book already exists with item ID: " + itemID + " with a Different Name";
+					operation = fail + "A book already exists with item ID: " + itemID + " with a Different Name";
 				}
 			} else {
 				Concordia.Books.put(itemID, itemName + "," + quantity);
-				operation = "Item " + itemID + " added to the library Successfully";
+				operation = success + "Item " + itemID + " added to the library Successfully";
 			}
 			Concordia.logger.info("Response returned: " + operation + ".\n");
 			break;
@@ -110,25 +113,25 @@ public class ActionServiceImpl implements ActionService {
 							}
 							Montreal.logger.info(" Users removed from the waitlist\n ");
 
-							operation = "Item " + itemID + " exists, hence increased item's quantity by " + quantity
-									+ " Successfully, and assigned to users existed in Waitlist";
+							operation = success + "Item " + itemID + " exists, hence increased item's quantity by "
+									+ quantity + " Successfully, and assigned to users existed in Waitlist";
 							Montreal.logger.info("Request successfully completed,\n");
 						}
 						if (ulist.isEmpty()) {
 							Montreal.waitlistBook.remove(itemID);
 						}
 					} else {
-						operation = "Item " + itemID + " exists, hence increased item's quantity by " + quantity
-								+ " Successfully";
+						operation = success + "Item " + itemID + " exists, hence increased item's quantity by "
+								+ quantity + " Successfully";
 						Montreal.logger.info("Request successfully completed,\n");
 					}
 
 				} else {
-					operation = "A book already exists with item ID: " + itemID + " with a Different Name";
+					operation = fail + "A book already exists with item ID: " + itemID + " with a Different Name";
 				}
 			} else {
 				Montreal.Books.put(itemID, itemName + "," + quantity);
-				operation = "Item " + itemID + " added to the library Successfully";
+				operation = success + "Item " + itemID + " added to the library Successfully";
 			}
 			Montreal.logger.info("Response returned: " + operation + ".\n");
 			break;
@@ -162,25 +165,25 @@ public class ActionServiceImpl implements ActionService {
 								}
 							}
 							McGill.logger.info(" Users removed from the waitlist\n ");
-							operation = "Item " + itemID + " exists, hence increased item's quantity by " + quantity
-									+ " Successfully, and assigned to users existed in Waitlist";
+							operation = success + "Item " + itemID + " exists, hence increased item's quantity by "
+									+ quantity + " Successfully, and assigned to users existed in Waitlist";
 							McGill.logger.info("Request successfully completed,\n");
 						}
 						if (ulist.isEmpty()) {
 							McGill.waitlistBook.remove(itemID);
 						}
 					} else {
-						operation = "Item " + itemID + " exists, hence increased item's quantity by " + quantity
-								+ " Successfully";
+						operation = success + "Item " + itemID + " exists, hence increased item's quantity by "
+								+ quantity + " Successfully";
 						McGill.logger.info("Request successfully completed,\n");
 					}
 
 				} else {
-					operation = "A book already exists with item ID: " + itemID + " with a Different Name";
+					operation = fail + "A book already exists with item ID: " + itemID + " with a Different Name";
 				}
 			} else {
 				McGill.Books.put(itemID, itemName + "," + quantity);
-				operation = "Item " + itemID + " added to the library Successfully";
+				operation = success + "Item " + itemID + " added to the library Successfully";
 			}
 			System.out.println(McGill.Books);
 			break;
@@ -384,7 +387,7 @@ public class ActionServiceImpl implements ActionService {
 
 			}
 			if (operation.contains("Borrow")) {
-				operation = itemID + " returned successfully to the Library by " + userID + " "
+				operation = success + itemID + " returned successfully to the Library by " + userID + " "
 						+ " and removed from user borrowed list";
 			}
 
@@ -416,7 +419,7 @@ public class ActionServiceImpl implements ActionService {
 
 			}
 			if (operation.contains("Borrow")) {
-				operation = itemID + " returned successfully to the Library by " + userID + " "
+				operation = success + itemID + " returned successfully to the Library by " + userID + " "
 						+ " and removed from user borrowed list";
 			}
 
@@ -437,7 +440,7 @@ public class ActionServiceImpl implements ActionService {
 					uID = info.split("-")[0];
 					int numberOfDay = Integer.parseInt(info.split("-")[1]);
 					if (borrowItem(uID, itemID, numberOfDay).contains("Successfully")) {
-						operation = itemID + " returned successfully to the Library by " + userID + " "
+						operation = success + itemID + " returned successfully to the Library by " + userID + " "
 								+ " and removed from user borrowed list. Assigned to " + uID
 								+ " user, waiting in the WaitList";
 						break;
@@ -447,7 +450,7 @@ public class ActionServiceImpl implements ActionService {
 
 			}
 			if (operation.contains("Borrow")) {
-				operation = itemID + " returned successfully to the Library by " + userID + " "
+				operation = success + itemID + " returned successfully to the Library by " + userID + " "
 						+ " and removed from user borrowed list";
 			}
 
@@ -521,11 +524,11 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				}
-				operation = "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 
 			} else if (operation.contains("Success")) {
-				operation = "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 			}
 
@@ -551,11 +554,11 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				}
-				operation = "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 
 			} else if (operation.contains("Success")) {
-				operation = "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 			}
 			Montreal.logger.info("Response returned: " + operation);
@@ -580,11 +583,11 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				}
-				operation = "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 
 			} else if (operation.contains("Success")) {
-				operation = "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 			}
 			McGill.logger.info("Response returned: " + operation);

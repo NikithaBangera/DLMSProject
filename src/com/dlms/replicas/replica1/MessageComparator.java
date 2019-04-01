@@ -6,7 +6,6 @@ public class MessageComparator implements Comparator {
 
 	@Override
 	public int compare(Object o1, Object o2) {
-		// TODO Auto-generated method stub
 
 		String m1 = (String) o1;
 		String m2 = (String) o2;

@@ -25,6 +25,7 @@ public class MessageComparator implements Comparator {
 		} else if (seq1 > seq2) {
 
 			return 1;
+			
 		} else {
 
 			return 0;

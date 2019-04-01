@@ -56,6 +56,7 @@ public class ReplicaManager {
 				System.out.println(data);
 //				String dataArray[] = data.split(",");
 				// set data in queue
+				
 				PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 
 				String message[] = queue.poll().split(",");

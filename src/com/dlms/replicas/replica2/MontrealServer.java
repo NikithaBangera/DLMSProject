@@ -76,7 +76,7 @@ public class MontrealServer {
 	 */
 	public static void main(String[] args) {
 
-		try {
+	//	try {
 
 //			MontrealServer monServer = new MontrealServer();
 //
@@ -98,15 +98,14 @@ public class MontrealServer {
 //			NameComponent path[] = nameService.to_name(name);
 //			nameService.rebind(path, serverInterface);
 
-			System.out.println("Montreal server is running...");
-			startUDP();
+//			System.out.println("Montreal server is running...");
+//			startUDP();
 
 //			orb.run();
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error in Montreal Server :" + e);
-			e.printStackTrace();
-		}
+//		} catch (Exception e) {
+//			System.out.println("Error in Montreal Server :" + e);
+//			e.printStackTrace();
+//		}
 
 	}
 
