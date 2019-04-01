@@ -18,7 +18,7 @@ public class ReplicaManager {
 
 	private static String result = "";
 
-	public void sendUDPMessage(int serverPort, String message) {
+	public static void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
 		try {
 			aSocket = new DatagramSocket();
@@ -26,7 +26,7 @@ public class ReplicaManager {
 			InetAddress aHost = InetAddress.getByName("localhost");
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
-
+			
 		} catch (SocketException e) {
 			System.out.println("Socket: " + e.getMessage());
 		} catch (IOException e) {
@@ -121,8 +121,11 @@ public class ReplicaManager {
 							result = action.returnItem(userID, oldItemID);
 						} else if (operation.equalsIgnoreCase("exchangeItem")) {
 							result = action.exchangeItem(userID, newItemID, oldItemID);
+							
 						}
 					}
+					sendUDPMessage(11111, result);
+					
 
 				}
 			}).start();

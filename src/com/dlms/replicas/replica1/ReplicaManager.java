@@ -40,17 +40,22 @@ public class ReplicaManager {
 
 			ActionServiceImpl action = new ActionServiceImpl();
 
-			MulticastSocket aSocket = null;
-			aSocket = new MulticastSocket(1313);
+			 MulticastSocket aSocket 
+			 = new MulticastSocket(1313);
 
 			aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
 
 			System.out.println("Server Started............");
-
+			new Thread(()->{
 			while (true) {
 				byte[] buffer = new byte[1000];
 				DatagramPacket request = new DatagramPacket(buffer, buffer.length);
-				aSocket.receive(request);
+				try {
+					aSocket.receive(request);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("abcd---" + request.getData().toString());
 				String data = new String(request.getData());
 				System.out.println(data);
@@ -96,7 +101,7 @@ public class ReplicaManager {
 				}
 
 			}
-
+			}).start();;
 		} catch (Exception e) {
 
 		}
