@@ -22,6 +22,9 @@ import java.util.logging.SimpleFormatter;
 import org.omg.CORBA.ORB;
 
 import com.dlms.replicas.replica1.ActionServiceImpl;
+import com.dlms.replicas.replica1.Concordia;
+import com.dlms.replicas.replica1.McGill;
+import com.dlms.replicas.replica1.Montreal;
 
 public class ActionserviceImpl implements ActionService {
 
@@ -36,6 +39,9 @@ public class ActionserviceImpl implements ActionService {
 	public HashMap<String, ArrayList<String>> userInfo = new HashMap<String, ArrayList<String>>();
 
 	HashMap<String, Queue<String>> waitListMap = new HashMap<String, Queue<String>>();
+
+	public static HashMap<String, HashMap<String, Integer>> userlist = new HashMap<String, HashMap<String, Integer>>();
+	public static ArrayList<String> managerUserList = new ArrayList<String>();
 
 	Queue<String> waitingQueue = new LinkedList<String>();
 
@@ -98,7 +104,7 @@ public class ActionserviceImpl implements ActionService {
 		if (library.equalsIgnoreCase("Concordia")) {
 			libraryInfo.put("CON1111", new HashMap<String, Integer>());
 			libraryInfo.get("CON1111").put("DISTRIBUTED SYSTEM DESIGN", 0);
-			
+
 			libraryInfo.put("CON6231", new HashMap<String, Integer>());
 			libraryInfo.get("CON6231").put("DS", 2);
 
@@ -145,7 +151,7 @@ public class ActionserviceImpl implements ActionService {
 
 			libraryInfo.put("MON1111", new HashMap<String, Integer>());
 			libraryInfo.get("MON1111").put("DISTRIBUTED SYSTEM DESIGN", 2);
-			
+
 			libraryInfo.put("MON6231", new HashMap<String, Integer>());
 			libraryInfo.get("MON6231").put("DS", 1);
 
@@ -360,6 +366,8 @@ public class ActionserviceImpl implements ActionService {
 			Map.Entry<String, Integer> entry = libraryInfo.get(s).entrySet().iterator().next();
 			itemName = entry.getKey();
 			quantity = entry.getValue();
+//			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
+//					+ thisEntry.getValue().split(",")[1] + ";");
 			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n";
 
 		}
@@ -393,7 +401,7 @@ public class ActionserviceImpl implements ActionService {
 		LOG.info("Starting -----BORROW ITEM------  operation for User with ID: " + userID + " and ITEM ID: " + itemID
 				+ " and number of days: " + numberOfDays);
 
-		if (userPrefix.equalsIgnoreCase(itemPrefix) || numberOfDays==0) {
+		if (userPrefix.equalsIgnoreCase(itemPrefix) || numberOfDays == 0) {
 
 			if (libraryInfo.containsKey(itemID))
 
@@ -405,8 +413,8 @@ public class ActionserviceImpl implements ActionService {
 						userInfo.get(userID).add(itemID);
 						entry.setValue(entry.getValue() - 1);
 						libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-						message = "success: Item ID: " + itemID + " has been successfully issued to the user with user ID: "
-								+ userID + ";\n";
+						message = "success: Item ID: " + itemID
+								+ " has been successfully issued to the user with user ID: " + userID + ";\n";
 						LOG.info("----SUCCESS----");
 						LOG.info(message);
 
@@ -416,8 +424,8 @@ public class ActionserviceImpl implements ActionService {
 						userInfo.get(userID).add(itemID);
 						entry.setValue(entry.getValue() - 1);
 						libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-						message = "success: Item ID: " + itemID + " has been successfully issued to the user with user ID: "
-								+ userID + ";\n";
+						message = "success: Item ID: " + itemID
+								+ " has been successfully issued to the user with user ID: " + userID + ";\n";
 						LOG.info("----SUCCESS----");
 						LOG.info(message);
 
@@ -506,7 +514,7 @@ public class ActionserviceImpl implements ActionService {
 		for (String s : libraryInfo.keySet()) {
 
 			if (libraryInfo.get(s).containsKey(itemName)) {
-				message ="success: "+ s + " " + libraryInfo.get(s).get(itemName) + "\n";
+				message = "success: " + s + " " + libraryInfo.get(s).get(itemName) + "\n";
 				LOG.info("----SUCCESS----");
 				break;
 			}
@@ -575,7 +583,7 @@ public class ActionserviceImpl implements ActionService {
 
 		String reply1;
 
-		if (userprefix.equalsIgnoreCase(itemprefix) ) {
+		if (userprefix.equalsIgnoreCase(itemprefix)) {
 			if (libraryInfo.containsKey(itemID)) {
 				if (userInfo.containsKey(userID) && userInfo.get(userID).contains(itemID)) {
 					userInfo.get(userID).remove(itemID);
@@ -859,7 +867,8 @@ public class ActionserviceImpl implements ActionService {
 					}
 
 				} else {
-					message = "fail: Item with ITEM ID: " + oldItemID + " is not issued to user with user ID: " + userID;
+					message = "fail: Item with ITEM ID: " + oldItemID + " is not issued to user with user ID: "
+							+ userID;
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 
@@ -881,12 +890,12 @@ public class ActionserviceImpl implements ActionService {
 				entry.setValue(entry.getValue() - 1);
 				libraryInfo.get(newItemID).put(entry.getKey(), entry.getValue());
 				// userInfo.put(userID, new ArrayList<String>());
-				if(userInfo.containsKey(userID)) {
-					userInfo.get(userID).add(newItemID);}
-					else {
+				if (userInfo.containsKey(userID)) {
+					userInfo.get(userID).add(newItemID);
+				} else {
 					userInfo.put(userID, new ArrayList<String>());
 					userInfo.get(userID).add(newItemID);
-					}
+				}
 				reply1 = userID;
 			} else {
 				reply1 = send("exchangeitem", newItemID, null, getPortNumber(userID, newItemID), userID);
@@ -904,8 +913,8 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
-					message = "success: Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
-							+ newItemID;
+					message = "success: Item with ITEM ID: " + oldItemID
+							+ " has been successfully exchanged with item ID: " + newItemID;
 					LOG.info("----SUCCESS----");
 					LOG.info(message);
 				}
@@ -931,11 +940,11 @@ public class ActionserviceImpl implements ActionService {
 				entry.setValue(entry.getValue() - 1);
 				libraryInfo.get(newItemID).put(entry.getKey(), entry.getValue());
 				// userInfo.put(userID, new ArrayList<String>());
-				if(userInfo.containsKey(userID)) {
-				userInfo.get(userID).add(newItemID);}
-				else {
-				userInfo.put(userID, new ArrayList<String>());
-				userInfo.get(userID).add(newItemID);
+				if (userInfo.containsKey(userID)) {
+					userInfo.get(userID).add(newItemID);
+				} else {
+					userInfo.put(userID, new ArrayList<String>());
+					userInfo.get(userID).add(newItemID);
 				}
 				reply1 = userID;
 			} else {
@@ -956,8 +965,8 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
-					message = "success: Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
-							+ newItemID;
+					message = "success: Item with ITEM ID: " + oldItemID
+							+ " has been successfully exchanged with item ID: " + newItemID;
 					LOG.info("----SUCCESS----");
 					LOG.info(message);
 				}
@@ -983,12 +992,12 @@ public class ActionserviceImpl implements ActionService {
 				entry.setValue(entry.getValue() - 1);
 				libraryInfo.get(newItemID).put(entry.getKey(), entry.getValue());
 				// userInfo.put(userID, new ArrayList<String>());
-				if(userInfo.containsKey(userID)) {
-					userInfo.get(userID).add(newItemID);}
-					else {
+				if (userInfo.containsKey(userID)) {
+					userInfo.get(userID).add(newItemID);
+				} else {
 					userInfo.put(userID, new ArrayList<String>());
 					userInfo.get(userID).add(newItemID);
-					}
+				}
 				reply1 = userID;
 			} else {
 				reply1 = send("exchangeitem", newItemID, null, getPortNumber(userID, newItemID), userID);
@@ -1007,8 +1016,8 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
-					message = "success: Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
-							+ newItemID;
+					message = "success: Item with ITEM ID: " + oldItemID
+							+ " has been successfully exchanged with item ID: " + newItemID;
 					LOG.info("----SUCCESS----");
 					LOG.info(message);
 				}
@@ -1067,6 +1076,45 @@ public class ActionserviceImpl implements ActionService {
 		Map.Entry<String, Integer> entry = libraryInfo.get(itemID).entrySet().iterator().next();
 		return entry.getValue();
 
+	}
+
+	@Override
+	public boolean validateUser(String userID) {
+		boolean flag = false;
+		switch (userID.substring(0, 3)) {
+		case "CON":
+			if (userID.charAt(3) == 'U') {
+				if (userlist.containsKey(userID))
+					flag = true;
+			} else {
+				if (managerUserList.contains(userID)) {
+					flag = true;
+				}
+			}
+			break;
+		case "MON":
+			if (userID.charAt(3) == 'U') {
+				if (userlist.containsKey(userID))
+					flag = true;
+			} else {
+				if (managerUserList.contains(userID)) {
+					flag = true;
+				}
+			}
+			break;
+
+		case "MCG":
+			if (userID.charAt(3) == 'U') {
+				if (userlist.containsKey(userID))
+					flag = true;
+			} else {
+				if (managerUserList.contains(userID)) {
+					flag = true;
+				}
+			}
+			break;
+		}
+		return flag;
 	}
 
 }

@@ -28,6 +28,8 @@ public class MontrealServer {
 	public static Map<String, String> monLibrary = new TreeMap<String, String>();
 	public static Map<String, String> monWaitlist = new TreeMap<String, String>();
 	public static Map<String, List<String>> userHistory = new TreeMap<String, List<String>>();
+	public static HashMap<String, HashMap<String, Integer>> userlist = new HashMap<String, HashMap<String, Integer>>();
+	public static ArrayList<String> managerUserList = new ArrayList<String>();
 	List<String> itemHistory = new ArrayList<String>();
 	public static String monvalues = null;
 	private static boolean running;

@@ -21,6 +21,10 @@ import java.util.Map.Entry;
 
 import org.omg.CORBA.ORB;
 
+import com.dlms.replicas.replica1.Concordia;
+import com.dlms.replicas.replica1.McGill;
+import com.dlms.replicas.replica1.Montreal;
+
 public class ActionServiceImpl implements ActionService {
 	private static final long serialVersionUID = 1L;
 //	ConcordiaServer conObj = new ConcordiaServer();
@@ -332,6 +336,8 @@ public class ActionServiceImpl implements ActionService {
 					conItems.add(pair.getKey() + "," + pair.getValue());
 					itemsList = itemsList.length() > 0 ? itemsList.concat(":" + pair.getKey() + "," + pair.getValue())
 							: itemsList.concat(pair.getKey() + "," + pair.getValue());
+//					booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
+//							+ thisEntry.getValue().split(",")[1] + ";");
 				}
 				String[] conItemsArray = new String[conItems.size()];
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
@@ -346,6 +352,8 @@ public class ActionServiceImpl implements ActionService {
 					mcgItems.add(pair.getKey() + "," + pair.getValue());
 					itemsList = itemsList.length() > 0 ? itemsList.concat(":" + pair.getKey() + "," + pair.getValue())
 							: itemsList.concat(pair.getKey() + "," + pair.getValue());
+//					booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
+//							+ thisEntry.getValue().split(",")[1] + ";");
 				}
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
 				String[] mcgItemsArray = new String[mcgItems.size()];
@@ -360,6 +368,8 @@ public class ActionServiceImpl implements ActionService {
 					monItems.add(pair.getKey() + "," + pair.getValue());
 					itemsList = itemsList.length() > 0 ? itemsList.concat(":" + pair.getKey() + "," + pair.getValue())
 							: itemsList.concat(pair.getKey() + "," + pair.getValue());
+//					booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
+//							+ thisEntry.getValue().split(",")[1] + ";");
 				}
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
 				String[] monItemsArray = new String[monItems.size()];
@@ -1237,6 +1247,45 @@ public class ActionServiceImpl implements ActionService {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean validateUser(String userID) {
+		boolean flag = false;
+		switch (userID.substring(0, 3)) {
+		case "CON":
+			if (userID.charAt(3) == 'U') {
+				if (ConcordiaServer.userlist.containsKey(userID))
+					flag = true;
+			} else {
+				if (ConcordiaServer.managerUserList.contains(userID)) {
+					flag = true;
+				}
+			}
+			break;
+		case "MON":
+			if (userID.charAt(3) == 'U') {
+				if (MontrealServer.userlist.containsKey(userID))
+					flag = true;
+			} else {
+				if (MontrealServer.managerUserList.contains(userID)) {
+					flag = true;
+				}
+			}
+			break;
+
+		case "MCG":
+			if (userID.charAt(3) == 'U') {
+				if (McgillServer.userlist.containsKey(userID))
+					flag = true;
+			} else {
+				if (McgillServer.managerUserList.contains(userID)) {
+					flag = true;
+				}
+			}
+			break;
+		}
+		return flag;
 	}
 
 }
