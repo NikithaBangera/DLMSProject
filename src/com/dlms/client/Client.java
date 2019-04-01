@@ -472,7 +472,7 @@ public class Client {
 		try {
 			while (!stopRunning) {
 				System.out.println("\n* Welcome to Library *");
-				System.out.println("\n(At any point of time type 'Quit' to exit)");
+				System.out.println("\n(At any point of time type 'Quit' to exit and enter Invalid ID to 'Crash' the system)");
 				System.out.println("\nPlease enter a valid User Id or Manager Id : ");
 				operatorID = (reader.readLine()).toUpperCase();
 
@@ -496,9 +496,9 @@ public class Client {
 
 					// Code ended for Corba Service creation
 					getregistryURI(serverName, ncRef);
-//					if (!serverRef.validateUser(operatorID)) {
-//						System.out.println("User ID does not exist in System\n");
-//					} else {
+					if (!serverRef.validateUser(operatorID)) {
+						System.out.println("User ID does not exist in System\n");
+					} else {
 						try {
 							switch (operatorRole) {
 							case 'M':
@@ -520,7 +520,7 @@ public class Client {
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
 						}
-//					}
+					}
 				}
 			}
 

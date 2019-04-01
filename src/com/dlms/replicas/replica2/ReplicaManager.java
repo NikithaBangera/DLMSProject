@@ -82,6 +82,7 @@ public class ReplicaManager {
 						result = actionServiceImpl.exchangeItem(userID, newItemID, oldItemID);
 					}
 				}
+				sendUDPMessage(11111, result);
 
 			}
 			});
@@ -91,7 +92,7 @@ public class ReplicaManager {
 		}
 	}
 	
-	public void sendUDPMessage(int serverPort, String message) {
+	static public void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
 		try {
 			aSocket = new DatagramSocket();

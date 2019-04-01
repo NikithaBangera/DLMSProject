@@ -17,10 +17,11 @@ import org.omg.PortableServer.POAHelper;
 
 public class MontrealLibrary {
 
-	static ActionserviceImpl monStub = new ActionserviceImpl("Montreal");
+	static ActionserviceImpl monStub;
 
 	public static void startMontrealLibrary() {
 		try {
+			monStub = new ActionserviceImpl("Montreal");
 
 			System.out.println("Montreal Server ready and waiting ...");
 

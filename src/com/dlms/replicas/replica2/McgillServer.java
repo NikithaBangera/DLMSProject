@@ -29,6 +29,8 @@ public class McgillServer {
 	public static Map<String, String> mcgLibrary = new TreeMap<String, String>();
 	public static Map<String, String> mcgWaitlist = new TreeMap<String, String>();
 	public static Map<String, List<String>> userHistory = new TreeMap<String, List<String>>();
+	public static HashMap<String, HashMap<String, Integer>> userlist = new HashMap<String, HashMap<String, Integer>>();
+	public static ArrayList<String> managerUserList = new ArrayList<String>();
 	List<String> itemHistory = new ArrayList<String>();
 	public static String mcgvalues = null;
 	private static boolean running;
