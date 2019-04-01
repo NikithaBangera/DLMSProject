@@ -37,7 +37,7 @@ public class McGill {
 	static private FileHandler fileHandler;
 	private static boolean running;
 	private static String success = "success: ";
-	private static String fail = "failed: ";
+	private static String fail = "fail: ";
 
 	protected McGill() throws RemoteException {
 		super();

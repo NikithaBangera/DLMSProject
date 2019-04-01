@@ -14,7 +14,7 @@ public class ActionServiceImpl implements ActionService {
 //	}
 
 	String success = "success: ";
-	String fail = "failed: ";
+	String fail = "fail: ";
 
 	@Override
 	public synchronized String addItem(String managerID, String itemID, String itemName, int quantity) {
