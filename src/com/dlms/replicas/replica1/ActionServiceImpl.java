@@ -13,8 +13,8 @@ public class ActionServiceImpl implements ActionService {
 //		orb = orb_value;
 //	}
 
-	String success = "success:";
-	String fail = "failed:";
+	String success = "success: ";
+	String fail = "failed: ";
 
 	@Override
 	public synchronized String addItem(String managerID, String itemID, String itemName, int quantity) {
