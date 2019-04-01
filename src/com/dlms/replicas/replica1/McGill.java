@@ -36,6 +36,8 @@ public class McGill {
 	public static Logger logger;
 	static private FileHandler fileHandler;
 	private static boolean running;
+	private static String success = "Success! ";
+	private static String fail = "Failed! ";
 
 	protected McGill() throws RemoteException {
 		super();
@@ -271,10 +273,10 @@ public class McGill {
 			userlist.put(userID, temp);
 			logger.info("Book with book id " + itemID + " Successfully borrowed by user " + userID
 					+ ". Added the book to user's borrowed list.");
-			return "Book with book id " + itemID + " Successfully borrowed by user " + userID + ".";
+			return success + "Book with book id " + itemID + " Successfully borrowed by user " + userID + ".";
 		} else {
 			logger.info("Item already available in user's borrowed list");
-			return "Requested book already exists in user's borrowed list. Cannot borrow the same book again.";
+			return fail + "Requested book already exists in user's borrowed list. Cannot borrow the same book again.";
 		}
 
 	}
@@ -287,10 +289,10 @@ public class McGill {
 			temp.remove(itemID);
 			userlist.put(userID, temp);
 			logger.info(" Item returned Successfully to the Library and removed from user borrowed list.\n");
-			return "Item returned Successfully to the Library and removed from user borrowed list.";
+			return success + "Item returned Successfully to the Library and removed from user borrowed list.";
 		} else {
 			logger.info(" Item with Item ID : " + itemID + " does not exist in User's borrowed List of books\n");
-			return "Book Not Present : Item with Item ID : " + itemID
+			return fail + "Book Not Present : Item with Item ID : " + itemID
 					+ " does not exist in User's borrowed List of books.";
 		}
 
@@ -340,19 +342,19 @@ public class McGill {
 
 					if (temp != null && temp.containsKey(itemID)) {
 						logger.info("Request failed: Item requested is already available in user's borrowed list.\n");
-						message = "Item already available in user's borrowed list.Can't Borrow Same Item Again.";
+						message = fail + "Item already available in user's borrowed list.Can't Borrow Same Item Again.";
 					}
 
 					else if (!userInfo.isEmpty() && userInfo.containsKey(userID)) {
-						message = "User " + userID + " already present in " + itemID + " waitlist.";
+						message = fail + "User " + userID + " already present in " + itemID + " waitlist.";
 						logger.info("Request failed: " + message);
 					} else {
-						message = "Unavailable : Book requested is currently not available.";
+						message = fail + "Unavailable : Book requested is currently not available.";
 					}
 				}
 
 			} else {
-				message = "Book ID is Invalid. No Book exist in library with provide Name.";
+				message = fail + "Book ID is Invalid. No Book exist in library with provide Name.";
 				logger.info("Request failed : Book ID Provded is invalid.");
 			}
 			break;
@@ -386,7 +388,7 @@ public class McGill {
 								"Request failed: User was not allowed to borrow requested book and is removed from waitlist\n");
 					}
 				} else {
-					message = userID + " has already borrowed one Montreal Library book(Book ID - " + message
+					message = fail + userID + " has already borrowed one Montreal Library book(Book ID - " + message
 							+ "). Maximum borrow limit is one.";
 				}
 			}
@@ -421,7 +423,7 @@ public class McGill {
 								"Request failed: User was not allowed to borrow requested book and is removed from waitlist\n");
 					}
 				} else {
-					message = userID + " has already borrowed one COncordia Library book(Book ID -" + message
+					message = fail + userID + " has already borrowed one COncordia Library book(Book ID -" + message
 							+ "). Maximum borrow limit is one.";
 				}
 			}
@@ -454,8 +456,8 @@ public class McGill {
 				waitlistBook.put(itemID, waitUList);
 			}
 
-			message = userID + " added to " + itemID + " waitlist Successfully !!. You are at position  " + position
-					+ " in the Queue.";
+			message = success + userID + " added to " + itemID + " waitlist Successfully !!. You are at position  "
+					+ position + " in the Queue.";
 			logger.info("Request completed successfully.\n");
 			logger.info(message);
 			logger.info("Wait list of McGill Book  After :\n");
@@ -518,7 +520,7 @@ public class McGill {
 				logger.info("Books in McGill Library after user request :\n" + Books + "\n");
 
 			} else {
-				message = "Book ID is Invalid. No Book exist in library with provide Name.";
+				message = fail + "Book ID is Invalid. No Book exist in library with provide Name.";
 				logger.info("Request failed.Invalid Book Id provided\n");
 			}
 			break;
@@ -600,7 +602,8 @@ public class McGill {
 				if (quantity != -1) {
 					String keyValue = itemName + "," + newQuantity;
 					conBooks.put(itemID, keyValue);
-					operation = "Book's quantity decreased by " + quantity + " Successfully  from the available list! ";
+					operation = success + "Book's quantity decreased by " + quantity
+							+ " Successfully  from the available list! ";
 					logger.info("After removal:\n" + Books.toString() + "\n");
 					logger.info("Request completed successfully");
 				} else if (quantity == -1) {
@@ -613,17 +616,17 @@ public class McGill {
 					sendRequestMessage = "REMOVE" + "," + itemID;
 					sendMessage(1111);
 
-					operation = "Book removed Successfully and Borrowed List of User's.";
+					operation = success + "Book removed Successfully and Borrowed List of User's.";
 				}
 
 			}
 
 			else if (oldquantity < quantity) {
-				operation = "Invalid Quantity , Quantity provided is more than available quantity.";
+				operation = fail + "Invalid Quantity , Quantity provided is more than available quantity.";
 				logger.info("Request Failed :  Quantity provided is more than available quantity ");
 			}
 		} else {
-			operation = "Invalid Book : Book is not available in Library.";
+			operation = fail + "Invalid Book : Book is not available in Library.";
 			logger.info("Request Failed :  Book Id provided is not available in Library ");
 		}
 		return operation;
@@ -698,17 +701,18 @@ public class McGill {
 						}
 					}
 				} else {
-					operation = "\nSorry cannot perform exchange! The requested book " + newItemID
+					operation = fail + "\nSorry cannot perform exchange! The requested book " + newItemID
 							+ " is not available";
 					logger.info(operation);
 				}
 			} else {
-				operation = "\nSorry cannot perform exchange as user already has " + newItemID + " in his borrowed list.";
+				operation = fail + "\nSorry cannot perform exchange as user already has " + newItemID
+						+ " in his borrowed list.";
 				logger.info(operation);
 			}
 		} else {
-			operation = "\nUser doesn't have " + oldItemID + " book in his borrowed list.";
-			
+			operation = fail + "\nUser doesn't have " + oldItemID + " book in his borrowed list.";
+
 			logger.info(operation);
 		}
 		return operation;
