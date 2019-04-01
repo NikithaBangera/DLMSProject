@@ -21,45 +21,22 @@ public class McGillLibrary {
 
 	
 	
-	public static void startMcgillLibrary() {
+	static ActionserviceImpl mcStub = new ActionserviceImpl("McGill");
+
+	public static void startMontrealLibrary() {
 		try {
 
-//		
-//		ORB orb = ORB.init(args, null);
-//		POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-//		rootpoa.the_POAManager().activate();
+			System.out.println("Montreal Server ready and waiting ...");
 
-		
-//		mcStub.setORB(orb);
-//
-//		org.omg.CORBA.Object ref = rootpoa.servant_to_reference(mcStub);
-//		Library href = LibraryHelper.narrow(ref);
-//
-//		org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-//		NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-//
-//		NameComponent path[] = ncRef.to_name("mcgillStub");
-//		ncRef.rebind(path,href);
-//		
-//		System.out.println("McGill Library Server has been started successfully");
-//		
-//		for (;;) {
-//			
-//			
-			ActionserviceImpl mcStub = new ActionserviceImpl("McGill");
 			new Thread(() -> receiverequest(mcStub)).start();
-//			orb.run();
-//			
-		
-		
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
+
 		}
 
-		
-		
+		catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
 	}
 
 	static void receiverequest(ActionserviceImpl mcStub) {

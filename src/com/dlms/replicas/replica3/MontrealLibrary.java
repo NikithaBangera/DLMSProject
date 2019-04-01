@@ -15,42 +15,16 @@ import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
-
-
 public class MontrealLibrary {
+
+	static ActionserviceImpl monStub = new ActionserviceImpl("Montreal");
 
 	public static void startMontrealLibrary() {
 		try {
-//
-//			System.out.println("Montreal Library Server has been started successfully");
-//
-//			ORB orb = ORB.init(args, null);
-//
-//			POA rootpoa = (POA) orb.resolve_initial_references("RootPOA");
-//
-//			rootpoa.the_POAManager().activate();
-//
-//			
-			ActionserviceImpl monStub = new ActionserviceImpl("Montreal");
-
-//			monStub.setORB(orb);
-//
-//			
-//			org.omg.CORBA.Object ref = rootpoa.servant_to_reference(monStub);
-//			Library href = LibraryHelper.narrow(ref);
-//
-//			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-//			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-
-//			NameComponent path[] = ncRef.to_name("montrealStub");
-//			ncRef.rebind(path, href);
 
 			System.out.println("Montreal Server ready and waiting ...");
-			
-				new Thread(() -> receiverequest(monStub)).start();
-				
 
-			
+			new Thread(() -> receiverequest(monStub)).start();
 
 		}
 
@@ -61,7 +35,6 @@ public class MontrealLibrary {
 		}
 	}
 
-	
 	static void receiverequest(ActionserviceImpl monStub) {
 
 		DatagramSocket aSocket = null;
@@ -111,10 +84,12 @@ public class MontrealLibrary {
 						}
 
 						if (flag == 1) {
-							message = "success: Item ID: " + itemID + " has been removed from users present in Montreal Library";
+							message = "success: Item ID: " + itemID
+									+ " has been removed from users present in Montreal Library";
 
 						} else {
-							message = "fail: Item ID: " + itemID + " No student has been issued any item in Montreal Library";
+							message = "fail: Item ID: " + itemID
+									+ " No student has been issued any item in Montreal Library";
 
 							monStub.LOG.info("----FAILED----");
 						}
@@ -129,7 +104,7 @@ public class MontrealLibrary {
 						for (String s : monStub.libraryInfo.keySet()) {
 							if (monStub.libraryInfo.get(s).containsKey(itemName)) {
 
-								message = "success:"+ s + " " + monStub.libraryInfo.get(s).get(itemName) + "\n";
+								message = "success:" + s + " " + monStub.libraryInfo.get(s).get(itemName) + "\n";
 								flag = 1;
 
 								monStub.LOG.info("Item present in Montreal library.");
@@ -140,7 +115,8 @@ public class MontrealLibrary {
 						if (flag == 0)
 
 						{
-							message = "fail: Item with Item name: " + itemName + " does not exist in the Montreal library\n";
+							message = "fail: Item with Item name: " + itemName
+									+ " does not exist in the Montreal library\n";
 
 							monStub.LOG.info("Item not present in the library.");
 							monStub.LOG.info("----FAILED----");
@@ -162,7 +138,7 @@ public class MontrealLibrary {
 								monStub.LOG.info("Checking waitlist to find any users registered for this item. ");
 
 								monStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue() + 1);
-								String result = monStub.waitList(null, itemID,0);
+								String result = monStub.waitList(null, itemID, 0);
 								if (result == null) {
 
 									monStub.LOG.info("No users has been registered for this item. ");
@@ -170,7 +146,8 @@ public class MontrealLibrary {
 									monStub.LOG.info("Returned item successfully to the library. ");
 									monStub.LOG.info("----SUCCESS----");
 
-									message = "success: Item returned to the library successfully. Have a nice day!" + end;
+									message = "success: Item returned to the library successfully. Have a nice day!"
+											+ end;
 								} else {
 
 									String s[] = result.split(",");
@@ -274,8 +251,8 @@ public class MontrealLibrary {
 
 									} else {
 
-										message = "fail: Item ID: " + itemID + " is already issued to the user with user ID: "
-												+ userID;
+										message = "fail: Item ID: " + itemID
+												+ " is already issued to the user with user ID: " + userID;
 
 										monStub.LOG.info("-----FAILED-----");
 										monStub.LOG.info(message);
