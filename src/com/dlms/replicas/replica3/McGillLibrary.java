@@ -23,7 +23,7 @@ public class McGillLibrary {
 	
 	static ActionserviceImpl mcStub = new ActionserviceImpl("McGill");
 
-	public static void startMontrealLibrary() {
+	public static void startMcGillLibrary() {
 		try {
 
 			System.out.println("Montreal Server ready and waiting ...");

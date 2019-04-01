@@ -22,7 +22,7 @@ public class ConcordiaLibrary {
 
 	static ActionserviceImpl conStub = new ActionserviceImpl("Concordia");
 
-	public static void startMontrealLibrary() {
+	public static void startConcordiaLibrary() {
 		try {
 
 			System.out.println("Concordia Server ready and waiting ...");
