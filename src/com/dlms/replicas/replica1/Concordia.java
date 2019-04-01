@@ -31,8 +31,8 @@ public class Concordia {
 	public static Logger logger;
 	static FileHandler fileHandler;
 	private static boolean running;
-	private static String success = "Success! ";
-	private static String fail = "Failed! ";
+	private static String success = "success: ";
+	private static String fail = "failed: ";
 
 	public Concordia() throws RemoteException {
 		super();
