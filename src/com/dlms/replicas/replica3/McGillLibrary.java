@@ -112,11 +112,12 @@ public class McGillLibrary {
 
 					if (flag == 1) {
 						
-						message = "Item ID: " + itemID + " has been removed from users present in McGill Library";
+						message = "success: Item ID: " + itemID + " has been removed from users present in McGill Library";
+						mcStub.LOG.info("----SUCCESS----");
 
 					} else {
 						
-						message = "Item ID: " + itemID + " No student has been issued any item in McGill Library";
+						message = "fail: Item ID: " + itemID + " No student has been issued any item in McGill Library";
 						mcStub.LOG.info("----FAILED----");
 
 					}
@@ -130,7 +131,7 @@ public class McGillLibrary {
 					for (String s : mcStub.libraryInfo.keySet()) {
 						if (mcStub.libraryInfo.get(s).containsKey(itemName)) {
 
-							message = s + " " + mcStub.libraryInfo.get(s).get(itemName) + "\n";
+							message = "success:"+s + " " + mcStub.libraryInfo.get(s).get(itemName) + "\n";
 							flag = 1;
 							mcStub.LOG.info("Item present in Mcgill library.");
 							mcStub.LOG.info("----SUCCESS----");
@@ -140,7 +141,7 @@ public class McGillLibrary {
 					if (flag == 0)
 
 					{
-						message = "Item with Item name: " + itemName + " does not exist in the McGill library\n";
+						message = "fail: Item with Item name: " + itemName + " does not exist in the McGill library\n";
 						mcStub.LOG.info("Item not present in the library.");
 						mcStub.LOG.info("----FAILED----");
 						
@@ -171,7 +172,7 @@ public class McGillLibrary {
 								mcStub.LOG.info("Returned item successfully to the library. ");
 								mcStub.LOG.info("----SUCCESS----");
 								
-								message = "Item returned to the library successfully. Have a nice day!"+ end;
+								message = "success: Item returned to the library successfully. Have a nice day!"+ end;
 							} else {
 
 								String s[] = result.split(",");
@@ -211,14 +212,14 @@ public class McGillLibrary {
 
 								}
 
-								message = "Item returned to the library successfully. Have a nice day!";
+								message = "success: Item returned to the library successfully. Have a nice day!";
 
 								message = message + "Waiting queue result: " + answer + "" + end;
 
 							}
 						} else {
 
-							message = "Item: " + itemID + " is not issued to user" + userID + "\n";
+							message = "fail: Item: " + itemID + " is not issued to user" + userID + "\n";
 							
 							mcStub.LOG.info("Item not issued to the user who is trying to return the item. ");
 							
@@ -230,7 +231,7 @@ public class McGillLibrary {
 						
 						mcStub.LOG.info("Item does not belong to the library. Cannot accept the item");
 						
-						message = "No such Item ID Exist in the Montreal library\n";
+						message = "fail: No such Item ID Exist in the Montreal library\n";
 						mcStub.LOG.info("----FAILED----");
 
 					}
@@ -243,7 +244,7 @@ public class McGillLibrary {
 
 					{
 						if (mcStub.userInfo.containsKey(userID) && mcStub.userInfo.get(userID).size() >= 1 && !(operation.equalsIgnoreCase("exchangeitem")) ) {
-							message = "User with user ID " + userID
+							message = "fail: User with user ID " + userID
 									+ " cannot borrow more than one item from McGill library.\n";
 							mcStub.LOG.info("-----FAILED-----");
 							
@@ -256,7 +257,7 @@ public class McGillLibrary {
 									mcStub.userInfo.get(userID).add(itemID);
 									entry.setValue(entry.getValue() - 1);
 									mcStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-									message = "Item ID: " + itemID
+									message = "success: Item ID: " + itemID
 											+ " has been successfully issued to the user with user ID: " + userID;
 									
 									mcStub.LOG.info("-----SUCCESS-----");
@@ -267,13 +268,13 @@ public class McGillLibrary {
 									mcStub.userInfo.get(userID).add(itemID);
 									entry.setValue(entry.getValue() - 1);
 									mcStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-									message = "Item ID: " + itemID
+									message = "success: Item ID: " + itemID
 											+ " has been successfully issued to the user with user ID: " + userID;
 									mcStub.LOG.info("-----SUCCESS-----");
 								}
 								else {
 									
-									message = "Item ID: " + itemID
+									message = "fail: Item ID: " + itemID
 											+ " is already issued to the user with user ID: " + userID;
 									
 									mcStub.LOG.info("-----FAILED-----");
@@ -291,7 +292,7 @@ public class McGillLibrary {
 
 					} else {
 						
-						message = "Item does not exist in the library";
+						message = "fail: Item does not exist in the library";
 						message = "waitingqueue";
 						mcStub.LOG.info("-----FAILED-----");
 						mcStub.LOG.info("Item does not exist in the library. User to be asked If he wants to be added in the waiting queue. ");

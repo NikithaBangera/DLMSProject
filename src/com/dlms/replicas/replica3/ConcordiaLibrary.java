@@ -106,10 +106,10 @@ public class ConcordiaLibrary {
 					}
 
 					if (flag == 1) {
-						message = "Item ID: " + itemID + " has been removed from users present in Concordia Library successfully";
+						message = "success: Item ID: " + itemID + " has been removed from users present in Concordia Library successfully";
 
 					} else {
-						message = "Item ID: " + itemID + " No student has been issued any item in Concordia Library";
+						message = "fail: Item ID: " + itemID + " No student has been issued any item in Concordia Library";
 						conStub.LOG.info("----FAILED----");
 					}
 
@@ -123,7 +123,7 @@ public class ConcordiaLibrary {
 					for (String s : conStub.libraryInfo.keySet()) {
 						if (conStub.libraryInfo.get(s).containsKey(itemName)) {
 
-							message = s + " " + conStub.libraryInfo.get(s).get(itemName) + "\n";
+							message = "success:"+ s + " " + conStub.libraryInfo.get(s).get(itemName) + "\n";
 							flag = 1;
 							conStub.LOG.info("Item present in Concordia library.");
 							conStub.LOG.info("----SUCCESS----");
@@ -133,7 +133,7 @@ public class ConcordiaLibrary {
 					if (flag == 0)
 
 					{
-						message = "Item with Item name: " + itemName + " does not exist in the Concordia library\n";
+						message = "fail: Item with Item name: " + itemName + " does not exist in the Concordia library\n";
 						conStub.LOG.info("Item not present in the library.");
 						conStub.LOG.info("----FAILED----");
 					}
@@ -159,7 +159,7 @@ public class ConcordiaLibrary {
 								conStub.LOG.info("Returned item successfully to the library. ");
 								conStub.LOG.info("----SUCCESS----");
 
-								message = "Item returned to the library successfully. Have a nice day!"+ end;
+								message = "success: Item returned to the library successfully. Have a nice day!"+ end;
 							} else {
 
 								String s[] = result.split(",");
@@ -197,14 +197,14 @@ public class ConcordiaLibrary {
 
 								}
 
-								message = "Item returned to the library successfully. Have a nice day!";
+								message = "success: Item returned to the library successfully. Have a nice day!";
 
 								message = message + "Waiting queue result: " + answer + "" + end;
 
 							}
 						} else {
 
-							message = "Item: " + itemID + " is not issued to user" + userID + "\n";
+							message = "fail: Item: " + itemID + " is not issued to user" + userID + "\n";
 							conStub.LOG.info("Item not issued to the user who is trying to return the item. ");
 
 							conStub.LOG.info("----FAILED----");
@@ -213,7 +213,7 @@ public class ConcordiaLibrary {
 
 					} else {
 						conStub.LOG.info("Item does not belong to the library. Cannot accept the item");
-						message = "No such Item ID Exist in the Montreal library\n";
+						message = "fail: No such Item ID Exist in the Montreal library\n";
 						conStub.LOG.info("----FAILED----");
 					}
 
@@ -226,7 +226,7 @@ public class ConcordiaLibrary {
 					{
 
 						if (conStub.userInfo.containsKey(userID) && conStub.userInfo.get(userID).size() >= 1 && !(operation.equalsIgnoreCase("exchangeitem")) ) {
-							message = "User with user ID " + userID
+							message = "fail: User with user ID " + userID
 									+ " cannot borrow more than one item from Concordia library.\n";
 							conStub.LOG.info("-----FAILED-----");
 						} else {
@@ -239,7 +239,7 @@ public class ConcordiaLibrary {
 									conStub.userInfo.get(userID).add(itemID);
 									entry.setValue(entry.getValue() - 1);
 									conStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-									message = "Item ID: " + itemID
+									message = "success: Item ID: " + itemID
 											+ " has been successfully issued to the user with user ID: " + userID;
 									conStub.LOG.info("-----SUCCESS-----");
 								}
@@ -249,13 +249,13 @@ public class ConcordiaLibrary {
 									conStub.userInfo.get(userID).add(itemID);
 									entry.setValue(entry.getValue() - 1);
 									conStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-									message = "Item ID: " + itemID
+									message = "success: Item ID: " + itemID
 											+ " has been successfully issued to the user with user ID: " + userID;
 									conStub.LOG.info("-----SUCCESS-----");
 
 								} else {
 									
-									message = "Item ID: " + itemID
+									message = "fail: Item ID: " + itemID
 											+ " is already issued to the user with user ID: " + userID;
 									
 									conStub.LOG.info("-----FAILED-----");
@@ -273,7 +273,7 @@ public class ConcordiaLibrary {
 						}
 
 					} else {
-						message = "Item does not exist in the library";
+						message = "fail: Item does not exist in the library";
 						message = "waitingqueue";
 						conStub.LOG.info("-----FAILED-----");
 						conStub.LOG.info(
@@ -286,7 +286,7 @@ public class ConcordiaLibrary {
 				byte[] resultMessage = message.getBytes();
 				reply = new DatagramPacket(resultMessage, message.length(), request.getAddress(), request.getPort());
 				conStub.LOG.info("Result is: " + message);
-				System.out.println(message);
+				System.out.println(message); 
 				conStub.LOG.info("Sending reply////");
 				aSocket.send(reply);
 			}

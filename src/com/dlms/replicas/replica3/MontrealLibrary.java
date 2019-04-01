@@ -111,10 +111,10 @@ public class MontrealLibrary {
 						}
 
 						if (flag == 1) {
-							message = "Item ID: " + itemID + " has been removed from users present in Montreal Library";
+							message = "success: Item ID: " + itemID + " has been removed from users present in Montreal Library";
 
 						} else {
-							message = "Item ID: " + itemID + " No student has been issued any item in Montreal Library";
+							message = "fail: Item ID: " + itemID + " No student has been issued any item in Montreal Library";
 
 							monStub.LOG.info("----FAILED----");
 						}
@@ -129,7 +129,7 @@ public class MontrealLibrary {
 						for (String s : monStub.libraryInfo.keySet()) {
 							if (monStub.libraryInfo.get(s).containsKey(itemName)) {
 
-								message = s + " " + monStub.libraryInfo.get(s).get(itemName) + "\n";
+								message = "success:"+ s + " " + monStub.libraryInfo.get(s).get(itemName) + "\n";
 								flag = 1;
 
 								monStub.LOG.info("Item present in Montreal library.");
@@ -140,7 +140,7 @@ public class MontrealLibrary {
 						if (flag == 0)
 
 						{
-							message = "Item with Item name: " + itemName + " does not exist in the Montreal library\n";
+							message = "fail: Item with Item name: " + itemName + " does not exist in the Montreal library\n";
 
 							monStub.LOG.info("Item not present in the library.");
 							monStub.LOG.info("----FAILED----");
@@ -170,7 +170,7 @@ public class MontrealLibrary {
 									monStub.LOG.info("Returned item successfully to the library. ");
 									monStub.LOG.info("----SUCCESS----");
 
-									message = "Item returned to the library successfully. Have a nice day!" + end;
+									message = "success: Item returned to the library successfully. Have a nice day!" + end;
 								} else {
 
 									String s[] = result.split(",");
@@ -211,14 +211,14 @@ public class MontrealLibrary {
 
 									}
 
-									message = "Item returned to the library successfully. Have a nice day!";
+									message = "success: Item returned to the library successfully. Have a nice day!";
 
 									message = message + "Waiting queue result: " + answer + "" + end;
 
 								}
 							} else {
 
-								message = "Item: " + itemID + " is not issued to user" + userID + "\n";
+								message = "fail: Item: " + itemID + " is not issued to user" + userID + "\n";
 
 								monStub.LOG.info("Item not issued to the user who is trying to return the item. ");
 
@@ -228,7 +228,7 @@ public class MontrealLibrary {
 						} else {
 
 							monStub.LOG.info("Item does not belong to the library. Cannot accept the item");
-							message = "No such Item ID Exist in the Montreal library\n";
+							message = "fail: No such Item ID Exist in the Montreal library\n";
 
 							monStub.LOG.info("----FAILED----");
 						}
@@ -244,7 +244,7 @@ public class MontrealLibrary {
 						{
 							if (monStub.userInfo.containsKey(userID) && monStub.userInfo.get(userID).size() >= 1
 									&& !(operation.equalsIgnoreCase("exchangeitem"))) {
-								message = "User with user ID " + userID
+								message = "fail: User with user ID " + userID
 										+ " cannot borrow more than one item from Montreal library.\n";
 
 								monStub.LOG.info("-----FAILED-----");
@@ -258,7 +258,7 @@ public class MontrealLibrary {
 										monStub.userInfo.get(userID).add(itemID);
 										entry.setValue(entry.getValue() - 1);
 										monStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-										message = "Item ID: " + itemID
+										message = "success: Item ID: " + itemID
 												+ " has been successfully issued to the user with user ID: " + userID;
 										monStub.LOG.info("-----SUCCESS-----");
 									}
@@ -268,13 +268,13 @@ public class MontrealLibrary {
 										monStub.userInfo.get(userID).add(itemID);
 										entry.setValue(entry.getValue() - 1);
 										monStub.libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-										message = "Item ID: " + itemID
+										message = "success: Item ID: " + itemID
 												+ " has been successfully issued to the user with user ID: " + userID;
 										monStub.LOG.info("-----SUCCESS-----");
 
 									} else {
 
-										message = "Item ID: " + itemID + " is already issued to the user with user ID: "
+										message = "fail: Item ID: " + itemID + " is already issued to the user with user ID: "
 												+ userID;
 
 										monStub.LOG.info("-----FAILED-----");
@@ -292,7 +292,7 @@ public class MontrealLibrary {
 							}
 
 						} else {
-							message = "Item does not exist in the library";
+							message = "fail: Item does not exist in the library";
 							message = "waitingqueue";
 							monStub.LOG.info("-----FAILED-----");
 							monStub.LOG.info(

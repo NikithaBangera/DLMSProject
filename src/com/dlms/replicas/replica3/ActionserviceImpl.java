@@ -188,13 +188,13 @@ public class ActionserviceImpl implements ActionService {
 				libraryInfo.get(itemID).put(itemName.toUpperCase(), a + quantity);
 				int b = libraryInfo.get(itemID).get(itemName.toUpperCase());
 
-				message1 = "Quantity of Item with Item ID:  " + itemID
+				message1 = "success:Quantity of Item with Item ID:  " + itemID
 						+ "  has been successfully increased in the library";
 				LOG.info("SUCCESS");
 
 				if (a == 0) {
 					String result = waitList(null, itemID, 0);
-					message1 = message1 + "\nThe following user from wait list have been issued the item";
+					message1 = message1 + "\nsuccess:The following user from wait list have been issued the item";
 
 					String answer = null;
 					while (result != null && b != 0) {
@@ -216,7 +216,7 @@ public class ActionserviceImpl implements ActionService {
 			}
 
 			else {
-				message1 = "Invalid Item Name corresponding to the Item ID: " + itemID + "\n";
+				message1 = "fail:Invalid Item Name corresponding to the Item ID: " + itemID + "\n";
 				LOG.info("----FAILED----");
 
 			}
@@ -224,7 +224,7 @@ public class ActionserviceImpl implements ActionService {
 		} else {
 			libraryInfo.put(itemID, new HashMap<String, Integer>());
 			libraryInfo.get(itemID).put(itemName.toUpperCase(), quantity);
-			message1 = "Item with Item ID:  " + itemID + "  has been successfully added in the library";
+			message1 = "success:Item with Item ID:  " + itemID + "  has been successfully added in the library";
 			LOG.info("SUCCESS");
 			int b = libraryInfo.get(itemID).get(itemName.toUpperCase());
 			String result = waitList(null, itemID, 0);
@@ -290,7 +290,7 @@ public class ActionserviceImpl implements ActionService {
 					}
 					LOG.info("--SUCCESS--");
 
-					message = "Successfully removed itemID. All associated users have been dealt with.";
+					message = "success:Successfully removed itemID. All associated users have been dealt with.";
 
 				} else if (initialID.equalsIgnoreCase("CON")) {
 					reply1 = send("removeitem", itemID, null, 6666, managerID);
@@ -317,11 +317,11 @@ public class ActionserviceImpl implements ActionService {
 			} else {
 				Map.Entry<String, Integer> entry = libraryInfo.get(itemID).entrySet().iterator().next();
 				if (entry.getValue() < quantity) {
-					message = "Quantity of item entered is greater than the available items in the library. Please try again later with different quantity ";
+					message = "fail:Quantity of item entered is greater than the available items in the library. Please try again later with different quantity ";
 					LOG.info("--FAILED--");
 				} else {
 					libraryInfo.get(itemID).put(entry.getKey(), entry.getValue() - quantity);
-					message = "Item ID " + itemID + " has been successully decreased.";
+					message = "success:Item ID " + itemID + " has been successully decreased.";
 					LOG.info("--SUCCESS--");
 				}
 			}
@@ -329,7 +329,7 @@ public class ActionserviceImpl implements ActionService {
 		}
 
 		else {
-			message = "Item ID: " + itemID + "does not exist in the library so cannot perform deletion";
+			message = "fail:Item ID: " + itemID + "does not exist in the library so cannot perform deletion";
 			LOG.info("--FAILED--");
 
 		}
@@ -405,7 +405,7 @@ public class ActionserviceImpl implements ActionService {
 						userInfo.get(userID).add(itemID);
 						entry.setValue(entry.getValue() - 1);
 						libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-						message = "Item ID: " + itemID + " has been successfully issued to the user with user ID: "
+						message = "success: Item ID: " + itemID + " has been successfully issued to the user with user ID: "
 								+ userID + ";\n";
 						LOG.info("----SUCCESS----");
 						LOG.info(message);
@@ -416,7 +416,7 @@ public class ActionserviceImpl implements ActionService {
 						userInfo.get(userID).add(itemID);
 						entry.setValue(entry.getValue() - 1);
 						libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
-						message = "Item ID: " + itemID + " has been successfully issued to the user with user ID: "
+						message = "success: Item ID: " + itemID + " has been successfully issued to the user with user ID: "
 								+ userID + ";\n";
 						LOG.info("----SUCCESS----");
 						LOG.info(message);
@@ -425,7 +425,7 @@ public class ActionserviceImpl implements ActionService {
 
 					} else {
 
-						message = "Item ID: " + itemID + "is already issued to the user with user ID: " + userID
+						message = "fail: Item ID: " + itemID + "is already issued to the user with user ID: " + userID
 								+ ";\n";
 						LOG.info("----FAILED----");
 						LOG.info(message);
@@ -441,7 +441,7 @@ public class ActionserviceImpl implements ActionService {
 				}
 
 			} else {
-				message = "Item does not exist in the library";
+				message = "fail: Item does not exist in the library";
 				message = "waitingqueue";
 				LOG.info(
 						"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
@@ -501,12 +501,12 @@ public class ActionserviceImpl implements ActionService {
 		LOG.info(
 				"Starting -----FIND ITEM------  operation for User with ID: " + userID + " and ITEM NAME: " + itemName);
 
-		message = "Item with name: " + itemName + " does not exist in your library.";
+		message = "fail: Item with name: " + itemName + " does not exist in your library.";
 
 		for (String s : libraryInfo.keySet()) {
 
 			if (libraryInfo.get(s).containsKey(itemName)) {
-				message = s + " " + libraryInfo.get(s).get(itemName) + "\n";
+				message ="success: "+ s + " " + libraryInfo.get(s).get(itemName) + "\n";
 				LOG.info("----SUCCESS----");
 				break;
 			}
@@ -589,13 +589,13 @@ public class ActionserviceImpl implements ActionService {
 					if (result == null) {
 
 						LOG.info("----SUCCESS----");
-						message = "Item returned to the library successfully. Have a nice day!";
+						message = "success: Item returned to the library successfully. Have a nice day!";
 
 					} else {
 
 						String s[] = result.split(",");
 						String answer = borrowItem(s[0], s[1], 0);
-						message = "Item returned to the library successfully. Have a nice day!";
+						message = "success: Item returned to the library successfully. Have a nice day!";
 						LOG.info("----SUCCESS----");
 						message = message + "Waiting queue result: " + answer;
 
@@ -605,7 +605,7 @@ public class ActionserviceImpl implements ActionService {
 
 				} else {
 
-					message = "Item: " + itemID + " is not issued to user" + userID + "\n";
+					message = "fail: Item: " + itemID + " is not issued to user" + userID + "\n";
 					LOG.info("----FAILED----");
 				}
 
@@ -613,7 +613,7 @@ public class ActionserviceImpl implements ActionService {
 
 			else {
 
-				message = "No such Item ID Exist in the library";
+				message = "fail: No such Item ID Exist in the library";
 				LOG.info("----FAILED----");
 			}
 
@@ -748,18 +748,18 @@ public class ActionserviceImpl implements ActionService {
 								// userInfo.put(userID, new ArrayList<String>());
 								userInfo.get(userID).add(newItemID);
 								String x = returnItem(userID, oldItemID);
-								message = "Item with ITEM ID: " + oldItemID
+								message = "success: Item with ITEM ID: " + oldItemID
 										+ " has been successfully exchanged with item ID: " + newItemID + " result: "
 										+ x;
 								LOG.info("----SUCCESS----");
 								LOG.info(message);
 							} else {
-								message = "Sorry. Item to be exchanged is currently not available";
+								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							}
 						} else {
-							message = "Item cannot be exchanged as it does not exist in the library.";
+							message = "fail: Item cannot be exchanged as it does not exist in the library.";
 							LOG.info("----FAILURE----");
 							LOG.info(message);
 						}
@@ -773,20 +773,20 @@ public class ActionserviceImpl implements ActionService {
 						if (reply1 != null && reply1.endsWith(userID)) {
 							String res = returnItem(userID, oldItemID);
 							if (res.endsWith("!")) {
-								message = "Item with ITEM ID: " + oldItemID
+								message = "success: Item with ITEM ID: " + oldItemID
 										+ " has been successfully exchanged with item ID: " + newItemID;
 								LOG.info("----SUCCESS----");
 								LOG.info(message);
 							} else {
 								reply1 = send("returnitem", newItemID, null, 5555, userID);
-								message = "Item to be returned is invalid So cannot exchange Item";
+								message = "fail: Item to be returned is invalid so cannot exchange Item";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							}
 						} else {
 
 							if (reply1.equalsIgnoreCase("waitingqueue")) {
-								message = "Sorry. Item to be exchanged is currently not available";
+								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							} else {
@@ -803,7 +803,7 @@ public class ActionserviceImpl implements ActionService {
 						if (reply1 != null && reply1.endsWith(userID)) {
 							String res = returnItem(userID, oldItemID);
 							if (res.endsWith("!")) {
-								message = "Item with ITEM ID: " + oldItemID
+								message = "success: Item with ITEM ID: " + oldItemID
 										+ " has been successfully exchanged with item ID: " + newItemID;
 								LOG.info("----SUCCESS----");
 								LOG.info(message);
@@ -816,7 +816,7 @@ public class ActionserviceImpl implements ActionService {
 						} else {
 
 							if (reply1.equalsIgnoreCase("waitingqueue")) {
-								message = "Sorry. Item to be exchanged is currently not available";
+								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							} else {
@@ -833,20 +833,20 @@ public class ActionserviceImpl implements ActionService {
 						if (reply1 != null && reply1.endsWith(userID)) {
 							String res = returnItem(userID, oldItemID);
 							if (res.endsWith("!")) {
-								message = "Item with ITEM ID: " + oldItemID
+								message = "success: Item with ITEM ID: " + oldItemID
 										+ " has been successfully exchanged with item ID: " + newItemID;
 								LOG.info("----SUCCESS----");
 								LOG.info(message);
 
 							} else {
 								reply1 = send("returnitem", newItemID, null, 7777, userID);
-								message = "Item to be returned is invalid So cannot exchange Item";
+								message = "fail: Item to be returned is invalid So cannot exchange Item";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							}
 						} else {
 							if (reply1.equalsIgnoreCase("waitingqueue")) {
-								message = "Sorry. Item to be exchanged is currently not available";
+								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							} else {
@@ -859,13 +859,13 @@ public class ActionserviceImpl implements ActionService {
 					}
 
 				} else {
-					message = "Item with ITEM ID: " + oldItemID + " is not issued to user with user ID: " + userID;
+					message = "fail: Item with ITEM ID: " + oldItemID + " is not issued to user with user ID: " + userID;
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 
 				}
 			} else {
-				message = "User with user ID " + userID
+				message = "fail: User with user ID " + userID
 						+ "does not exist. Item is not issued to this user. Try again later ";
 				LOG.info("----FAILURE----");
 				LOG.info(message);
@@ -900,18 +900,18 @@ public class ActionserviceImpl implements ActionService {
 					} else {
 						reply1 = send("returnitem", newItemID, null, getPortNumber(userID, newItemID), userID);
 					}
-					message = "Failed. Item to be returned has not been issued to the user";
+					message = "fail: Item to be returned has not been issued to the user";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
-					message = "Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
+					message = "success: Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
 							+ newItemID;
 					LOG.info("----SUCCESS----");
 					LOG.info(message);
 				}
 			} else {
 				if (reply1.equalsIgnoreCase("waitingqueue")) {
-					message = "Sorry. Item to be exchanged is currently not available";
+					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
@@ -952,18 +952,18 @@ public class ActionserviceImpl implements ActionService {
 					} else {
 						reply1 = send("returnitem", newItemID, null, getPortNumber(userID, newItemID), userID);
 					}
-					message = "Failed. Item to be returned has not been issued to the user";
+					message = "fail: Item to be returned has not been issued to the user";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
-					message = "Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
+					message = "success: Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
 							+ newItemID;
 					LOG.info("----SUCCESS----");
 					LOG.info(message);
 				}
 			} else {
 				if (reply1.equalsIgnoreCase("waitingqueue")) {
-					message = "Sorry. Item to be exchanged is currently not available";
+					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
@@ -1003,18 +1003,18 @@ public class ActionserviceImpl implements ActionService {
 					} else {
 						reply1 = send("returnitem", newItemID, null, getPortNumber(userID, newItemID), userID);
 					}
-					message = "Failed. Item to be returned has not been issued to the user";
+					message = "fail: Item to be returned has not been issued to the user";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
-					message = "Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
+					message = "success: Item with ITEM ID: " + oldItemID + " has been successfully exchanged with item ID: "
 							+ newItemID;
 					LOG.info("----SUCCESS----");
 					LOG.info(message);
 				}
 			} else {
 				if (reply1.equalsIgnoreCase("waitingqueue")) {
-					message = "Sorry. Item to be exchanged is currently not available";
+					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
