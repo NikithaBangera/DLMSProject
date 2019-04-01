@@ -175,9 +175,9 @@ public class FrontEndImplementation extends ActionServicePOA {
 				validateReplicaAndSend(2, aSocket, aHost);
 
 			} else if (invalidElement == 3) {
-				badReplicaMap.put(3, badReplicaMap.get(1) + 1);
+				badReplicaMap.put(3, badReplicaMap.get(3) + 1);
 				badReplicaMap.put(2, 0);
-				badReplicaMap.put(3, 0);
+				badReplicaMap.put(1, 0);
 				validateReplicaAndSend(3, aSocket, aHost);
 
 			}

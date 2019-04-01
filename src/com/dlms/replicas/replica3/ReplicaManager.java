@@ -17,6 +17,7 @@ import com.dlms.replicas.replica1.Montreal;
 public class ReplicaManager {
 
 	private static String result = "";
+	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 
 	public static void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
@@ -71,8 +72,7 @@ public class ReplicaManager {
 					System.out.println(data);
 //				String dataArray[] = data.split(",");
 					// set data in queue
-
-					PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
+					queue.add(data);
 
 					String message[] = queue.poll().split(",");
 					String operation = message[0];
