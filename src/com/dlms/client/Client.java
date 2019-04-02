@@ -22,6 +22,7 @@ public class Client {
 	static char operatorRole;
 	static int rmiPort, quantity;
 	static boolean isIDCorrect, isItemIdCorrect;
+	static String result;
 
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	static boolean isValidManagerFlag;
@@ -115,7 +116,10 @@ public class Client {
 		while (proceedM.equalsIgnoreCase("yes")) {
 			System.out.println("\nEnter your choice : " + "\n1. Type 1 to add a book to the library."
 					+ "\n2. Type 2 to remove a book from the library."
-					+ "\n3. Type 3 to list all the available books in the library.");
+					+ "\n3. Type 3 to list all the available books in the library."
+					+ "\n4. Type 4 Display crash Failure."
+					+"\n5. Type 5 Display software Failure."
+					);
 			System.out.println("\nEnter your choice : ");
 			String managerCommand = (reader.readLine());
 			switch (managerCommand) {
@@ -275,7 +279,32 @@ public class Client {
 							+ book.split("-")[1].split(",")[1]);
 				}
 				break;
+				
+			case "4":
+				logger.info("Manager with manager id " + managerID + " opted to list all the books in the library");
+				result = "";
+				logger.info("**** Entering listItemAvailability operation to display crash failure operation ***");
+				result = serverRef.listItemAvailability("faultyCrash");
 
+				logger.info("Response received from server : " + result);
+				
+				System.out.println("Crash Failure Result: "+result);
+				break;
+				
+			case "5":
+				logger.info("Manager with manager id " + managerID + " opted to list all the books in the library");
+				result = "";
+				logger.info("**** Entering listItemAvailability operation to display software failure operation ***");
+				result = serverRef.listItemAvailability("faultyBug");
+
+				logger.info("Response received from server : " + result);
+				
+				System.out.println("Software Failure Result: "+result);
+				break;
+				
+				
+				
+				
 			default:
 				logger.log(Level.SEVERE, "\nInvalid choice entered by user");
 				System.out.println("\nPlease enter a valid choice.\n");
@@ -496,9 +525,9 @@ public class Client {
 
 					// Code ended for Corba Service creation
 					getregistryURI(serverName, ncRef);
-					if (!serverRef.validateUser(operatorID)) {
-						System.out.println("User ID does not exist in System\n");
-					} else {
+//					if (!serverRef.validateUser(operatorID)) {
+//						System.out.println("User ID does not exist in System\n");
+//					} else {
 						try {
 							switch (operatorRole) {
 							case 'M':
@@ -520,7 +549,7 @@ public class Client {
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
 						}
-					}
+//					}
 				}
 			}
 

@@ -460,44 +460,44 @@ public class ActionServiceImpl implements ActionService {
 		return operation;
 	}
 
-	@Override
-	public boolean validateUser(String userID) {
-		boolean flag = false;
-		switch (userID.substring(0, 3)) {
-		case "CON":
-			if (userID.charAt(3) == 'U') {
-				if (Concordia.userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (Concordia.managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-		case "MON":
-			if (userID.charAt(3) == 'U') {
-				if (Montreal.userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (Montreal.managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-
-		case "MCG":
-			if (userID.charAt(3) == 'U') {
-				if (McGill.userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (McGill.managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-		}
-		return flag;
-	}
+//	@Override
+//	public boolean validateUser(String userID) {
+//		boolean flag = false;
+//		switch (userID.substring(0, 3)) {
+//		case "CON":
+//			if (userID.charAt(3) == 'U') {
+//				if (Concordia.userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (Concordia.managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//		case "MON":
+//			if (userID.charAt(3) == 'U') {
+//				if (Montreal.userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (Montreal.managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//
+//		case "MCG":
+//			if (userID.charAt(3) == 'U') {
+//				if (McGill.userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (McGill.managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//		}
+//		return flag;
+//	}
 
 	@Override
 	public synchronized String exchangeItem(String userID, String newItemID, String oldItemID) {

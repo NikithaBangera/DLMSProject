@@ -23,7 +23,7 @@ import org.omg.CORBA.ORB;
 
 import com.dlms.replicas.replica1.ActionServiceImpl;
 import com.dlms.replicas.replica1.Concordia;
-import com.dlms.replicas.replica1.McGill;
+import com.dlms.replicas.replica1.McGill; 
 import com.dlms.replicas.replica1.Montreal;
 
 public class ActionserviceImpl implements ActionService {
@@ -368,8 +368,8 @@ public class ActionserviceImpl implements ActionService {
 			quantity = entry.getValue();
 //			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 //					+ thisEntry.getValue().split(",")[1] + ";");
-	//		message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n";
-			message = message.length() > 0 ? message.concat(";"+s+"-"+itemName+","+quantity) : message.concat(s+"-"+itemName+","+quantity);
+//	message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
+			message = message.concat(s+"-"+itemName+","+quantity+";");
 
 		}
 		LOG.info("--SUCCESS--");
@@ -441,8 +441,8 @@ public class ActionserviceImpl implements ActionService {
 					}
 
 				} else {
-				//	message = "waitingqueue";
-					message = "Unavailable";
+
+					message = "Unavailability";
 
 					LOG.info(
 							"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
@@ -452,7 +452,7 @@ public class ActionserviceImpl implements ActionService {
 
 			} else {
 				message = "fail: Item does not exist in the library";
-				message = "waitingqueue";
+				message = "Unavailability";
 				LOG.info(
 						"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
 
@@ -805,7 +805,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 
-							if (reply1.equalsIgnoreCase("waitingqueue")) {
+							if (reply1.equalsIgnoreCase("Unavailability")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -835,7 +835,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 
-							if (reply1.equalsIgnoreCase("waitingqueue")) {
+							if (reply1.equalsIgnoreCase("Unavailability")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -865,7 +865,7 @@ public class ActionserviceImpl implements ActionService {
 								LOG.info(message);
 							}
 						} else {
-							if (reply1.equalsIgnoreCase("waitingqueue")) {
+							if (reply1.equalsIgnoreCase("Unavailability")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -931,7 +931,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("waitingqueue")) {
+				if (reply1.equalsIgnoreCase("Unavailability")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -983,7 +983,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("waitingqueue")) {
+				if (reply1.equalsIgnoreCase("Unavailability")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -1034,7 +1034,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("waitingqueue")) {
+				if (reply1.equalsIgnoreCase("Unavailability")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -1090,43 +1090,43 @@ public class ActionserviceImpl implements ActionService {
 
 	}
 
-	@Override
-	public boolean validateUser(String userID) {
-		boolean flag = false;
-		switch (userID.substring(0, 3)) {
-		case "CON":
-			if (userID.charAt(3) == 'U') {
-				if (userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-		case "MON":
-			if (userID.charAt(3) == 'U') {
-				if (userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-
-		case "MCG":
-			if (userID.charAt(3) == 'U') {
-				if (userlist.containsKey(userID))
-					flag = true;
-			} else {
-				if (managerUserList.contains(userID)) {
-					flag = true;
-				}
-			}
-			break;
-		}
-		return flag;
-	}
+//	@Override
+//	public boolean validateUser(String userID) {
+//		boolean flag = false;
+//		switch (userID.substring(0, 3)) {
+//		case "CON":
+//			if (userID.charAt(3) == 'U') {
+//				if (userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//		case "MON":
+//			if (userID.charAt(3) == 'U') {
+//				if (userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//
+//		case "MCG":
+//			if (userID.charAt(3) == 'U') {
+//				if (userlist.containsKey(userID))
+//					flag = true;
+//			} else {
+//				if (managerUserList.contains(userID)) {
+//					flag = true;
+//				}
+//			}
+//			break;
+//		}
+//		return flag;
+//	}
 
 }

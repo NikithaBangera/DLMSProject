@@ -15,7 +15,7 @@ public interface ActionService {
 
 	public String returnItem(String userID, String itemID);
 	
-	public boolean validateUser(String userID);
+//	public boolean validateUser(String userID);
 	
 	public String exchangeItem (String userID, String newItemID, String oldItemID);
 }
