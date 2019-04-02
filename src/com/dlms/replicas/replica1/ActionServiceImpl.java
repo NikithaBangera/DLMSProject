@@ -256,7 +256,7 @@ public class ActionServiceImpl implements ActionService {
 			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 					+ thisEntry.getValue().split(",")[1] + ";");
 		}
-		return booksInLibrary;
+		return success+booksInLibrary;
 	}
 
 	@Override

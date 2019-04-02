@@ -24,9 +24,12 @@ public class FrontEndImplementation extends ActionServicePOA {
 	private String timetaken;
 	private long duration = 1000;
 	String majorityElement;
+	String majorityMessage = "";
 	private int invalidElement;
+	private int crashElement;
 	private HashMap<Integer, Integer> badReplicaMap = new HashMap<Integer, Integer>();
 	private Set<String> successSet = new HashSet<String>();
+	private List<Long> waitTimeList = new ArrayList<Long>();
 
 	public FrontEndImplementation(String replicaName) {
 
@@ -111,11 +114,11 @@ public class FrontEndImplementation extends ActionServicePOA {
 		DatagramSocket aSocket = null;
 		String messageReceived = null;
 		String key = null;
-		String message1, message2, message3;
+		String message1 = null, message2 = null, message3 = null;
 
 		long startTime = 0;
 		long endTime = 0;
-		List<Long> waitTimeList = new ArrayList<Long>();
+		
 
 		try {
 
@@ -227,49 +230,106 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	public String majorityOfResult(String message1, String message2, String message3) {
 
-		majorityElement = null;
 		invalidElement = 0;
-		int i;
-		successSet.clear();
-		if(message1.contains("success") || message1.contains("Success")) {
-			successSet.add(message1);
-			i=1;
-			
+
+		if(message1 == null) {
+			majorityMessage = message2.split(":",3)[2];
 		}
-		if(message2.contains("success") || message1.contains("Success")) {
-			successSet.add(message2);
-			i=2;
+		else if(message2 == null) {
+			majorityMessage = message1.split(":",3)[2];
 		}
-		if(message3.contains("success") || message1.contains("Success")) {
-			successSet.add(message3);
-			i=3;
+		else if (message3 == null) {
+			majorityMessage = message1.split(":",3)[2]; 
 		}
 		
-		
-		
-		if (message1.equalsIgnoreCase(message2) && message2.equalsIgnoreCase(message3)) {
-
-			majorityElement = message1;
-
-		} else if (message1.equalsIgnoreCase(message2) && !message2.equalsIgnoreCase(message3)) {
-
-			majorityElement = message1;
-			invalidElement = 3;
-
-		} else if (!message1.equalsIgnoreCase(message2) && message2.equalsIgnoreCase(message3)) {
-
-			majorityElement = message2;
-			invalidElement = 1;
-		} else if (message1.equalsIgnoreCase(message3) && !message2.equalsIgnoreCase(message3)) {
-
-			majorityElement = message1;
-			invalidElement = 2;
-		} else {
-			invalidElement = 0;
-		}
-
-		return majorityElement + "," + invalidElement;
+		else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
+					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
+				majorityMessage =  message1.split(":",3)[2];
+			}
+			else if(message1.split(":",3)[1].equalsIgnoreCase("Fail") && message2.split(":",3)[1].equalsIgnoreCase("Fail") 
+					&& message3.split(":")[1].equalsIgnoreCase("Fail")) {
+				majorityMessage = message1.split(":",3)[2];
+			}
+			else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
+					&& message3.split(":",3)[1].equalsIgnoreCase("Fail")) {
+				majorityMessage = message1.split(":",3)[2];
+				invalidElement = 3;
+			}
+			else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Fail") 
+					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
+				majorityMessage = message1.split(":",3)[2];
+				invalidElement = 2;
+			}
+			else if(message1.split(":",3)[1].equalsIgnoreCase("Fail") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
+					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
+				majorityMessage = message2.split(":",3)[2];
+				invalidElement = 1;
+			}
+			else if(message1.split(":",3)[1].equalsIgnoreCase("Fail") && message2.split(":",3)[1].equalsIgnoreCase("Fail") 
+					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
+				majorityMessage = message1.split(":",3)[2];
+				invalidElement = 3;
+			}
+			else if(message1.split(":",3)[1].equalsIgnoreCase("Fail") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
+					&& message3.split(":",3)[1].equalsIgnoreCase("Fail")) {
+				majorityMessage = message1.split(":",3)[2];
+				invalidElement = 2;
+			}
+			else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Fail") 
+					&& message3.split(":",3)[1].equalsIgnoreCase("Fail")) {
+				majorityMessage = message2.split(":",3)[2];
+				invalidElement = 1;
+			}
+		return majorityMessage;
 
 	}
+	
+//	public String majorityOfResult(String message1, String message2, String message3) {
+//
+//		majorityElement = null;
+//		invalidElement = 0;
+//		int i;
+//		successSet.clear();
+//		
+//		if(message1.contains("success") || message1.contains("Success")) {
+//			successSet.add(message1);
+//			i=1;
+//			
+//		}
+//		if(message2.contains("success") || message1.contains("Success")) {
+//			successSet.add(message2);
+//			i=2;
+//		}
+//		if(message3.contains("success") || message1.contains("Success")) {
+//			successSet.add(message3);
+//			i=3;
+//		}
+//		
+//		
+//		
+//		if (message1.equalsIgnoreCase(message2) && message2.equalsIgnoreCase(message3)) {
+//
+//			majorityElement = message1;
+//
+//		} else if (message1.equalsIgnoreCase(message2) && !message2.equalsIgnoreCase(message3)) {
+//
+//			majorityElement = message1;
+//			invalidElement = 3;
+//
+//		} else if (!message1.equalsIgnoreCase(message2) && message2.equalsIgnoreCase(message3)) {
+//
+//			majorityElement = message2;
+//			invalidElement = 1;
+//		} else if (message1.equalsIgnoreCase(message3) && !message2.equalsIgnoreCase(message3)) {
+//
+//			majorityElement = message1;
+//			invalidElement = 2;
+//		} else {
+//			invalidElement = 0;
+//		}
+//
+//		return majorityElement + "," + invalidElement;
+//
+//	}
 
 }
