@@ -368,14 +368,15 @@ public class ActionserviceImpl implements ActionService {
 			quantity = entry.getValue();
 //			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 //					+ thisEntry.getValue().split(",")[1] + ";");
-			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
+	//		message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n";
+			message = message.length() > 0 ? message.concat(";"+s+"-"+itemName+","+quantity) : message.concat(s+"-"+itemName+","+quantity);
 
 		}
 		LOG.info("--SUCCESS--");
 
 		LOG.info(message);
 
-		return message;
+		return "Success:"+message;
 	}
 
 	@Override
@@ -440,7 +441,8 @@ public class ActionserviceImpl implements ActionService {
 					}
 
 				} else {
-					message = "waitingqueue";
+				//	message = "waitingqueue";
+					message = "Unavailable";
 
 					LOG.info(
 							"Item not available. Sending request to the user If a user would like to be added in the waiting queue");

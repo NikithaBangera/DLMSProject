@@ -99,7 +99,7 @@ public class ReplicaManager {
 						result = action.exchangeItem(userID, newItemID, oldItemID);
 					}
 				}
-				sendUDPMessage(11111, result);
+				sendUDPMessage(11111, "rm1"+result);
 				
 			}
 			}).start();;

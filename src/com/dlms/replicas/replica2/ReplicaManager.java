@@ -82,7 +82,7 @@ public class ReplicaManager {
 						result = actionServiceImpl.exchangeItem(userID, newItemID, oldItemID);
 					}
 				}
-				sendUDPMessage(11111, result);
+				sendUDPMessage(11111, "rm2:"+result);
 
 			}
 			});
