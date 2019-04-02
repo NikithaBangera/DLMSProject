@@ -19,8 +19,8 @@ public class ReplicaManager {
 		DatagramSocket aSocket = null;
 		try {
 			aSocket = new DatagramSocket();
-			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("localhost");
+			byte[] msg = message.getBytes(); 
+			InetAddress aHost = InetAddress.getByName("localhost");  // Address of Sequencer
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
 
@@ -62,8 +62,13 @@ public class ReplicaManager {
 					String data = new String(request.getData());
 					System.out.println(data);
 //				String dataArray[] = data.split(",");
+
 					// set data in queue
+					if(queue.contains(data)) {
+						System.out.println("Duplicate message");
+					}else {
 					queue.add(data);
+					}
 
 					String message[] = queue.poll().split(",");
 					String operation = message[0];
@@ -107,6 +112,7 @@ public class ReplicaManager {
 						} else if (operation.equalsIgnoreCase("exchangeItem")) {
 							result = action.exchangeItem(userID, newItemID, oldItemID);
 						}
+
 					}
 					sendUDPMessage(11111, "rm1" + result);
 

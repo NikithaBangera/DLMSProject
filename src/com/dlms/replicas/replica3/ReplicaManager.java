@@ -76,7 +76,12 @@ public class ReplicaManager {
 					System.out.println(data);
 //				String dataArray[] = data.split(",");
 					// set data in queue
-					queue.add(data);
+
+					if (queue.contains(data)) {
+						System.out.println("Duplicate message. Message already in queue");
+					} else {
+						queue.add(data);
+					}
 
 					String message[] = queue.poll().split(",");
 					String operation = message[0];
@@ -90,24 +95,21 @@ public class ReplicaManager {
 					int numberOfDays = Integer.parseInt(message[8]);
 					String failureType = message[9];
 
-//					if (failureType.equalsIgnoreCase("faultyBug")) {
-//
-//					} 
-					
+
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 
 						if (crashCounter == 0) {
-							
-							new Thread(()->{
-							conStub.crashListItemAvailability("CONM1234");
+
+							new Thread(() -> {
+								conStub.crashListItemAvailability("CONM1234");
 							});
-						
-							new Thread(()->{
-							mcStub.crashListItemAvailability("CONM2345");
+
+							new Thread(() -> {
+								mcStub.crashListItemAvailability("CONM2345");
 							});
-							
-							new Thread(()->{
-							monStub.crashListItemAvailability("CONM4567");
+
+							new Thread(() -> {
+								monStub.crashListItemAvailability("CONM4567");
 							});
 							crashCounter++;
 						} else {
@@ -125,7 +127,7 @@ public class ReplicaManager {
 							queue.add(crashedMessage);
 							size--;
 							while (size != 0) {
-								
+
 								String mess = queue.poll();
 								executeQueueMessages(mess);
 								queue.add(mess);
