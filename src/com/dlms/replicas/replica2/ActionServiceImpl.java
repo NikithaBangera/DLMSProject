@@ -88,7 +88,7 @@ public class ActionServiceImpl implements ActionService {
 					return ("Success:"+"Item ID " + itemID + " added to the Concordia Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Failure:"+"Concordia:Add item operation not successfull");
+				return ("Fail:"+"Concordia:Add item operation not successfull");
 
 			case "MCG":
 				if (McgillServer.mcgLibrary.containsKey(itemID)) {
@@ -127,7 +127,7 @@ public class ActionServiceImpl implements ActionService {
 					return ("Success:"+"Item ID " + itemID + " added to the Mcgill Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Failure:"+"Mcgill:Add item operation not successfull");
+				return ("Fail:"+"Mcgill:Add item operation not successfull");
 
 			case "MON":
 				if (MontrealServer.monLibrary.containsKey(itemID)) {
@@ -166,7 +166,7 @@ public class ActionServiceImpl implements ActionService {
 					return ("Success:"+"Item ID " + itemID + " added to the Montreal Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Failure:"+"Montreal:Add item operation not successfull");
+				return ("Fail:"+"Montreal:Add item operation not successfull");
 			}
 
 		} catch (Exception e) {
@@ -198,7 +198,7 @@ public class ActionServiceImpl implements ActionService {
 					int value1 = Integer.parseInt(splitt[1]);
 					if (value1 < quantity) {
 						logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-						return ("Failure:"+"Concordia: Cannot reduce the quantity of the item" + itemID);
+						return ("Fail:"+"Concordia: Cannot reduce the quantity of the item" + itemID);
 					} else {
 						int value2 = value1 - quantity;
 						ConcordiaServer.convalues = splitt[0] + "," + value2;
@@ -208,7 +208,7 @@ public class ActionServiceImpl implements ActionService {
 					}
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-				return ("Failure:"+"Concordia:Remove item operation not successfull");
+				return ("Fail:"+"Concordia:Remove item operation not successfull");
 
 			case "MCG":
 				if (quantity == -1) {
@@ -222,7 +222,7 @@ public class ActionServiceImpl implements ActionService {
 					int value1 = Integer.parseInt(splitt[1]);
 					if (value1 < quantity) {
 						logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-						return ("Failure:"+"Mcgill: Cannot reduce the quantity of the item" + itemID);
+						return ("Fail:"+"Mcgill: Cannot reduce the quantity of the item" + itemID);
 					} else {
 						int value2 = value1 - quantity;
 						McgillServer.mcgvalues = splitt[0] + "," + value2;
@@ -232,7 +232,7 @@ public class ActionServiceImpl implements ActionService {
 					}
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-				return ("Failure:"+"Mcgill:Remove item operation not successfull");
+				return ("Fail:"+"Mcgill:Remove item operation not successfull");
 
 			case "MON":
 				if (quantity == -1) {
@@ -246,7 +246,7 @@ public class ActionServiceImpl implements ActionService {
 					int value1 = Integer.parseInt(splitt[1]);
 					if (value1 < quantity) {
 						logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-						return ("Failure:"+"Montreal: Cannot reduce the quantity of the item" + itemID);
+						return ("Fail:"+"Montreal: Cannot reduce the quantity of the item" + itemID);
 					} else {
 						int value2 = value1 - quantity;
 						MontrealServer.monvalues = splitt[0] + "," + value2;
@@ -256,7 +256,7 @@ public class ActionServiceImpl implements ActionService {
 					}
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-				return ("Failure:"+"Montreal:Remove item operation not successfull");
+				return ("Fail:"+"Montreal:Remove item operation not successfull");
 			}
 
 		} catch (Exception e) {
@@ -412,11 +412,12 @@ public class ActionServiceImpl implements ActionService {
 										+ " from Concordia library.\n");
 							} else if (quantity == 0) {
 								logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Concordia");
-								return ("Failure:"+"Cannot be Borrowed");
+							//	return ("Failure:"+"Cannot be Borrowed");
+								return ("Fail:Unavailable");
 							}
 						} else {
 							logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Concordia");
-							return ("Failure:"+"Item already borrowed");
+							return ("Fail:"+"Item already borrowed");
 						}
 					} else if (itemID.substring(0, 3).equalsIgnoreCase("MCG")) {
 						return borrowItemHandler(7777, userID, itemID);
@@ -446,12 +447,13 @@ public class ActionServiceImpl implements ActionService {
 										+ " from Mcgill library.\n");
 							} else if (quantity == 0) {
 								logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Mcgill");
-								return ("Failure:"+"Cannot be Borrowed");
+								//return ("Failure:"+"Cannot be Borrowed");
+								return ("Fail:Unavailable");
 							}
 
 						} else {
 							logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Mcgill");
-							return ("Failure:"+"Item Already borrowed");
+							return ("Fail:"+"Item Already borrowed");
 						}
 					} else if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
 						return borrowItemHandler(6666, userID, itemID);
@@ -481,11 +483,12 @@ public class ActionServiceImpl implements ActionService {
 										+ " from Montreal library.\n");
 							} else if (quantity == 0) {
 								logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Montreal");
-								return ("Failure:"+"Cannot be Borrowed");
+							//	return ("Failure:"+"Cannot be Borrowed");
+								return("Fail:Unavailable");
 							}
 						} else {
 							logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Montreal");
-							return ("Failure:"+"Item Already borrowed");
+							return ("Fail:"+"Item Already borrowed");
 						}
 					} else if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
 						return borrowItemHandler(6666, userID, itemID);
@@ -496,7 +499,7 @@ public class ActionServiceImpl implements ActionService {
 				}
 			} else {
 				logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
-				return ("Failure:"+"Item Not Available in " + serverName + " Library");
+				return ("Fail:"+"Item Not Available in " + serverName + " Library");
 			}
 		} catch (Exception e) {
 			System.out.println("Exception caught at BorrowItem");
@@ -745,7 +748,7 @@ public class ActionServiceImpl implements ActionService {
 
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "ReturnItem", false, userServer);
-			message = "Failure:"+"Return not possible.";
+			message = "Fail:"+"Return not possible.";
 		}
 		return message;
 	}
@@ -956,7 +959,7 @@ public class ActionServiceImpl implements ActionService {
 		System.out.println(reqMsg);
 		if (!(borrowItemFromOtherLibrary(itemID))) {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
-			return "Failure:"+"Cannot borrow more books from this library.";
+			return "Fail:"+"Cannot borrow more books from this library.";
 		}
 		borrowResponse = sendMessage(port, reqMsg);
 		if (borrowResponse.equalsIgnoreCase("Success")) {
@@ -966,10 +969,10 @@ public class ActionServiceImpl implements ActionService {
 			return "Success:"+"Item " + itemID + " borrowed by user " + userID + " successfully!";
 		} else if (borrowResponse.equalsIgnoreCase("Cannot be Borrowed")) {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
-			return "Failure:"+borrowResponse;
+			return "Fail:"+borrowResponse;
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
-			return "Failure:"+"Error/No response";
+			return "Fail:"+"Error/No response";
 		}
 
 	}
@@ -1014,7 +1017,7 @@ public class ActionServiceImpl implements ActionService {
 			return "Success:"+"Item " + itemID + " returned by user " + userID + " successfully!";
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "ReturnItem", false, serverName);
-			return "Failure:"+"Error/No response";
+			return "Fail:"+"Error/No response";
 		}
 	}
 
@@ -1046,7 +1049,6 @@ public class ActionServiceImpl implements ActionService {
 					if (returnMsg.equalsIgnoreCase("Success")) {
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
 						returnMsg = "Success:"+userID + " added to the waitlist successfully!";
-						addUserToWaitList(userID, itemID, userServer);
 					}
 				} else if (itemID.substring(0, 3).equalsIgnoreCase("MCG")) {
 					returnMsg = waitListHandler(7777, userID, itemID);
@@ -1061,7 +1063,6 @@ public class ActionServiceImpl implements ActionService {
 					if (returnMsg.equalsIgnoreCase("Success")) {
 						returnMsg = "Success:"+userID + " added to the waitlist successfully!";
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
-						addUserToWaitList(userID, itemID, userServer);
 					}
 				} else if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
 					returnMsg = waitListHandler(6666, userID, itemID);
@@ -1076,7 +1077,6 @@ public class ActionServiceImpl implements ActionService {
 					if (returnMsg.equalsIgnoreCase("Success")) {
 						returnMsg = "Success:"+userID + " added to the waitlist successfully!";
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
-						addUserToWaitList(userID, itemID, userServer);
 					}
 				} else if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
 					returnMsg = waitListHandler(6666, userID, itemID);
@@ -1087,24 +1087,6 @@ public class ActionServiceImpl implements ActionService {
 			}
 		}
 		return returnMsg;
-	}
-
-	private void addUserToWaitList(String userID, String itemID, String userServer) {
-		// TODO Auto-generated method stub
-		if (userServer.equalsIgnoreCase("Concordia")) {
-			String value = ConcordiaServer.conWaitlist.get(itemID);
-			value = value + "," + userID;
-			ConcordiaServer.conWaitlist.put(itemID, value);
-		} else if (userServer.equalsIgnoreCase("Mcgill")) {
-			String value = McgillServer.mcgWaitlist.get(itemID);
-			value = value + "," + userID;
-			McgillServer.mcgWaitlist.put(itemID, value);
-		} else if (userServer.equalsIgnoreCase("Montreal")) {
-			String value = MontrealServer.monWaitlist.get(itemID);
-			value = value + "," + userID;
-			MontrealServer.monWaitlist.put(itemID, value);
-		}
-
 	}
 
 	private boolean validateForUserWaitList(String userID, String itemID) {
@@ -1131,7 +1113,7 @@ public class ActionServiceImpl implements ActionService {
 			return "Success:"+userID + " added to the waitlist successfully!";
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "WaitListItem", true, serverName);
-			return "Failure:"+borrowResponse;
+			return "Fail:"+borrowResponse;
 		}
 	}
 
@@ -1181,7 +1163,7 @@ public class ActionServiceImpl implements ActionService {
 							&& (!borrowItemFromOtherLibrary(newItemID)
 									&& !(oldItemID.substring(0, 3).equalsIgnoreCase(newItemID.substring(0, 3))))) {
 						logInformationOnServer(userID, oldItemID, "Failure", "ExchangeItem", false, userServer);
-						return "Cannot borrow more books from this library.";
+						return "Fail:Cannot borrow more books from this library.";
 					} else {
 						message = returnItem(userID, oldItemID);
 						message += "\n" + borrowItem(userID, newItemID, numberOfDays);
@@ -1191,15 +1173,15 @@ public class ActionServiceImpl implements ActionService {
 					}
 				} else {
 					logInformationOnServer(userID, oldItemID, "Failure", "ExchangeItem", false, userServer);
-					message = "Failure:"+"New Item is not available in Library";
+					message = "Fail:"+"New Item is not available in Library";
 				}
 			} else {
 				logInformationOnServer(userID, oldItemID, "Failure", "ExchangeItem", false, userServer);
-				message = "Failure:"+"New Item is already borrowed";
+				message = "Fail:"+"New Item is already borrowed";
 			}
 		} else {
 			logInformationOnServer(userID, oldItemID, "Failure", "ExchangeItem", false, userServer);
-			message = "Failure:"+"Old Item not available with user for exchange";
+			message = "Fail:"+"Old Item not available with user for exchange";
 		}
 
 		return message;

@@ -368,7 +368,7 @@ public class ActionserviceImpl implements ActionService {
 			quantity = entry.getValue();
 //			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 //					+ thisEntry.getValue().split(",")[1] + ";");
-			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
+//	message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
 			message = message.concat(s+"-"+itemName+","+quantity+";");
 
 		}
@@ -376,7 +376,7 @@ public class ActionserviceImpl implements ActionService {
 
 		LOG.info(message);
 
-		return message;
+		return "Success:"+message;
 	}
 
 	@Override
@@ -441,6 +441,7 @@ public class ActionserviceImpl implements ActionService {
 					}
 
 				} else {
+
 					message = "Unavailability";
 
 					LOG.info(

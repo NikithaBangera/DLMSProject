@@ -168,11 +168,12 @@ public class ReplicaManager {
 
 						}
 					}
-					sendUDPMessage(11111, result);
+					sendUDPMessage(11111, "rm3"+result);
 
 				}
 			}).start();
 
+			
 		} catch (Exception e) {
 
 		}
