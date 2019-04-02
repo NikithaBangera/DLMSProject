@@ -29,6 +29,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	private int crashElement;
 	private HashMap<Integer, Integer> badReplicaMap = new HashMap<Integer, Integer>();
 	private Set<String> successSet = new HashSet<String>();
+	private List<Long> waitTimeList = new ArrayList<Long>();
 
 	public FrontEndImplementation(String replicaName) {
 
@@ -113,11 +114,11 @@ public class FrontEndImplementation extends ActionServicePOA {
 		DatagramSocket aSocket = null;
 		String messageReceived = null;
 		String key = null;
-		String message1, message2, message3;
+		String message1 = null, message2 = null, message3 = null;
 
 		long startTime = 0;
 		long endTime = 0;
-		List<Long> waitTimeList = new ArrayList<Long>();
+		
 
 		try {
 
@@ -230,27 +231,18 @@ public class FrontEndImplementation extends ActionServicePOA {
 	public String majorityOfResult(String message1, String message2, String message3) {
 
 		invalidElement = 0;
-		crashElement = 0;
-		
-		if(message1.split(":")[1].equalsIgnoreCase("Crash") || message2.split(":")[1].equalsIgnoreCase("Crash") 
-				|| message3.split(":")[1].equalsIgnoreCase("Crash")) {
-			List<String> messages = new ArrayList<String>();
-			messages.add(message1);
-			messages.add(message2);
-			messages.add(message3);
-			int i = 0;
-			for(String message : messages) {
-				if(message.split(":")[1].equalsIgnoreCase("Crash")) {
-					messages.remove(i); //if ArrayIndexOutOfBounds Exception, move this outside for loop
-					break;
-				}
-				i++;
-			}
-			crashElement = i + 1;
-			majorityMessage = messages.get(0).split(":",3)[2];
+
+		if(message1 == null) {
+			majorityMessage = message2.split(":",3)[2];
 		}
-		else {
-			if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
+		else if(message2 == null) {
+			majorityMessage = message1.split(":",3)[2];
+		}
+		else if (message3 == null) {
+			majorityMessage = message1.split(":",3)[2]; 
+		}
+		
+		else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
 					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
 				majorityMessage =  message1.split(":",3)[2];
 			}
@@ -288,7 +280,6 @@ public class FrontEndImplementation extends ActionServicePOA {
 				majorityMessage = message2.split(":",3)[2];
 				invalidElement = 1;
 			}
-		}
 		return majorityMessage;
 
 	}
