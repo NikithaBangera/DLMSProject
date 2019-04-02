@@ -1,0 +1,7 @@
+Apr 02, 2019 6:54:12 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id MCGM2233 opted to add a book
+Apr 02, 2019 6:54:19 PM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID MCGM2233initiated an add book request for book id 
+mcg4455 book name gt quantity 3 in MCG library
+Apr 02, 2019 6:54:19 PM com.dlms.client.Client managerOperation
+INFO: **** Entering addItem operation ***

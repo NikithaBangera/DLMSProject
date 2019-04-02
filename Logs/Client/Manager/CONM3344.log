@@ -1,7 +1,7 @@
-Apr 02, 2019 6:42:50 PM com.dlms.client.Client managerOperation
+Apr 02, 2019 6:50:39 PM com.dlms.client.Client managerOperation
 INFO: Manager with manager id CONM3344 opted to add a book
-Apr 02, 2019 6:42:59 PM com.dlms.client.Client managerOperation
+Apr 02, 2019 6:50:50 PM com.dlms.client.Client managerOperation
 INFO: ***** Manager with manager ID CONM3344initiated an add book request for book id 
-con1234 book name ds quantity 12 in CON library
-Apr 02, 2019 6:42:59 PM com.dlms.client.Client managerOperation
+con7777 book name gt quantity 3 in CON library
+Apr 02, 2019 6:50:50 PM com.dlms.client.Client managerOperation
 INFO: **** Entering addItem operation ***
