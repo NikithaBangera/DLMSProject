@@ -61,7 +61,9 @@ public class FrontEndImplementation extends ActionServicePOA {
 	}
 
 	public String listItemAvailability(String managerID) {
-		String result = sendToSequencer("listItemAvailability", managerID, null, null, null, null, 0, 0, null);
+		String c[] = managerID.split(",");
+		
+		String result = sendToSequencer("listItemAvailability", c[0], null, null, null, null, 0, 0, c[1]);
 		return result;
 	}
 
