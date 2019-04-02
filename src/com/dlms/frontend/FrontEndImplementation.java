@@ -22,9 +22,9 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	private ORB orb;
 	private String timetaken;
-	private long duration = 1000;
-	String majorityElement;
-	String majorityMessage = "";
+	private long duration = 100000;
+	private static String majorityElement = null;
+	private static String majorityMessage = "";
 	private int invalidElement;
 	private int crashElement;
 	private HashMap<Integer, Integer> badReplicaMap = new HashMap<Integer, Integer>();
@@ -50,6 +50,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	public String addItem(String managerID, String itemID, String itemName, int quantity) {
 
 		String result = sendToSequencer("addItem", managerID, null, null, itemID, itemName, quantity, 0, null);
+		System.out.println("FE result " + result + ":");
 
 		return result;
 	}
@@ -156,7 +157,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 					 * Sending a message to RM of crashed replica
 					 */
 					aSocket.send(new DatagramPacket("replicaCrashed".getBytes(), "replicaCrashed".length(),
-							InetAddress.getByName("crashed replica address"), 55555));
+							InetAddress.getByName("132.205.64.177"), 1313));
 
 				}
 				/*
@@ -169,9 +170,14 @@ public class FrontEndImplementation extends ActionServicePOA {
 				}
 			}
 			duration = Collections.max(waitTimeList);
-			message1 = new String(reply[0].getData().toString()).trim();
-			message2 = new String(reply[1].getData().toString()).trim();
-			message3 = new String(reply[2].getData().toString()).trim();
+			new String(request.getData());
+			message1 = new String(reply[0].getData()).trim();
+			message2 = new String(reply[1].getData()).trim();
+			message3 = new String(reply[2].getData()).trim();
+
+			System.out.println(message1.trim() + "message1");
+			System.out.println(message2.trim() + "message2");
+			System.out.println(message3.trim() + "message3");
 
 			// message1 = new String(reply[0].getAddress().equals("replica1") ?
 			// reply[0].getData()
@@ -189,8 +195,11 @@ public class FrontEndImplementation extends ActionServicePOA {
 			// reply[2].getData());
 			// message3 = message3.trim();
 
-			majorityOfResult(message1, message2, message3);
+			majorityElement = majorityOfResult(message1, message2, message3);
 
+			System.out.println(message1 + "majormessage1");
+			System.out.println(message2 + " majo message2");
+			System.out.println(message3 + "majo message3");
 			if (invalidElement == 1) {
 				badReplicaMap.put(1, badReplicaMap.get(1) + 1);
 				badReplicaMap.put(2, 0);
@@ -253,17 +262,15 @@ public class FrontEndImplementation extends ActionServicePOA {
 			int replica = Integer.parseInt(message1.split(":")[0].substring(2, 3));
 			invalidElement = replica;
 
-		} 
-		else if (message2.equalsIgnoreCase("someJunkValue")) {
+		} else if (message2.equalsIgnoreCase("someJunkValue")) {
 			int replica = Integer.parseInt(message2.split(":")[0].substring(2, 3));
 			invalidElement = replica;
 
-		}
-		else if (message3.equalsIgnoreCase("someJunkValue")) {
+		} else if (message3.equalsIgnoreCase("someJunkValue")) {
 			int replica = Integer.parseInt(message3.split(":")[0].substring(2, 3));
 			invalidElement = replica;
 
-		}else if (message1.split(":", 3)[1].equalsIgnoreCase("Success")
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Success")
 				&& message2.split(":", 3)[1].equalsIgnoreCase("Success")
 				&& message3.split(":", 3)[1].equalsIgnoreCase("Success")) {
 			majorityMessage = message1.split(":", 3)[2];

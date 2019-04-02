@@ -49,10 +49,11 @@ public class Sequencer {
 					 * Attaching a unique sequencer number and multi-casting message to all replicas
 					 */
 					sequenceNumber++;
-					message = sequenceNumber+","+message;
+					message = sequenceNumber + "," + message;
+					System.out.println(message + " : seq msg");
 					multicastMessage(message);
 					DatagramPacket reply = null;
-					
+
 				}
 			}
 
@@ -89,13 +90,14 @@ public class Sequencer {
 
 			InetAddress mcIPAddress = InetAddress.getByName(mcIPStr);
 			byte[] msg = message.getBytes();
-			DatagramPacket mcPacket = new DatagramPacket(msg, msg.length);
+			DatagramPacket mcPacket = new DatagramPacket(msg, msg.length, mcIPAddress, 1313);
 			mcPacket.setAddress(mcIPAddress);
 			// mcPacket.setPort(mcPort);
 			aSocket.send(mcPacket);
 
 			System.out.println("Sent a  multicast message.");
 			System.out.println("Exiting application");
+			System.out.println("mcPacket" + mcPacket.getData().toString());
 		} catch (SocketException e) {
 			System.out.println("Socket: " + e.getMessage());
 		} catch (IOException e) {

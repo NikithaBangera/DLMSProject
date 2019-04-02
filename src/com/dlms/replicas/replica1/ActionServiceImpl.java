@@ -78,6 +78,7 @@ public class ActionServiceImpl implements ActionService {
 				operation = success + "Item " + itemID + " added to the library Successfully";
 			}
 			Concordia.logger.info("Response returned: " + operation + ".\n");
+			
 			break;
 
 		case "MON":
@@ -188,6 +189,7 @@ public class ActionServiceImpl implements ActionService {
 			System.out.println(McGill.Books);
 			break;
 		}
+		System.out.println("AddItem: "+operation);
 		return operation;
 	}
 
@@ -220,6 +222,7 @@ public class ActionServiceImpl implements ActionService {
 			McGill.logger.info("Response returned: " + operation);
 			break;
 		}
+		System.out.println("RemoveItem: "+operation);
 		return operation;
 	}
 
@@ -256,6 +259,7 @@ public class ActionServiceImpl implements ActionService {
 			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 					+ thisEntry.getValue().split(",")[1] + ";");
 		}
+		System.out.println("RemoveItem: "+booksInLibrary);
 		return success+booksInLibrary;
 	}
 

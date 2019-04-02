@@ -31,13 +31,16 @@ public class Client {
 
 	private static void getregistryURI(String library, NamingContextExt ncRef)
 			throws NotFound, CannotProceed, InvalidName {
-		if (library.equals("CON")) {
-			serverRef = (ActionServiceApp.ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("CON"));
-		} else if (library.equals("MON")) {
-			serverRef = (ActionServiceApp.ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("MON"));
-		} else if (library.equals("MCG")) {
-			serverRef = (ActionServiceApp.ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("MCG"));
-		}
+		// if (library.equals("frontEndOne")) {
+		serverRef = (ActionServiceApp.ActionService) ActionServiceHelper.narrow(ncRef.resolve_str("libraryStub"));
+		// }
+		// else if (library.equals("MON")) {
+		// serverRef = (ActionServiceApp.ActionService)
+		// ActionServiceHelper.narrow(ncRef.resolve_str("MON"));
+		// } else if (library.equals("MCG")) {
+		// serverRef = (ActionServiceApp.ActionService)
+		// ActionServiceHelper.narrow(ncRef.resolve_str("MCG"));
+		// }
 
 	}
 
@@ -289,22 +292,26 @@ public class Client {
 				System.out.println("Crash Failure Result: " + result);
 				break;
 
-//			case "5":
-//				logger.info("Manager with manager id " + managerID + " opted to list all the books in the library");
-//				bookList = "";
-//				logger.info("**** Entering listItemAvailability operation to display crash failure operation ***");
-//				bookList = serverRef.listItemAvailability("faultyBug");
-//
-//				bookList = bookList.substring(0, bookList.length() - 1);
-//
-//				logger.info("Response received from server : " + bookList);
-//				String[] booksResult = bookList.split(";");
-//				System.out.println("Library has following " + booksResult.length + " books:\n");
-//				for (String book : booksResult) {
-//					System.out.println(book.split("-")[0] + " " + book.split("-")[1].split(",")[0] + " , "
-//							+ book.split("-")[1].split(",")[1]);
-//				}
-//				break;
+			// case "5":
+			// logger.info("Manager with manager id " + managerID + " opted to list all the
+			// books in the library");
+			// bookList = "";
+			// logger.info("**** Entering listItemAvailability operation to display crash
+			// failure operation ***");
+			// bookList = serverRef.listItemAvailability("faultyBug");
+			//
+			// bookList = bookList.substring(0, bookList.length() - 1);
+			//
+			// logger.info("Response received from server : " + bookList);
+			// String[] booksResult = bookList.split(";");
+			// System.out.println("Library has following " + booksResult.length + "
+			// books:\n");
+			// for (String book : booksResult) {
+			// System.out.println(book.split("-")[0] + " " +
+			// book.split("-")[1].split(",")[0] + " , "
+			// + book.split("-")[1].split(",")[1]);
+			// }
+			// break;
 
 			default:
 				logger.log(Level.SEVERE, "\nInvalid choice entered by user");
@@ -472,7 +479,8 @@ public class Client {
 				logger.info("User with user id " + userID + " opted to exchange a book with old item id " + oldItemID
 						+ ", newItemID " + newItemID);
 				logger.info("**** Entering exchangeItem operation ***");
-//				System.out.println("userID " + userID + " newItemID " + newItemID + "oldItemID" + oldItemID);
+				// System.out.println("userID " + userID + " newItemID " + newItemID +
+				// "oldItemID" + oldItemID);
 				operation = serverRef.exchangeItem(userID, newItemID, oldItemID);
 				System.out.println(operation);
 				logger.info("Response received from server : " + operation);
@@ -527,9 +535,9 @@ public class Client {
 
 					// Code ended for Corba Service creation
 					getregistryURI(serverName, ncRef);
-//					if (!serverRef.validateUser(operatorID)) {
-//						System.out.println("User ID does not exist in System\n");
-//					} else {
+					// if (!serverRef.validateUser(operatorID)) {
+					// System.out.println("User ID does not exist in System\n");
+					// } else {
 					try {
 						switch (operatorRole) {
 						case 'M':
@@ -551,7 +559,7 @@ public class Client {
 					} catch (NumberFormatException e) {
 						e.printStackTrace();
 					}
-//					}
+					// }
 				}
 			}
 

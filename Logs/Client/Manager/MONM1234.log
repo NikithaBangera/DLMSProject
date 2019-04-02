@@ -1,0 +1,7 @@
+Apr 02, 2019 6:26:26 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id MONM1234 opted to add a book
+Apr 02, 2019 6:26:33 PM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID MONM1234initiated an add book request for book id 
+MON1232 book name DS quantity 3 in MON library
+Apr 02, 2019 6:26:33 PM com.dlms.client.Client managerOperation
+INFO: **** Entering addItem operation ***
