@@ -23,7 +23,7 @@ import org.omg.CORBA.ORB;
 
 import com.dlms.replicas.replica1.ActionServiceImpl;
 import com.dlms.replicas.replica1.Concordia;
-import com.dlms.replicas.replica1.McGill;
+import com.dlms.replicas.replica1.McGill; 
 import com.dlms.replicas.replica1.Montreal;
 
 public class ActionserviceImpl implements ActionService {
@@ -369,6 +369,7 @@ public class ActionserviceImpl implements ActionService {
 //			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 //					+ thisEntry.getValue().split(",")[1] + ";");
 			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
+			message = message.concat(s+"-"+itemName+","+quantity+";");
 
 		}
 		LOG.info("--SUCCESS--");
@@ -440,7 +441,7 @@ public class ActionserviceImpl implements ActionService {
 					}
 
 				} else {
-					message = "waitingqueue";
+					message = "Unavailability";
 
 					LOG.info(
 							"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
@@ -450,7 +451,7 @@ public class ActionserviceImpl implements ActionService {
 
 			} else {
 				message = "fail: Item does not exist in the library";
-				message = "waitingqueue";
+				message = "Unavailability";
 				LOG.info(
 						"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
 
@@ -803,7 +804,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 
-							if (reply1.equalsIgnoreCase("waitingqueue")) {
+							if (reply1.equalsIgnoreCase("Unavailability")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -833,7 +834,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 
-							if (reply1.equalsIgnoreCase("waitingqueue")) {
+							if (reply1.equalsIgnoreCase("Unavailability")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -863,7 +864,7 @@ public class ActionserviceImpl implements ActionService {
 								LOG.info(message);
 							}
 						} else {
-							if (reply1.equalsIgnoreCase("waitingqueue")) {
+							if (reply1.equalsIgnoreCase("Unavailability")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -929,7 +930,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("waitingqueue")) {
+				if (reply1.equalsIgnoreCase("Unavailability")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -981,7 +982,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("waitingqueue")) {
+				if (reply1.equalsIgnoreCase("Unavailability")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -1032,7 +1033,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("waitingqueue")) {
+				if (reply1.equalsIgnoreCase("Unavailability")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);

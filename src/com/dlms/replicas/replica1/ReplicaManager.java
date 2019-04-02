@@ -86,6 +86,7 @@ public class ReplicaManager {
 					} else if (operation.equalsIgnoreCase("removeItem")) {
 						result = action.removeItem(managerID, oldItemID, quantity);
 					} else if (operation.equalsIgnoreCase("listItemAvailability")) {
+						
 						result = action.listItemAvailability(managerID);
 					} else if (operation.equalsIgnoreCase("borrowItem")) {
 						result = action.borrowItem(userID, oldItemID, numberOfDays);

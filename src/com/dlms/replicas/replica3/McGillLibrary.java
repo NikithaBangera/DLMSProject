@@ -261,7 +261,7 @@ public class McGillLibrary {
 								}
 
 							} else {
-								message = "waitingqueue";
+								message = "Unavailability";
 								mcStub.LOG.info("-----FAILED-----");
 								mcStub.LOG.info("Item does not exist in the library. User to be asked If he wants to be added in the waiting queue. ");
 
@@ -271,7 +271,7 @@ public class McGillLibrary {
 					} else {
 						
 						message = "fail: Item does not exist in the library";
-						message = "waitingqueue";
+						message = "Unavailability";
 						mcStub.LOG.info("-----FAILED-----");
 						mcStub.LOG.info("Item does not exist in the library. User to be asked If he wants to be added in the waiting queue. ");
 					}

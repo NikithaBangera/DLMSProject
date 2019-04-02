@@ -95,9 +95,18 @@ public class ReplicaManager {
 					} else if (failureType.equalsIgnoreCase("faultyCrash")) {
 
 						if (crashCounter == 0) {
+							
+							new Thread(()->{
 							conStub.crashListItemAvailability("CONM1234");
+							});
+						
+							new Thread(()->{
 							mcStub.crashListItemAvailability("CONM2345");
+							});
+							
+							new Thread(()->{
 							monStub.crashListItemAvailability("CONM4567");
+							});
 							crashCounter++;
 						} else {
 
@@ -109,8 +118,12 @@ public class ReplicaManager {
 							mcStub = McGillLibrary.mcStub;
 							monStub = MontrealLibrary.monStub;
 							int size = queue.size();
+							String crashedMessage = queue.poll();
+							executeQueueMessages(crashedMessage);
+							queue.add(crashedMessage);
+							size--;
 							while (size != 0) {
-
+								
 								String mess = queue.poll();
 								executeQueueMessages(mess);
 								queue.add(mess);
@@ -194,7 +207,7 @@ public class ReplicaManager {
 			result = action.addItem(managerID, oldItemID, itemName, quantity);
 		} else if (operation.equalsIgnoreCase("removeItem")) {
 			result = action.removeItem(managerID, oldItemID, quantity);
-		} else if (operation.equalsIgnoreCase("listItemAvailability")) {
+		} else if (operation.equalsIgnoreCase("listItemAvailability") || operation.equalsIgnoreCase("faultyCrash")) {
 			result = action.listItemAvailability(managerID);
 		} else if (operation.equalsIgnoreCase("borrowItem")) {
 			result = action.borrowItem(userID, oldItemID, numberOfDays);
