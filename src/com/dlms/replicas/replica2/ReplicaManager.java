@@ -59,9 +59,11 @@ public class ReplicaManager {
 				int numberOfDays = Integer.parseInt(message[8]);
 				String failureType = message[9];
 
-				if (failureType.equalsIgnoreCase("faultyBug")) {
-
-				} else if (failureType.equalsIgnoreCase("faultyCrash")) {
+//				if (failureType.equalsIgnoreCase("faultyBug")) {
+//
+//				} 
+				
+				if (failureType.equalsIgnoreCase("faultyCrash")) {
 
 				} else {
 					if (operation.equalsIgnoreCase("addItem")) {

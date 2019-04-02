@@ -11,6 +11,8 @@ import java.util.PriorityQueue;
 public class ReplicaManager {
 
 	private static String result = "";
+	private static String replicaId = "rm1:";
+	private static int count=0;
 	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 
 	static public void sendUDPMessage(int serverPort, String message) {
@@ -76,9 +78,11 @@ public class ReplicaManager {
 				int numberOfDays = Integer.parseInt(message[8]);
 				String failureType = message[9];
 
-				if (failureType.equalsIgnoreCase("faultyBug")) {
-
-				} else if (failureType.equalsIgnoreCase("faultyCrash")) {
+//				if (failureType.equalsIgnoreCase("faultyBug")) {
+//
+//				}
+				
+				if (failureType.equalsIgnoreCase("faultyCrash")) {
 
 				} else {
 					if (operation.equalsIgnoreCase("addItem")) {
@@ -86,7 +90,13 @@ public class ReplicaManager {
 					} else if (operation.equalsIgnoreCase("removeItem")) {
 						result = action.removeItem(managerID, oldItemID, quantity);
 					} else if (operation.equalsIgnoreCase("listItemAvailability")) {
-						result = action.listItemAvailability(managerID);
+						count+=1;
+						if(count<=3) {
+							String response = "someJunkValue";
+						}else {
+							result = action.listItemAvailability(managerID);
+						}
+						
 					} else if (operation.equalsIgnoreCase("borrowItem")) {
 						result = action.borrowItem(userID, oldItemID, numberOfDays);
 					} else if (operation.equalsIgnoreCase("waitList")) {
@@ -99,7 +109,7 @@ public class ReplicaManager {
 						result = action.exchangeItem(userID, newItemID, oldItemID);
 					}
 				}
-				sendUDPMessage(11111, result);
+				sendUDPMessage(11111, replicaId+result);
 				
 			}
 			}).start();;
@@ -108,4 +118,9 @@ public class ReplicaManager {
 		}
 
 	}
+
+//	private static String getBuggyResult() {
+//		String res = action.listItemAvailability(managerID);
+//		return null;
+//	}
 }

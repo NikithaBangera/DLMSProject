@@ -117,9 +117,7 @@ public class Client {
 			System.out.println("\nEnter your choice : " + "\n1. Type 1 to add a book to the library."
 					+ "\n2. Type 2 to remove a book from the library."
 					+ "\n3. Type 3 to list all the available books in the library."
-					+ "\n4. Type 4 Display crash Failure."
-					+"\n5. Type 5 Display software Failure."
-					);
+					+ "\n4. Type 4 Display crash Failure.");
 			System.out.println("\nEnter your choice : ");
 			String managerCommand = (reader.readLine());
 			switch (managerCommand) {
@@ -279,32 +277,35 @@ public class Client {
 							+ book.split("-")[1].split(",")[1]);
 				}
 				break;
-				
+
 			case "4":
 				logger.info("Manager with manager id " + managerID + " opted to list all the books in the library");
-				result = "";
+				bookList = "";
 				logger.info("**** Entering listItemAvailability operation to display crash failure operation ***");
-				result = serverRef.listItemAvailability("faultyCrash");
+				bookList = serverRef.listItemAvailability("faultyCrash");
 
 				logger.info("Response received from server : " + result);
-				
-				System.out.println("Crash Failure Result: "+result);
-				break;
-				
-			case "5":
-				logger.info("Manager with manager id " + managerID + " opted to list all the books in the library");
-				result = "";
-				logger.info("**** Entering listItemAvailability operation to display software failure operation ***");
-				result = serverRef.listItemAvailability("faultyBug");
 
-				logger.info("Response received from server : " + result);
-				
-				System.out.println("Software Failure Result: "+result);
+				System.out.println("Crash Failure Result: " + result);
 				break;
-				
-				
-				
-				
+
+//			case "5":
+//				logger.info("Manager with manager id " + managerID + " opted to list all the books in the library");
+//				bookList = "";
+//				logger.info("**** Entering listItemAvailability operation to display crash failure operation ***");
+//				bookList = serverRef.listItemAvailability("faultyBug");
+//
+//				bookList = bookList.substring(0, bookList.length() - 1);
+//
+//				logger.info("Response received from server : " + bookList);
+//				String[] booksResult = bookList.split(";");
+//				System.out.println("Library has following " + booksResult.length + " books:\n");
+//				for (String book : booksResult) {
+//					System.out.println(book.split("-")[0] + " " + book.split("-")[1].split(",")[0] + " , "
+//							+ book.split("-")[1].split(",")[1]);
+//				}
+//				break;
+
 			default:
 				logger.log(Level.SEVERE, "\nInvalid choice entered by user");
 				System.out.println("\nPlease enter a valid choice.\n");
@@ -501,7 +502,8 @@ public class Client {
 		try {
 			while (!stopRunning) {
 				System.out.println("\n* Welcome to Library *");
-				System.out.println("\n(At any point of time type 'Quit' to exit and enter Invalid ID to 'Crash' the system)");
+				System.out.println(
+						"\n(At any point of time type 'Quit' to exit and enter Invalid ID to 'Crash' the system)");
 				System.out.println("\nPlease enter a valid User Id or Manager Id : ");
 				operatorID = (reader.readLine()).toUpperCase();
 
@@ -528,27 +530,27 @@ public class Client {
 //					if (!serverRef.validateUser(operatorID)) {
 //						System.out.println("User ID does not exist in System\n");
 //					} else {
-						try {
-							switch (operatorRole) {
-							case 'M':
-								Logger managerlogger = Logger.getLogger(operatorID);
+					try {
+						switch (operatorRole) {
+						case 'M':
+							Logger managerlogger = Logger.getLogger(operatorID);
 
-								managerlogger = loggingOperator("Manager", operatorID, managerlogger);
-								managerOperation(operatorID, managerlogger);
+							managerlogger = loggingOperator("Manager", operatorID, managerlogger);
+							managerOperation(operatorID, managerlogger);
 
-								break;
+							break;
 
-							case 'U':
-								Logger userlogger = Logger.getLogger(operatorID);
+						case 'U':
+							Logger userlogger = Logger.getLogger(operatorID);
 
-								userlogger = loggingOperator("User", operatorID, userlogger);
-								userOperation(operatorID, userlogger);
+							userlogger = loggingOperator("User", operatorID, userlogger);
+							userOperation(operatorID, userlogger);
 
-								break;
-							}
-						} catch (NumberFormatException e) {
-							e.printStackTrace();
+							break;
 						}
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
 //					}
 				}
 			}
