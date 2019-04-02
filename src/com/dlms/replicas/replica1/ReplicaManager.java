@@ -43,11 +43,11 @@ public class ReplicaManager {
 
 			ActionServiceImpl action = new ActionServiceImpl();
 
-			MulticastSocket aSocket = new MulticastSocket(1313);
+			MulticastSocket aSocket = new MulticastSocket(33333);
 
 			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
-			System.out.println("Server Started............");
+			System.out.println("Server Started 33333............");
 			new Thread(() -> {
 				while (true) {
 					byte[] buffer = new byte[1000];

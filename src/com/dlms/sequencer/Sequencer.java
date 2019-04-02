@@ -29,8 +29,8 @@ public class Sequencer {
 		int sequenceNumber = 0;
 		try {
 
-			aSocket = new DatagramSocket(1313);
-			System.out.println("Server 1313 Started............");
+			aSocket = new DatagramSocket(22222);
+			System.out.println("Server 22222 Started............");
 			while (true) {
 				byte[] bufferData = new byte[1024];
 				DatagramPacket request = null;
