@@ -25,7 +25,7 @@ public class ReplicaManager {
 
 			MulticastSocket aSocket = new MulticastSocket(1313);
 
-			aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
+			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
 			System.out.println("Server Started............");
 			new Thread(() -> {
