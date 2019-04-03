@@ -51,17 +51,19 @@ public class McgillServer {
 		mcgLibrary.put("MCG3333", "GRAPH THEORY,2");
 		mcgLibrary.put("MCG4444", "DATA STRUCTURE,8");
 
-		mcgWaitlist.put("MCG2013", "CONU1015,MONU1016");
-		mcgWaitlist.put("MCG2014", "MCGU1017,MONU1018");
-		mcgWaitlist.put("MCG2015", "MONU1019,MCGU1020");
+//		mcgWaitlist.put("MCG2222", "MCGU1013,CONU1012");
+//		mcgWaitlist.put("MCG2013", "CONU1015,MONU1016");
+//		mcgWaitlist.put("MCG2014", "MCGU1017,MONU1018");
+//		mcgWaitlist.put("MCG2015", "MONU1019,MCGU1020");
 
-		itemHistory.add("MCG1111,Borrowed");
-		itemHistory.add("MCG2222,Returned");
-		itemHistory.add("MCG3333,Borrowed");
-		itemHistory.add("CON2222,Borrowed");
-		itemHistory.add("CON3333,Returned");
-		itemHistory.add("MON2222,Borrowed");
-		itemHistory.add("MON3333,Returned");
+		itemHistory.add("MCG5555,Borrowed");
+		itemHistory.add("MCG6666,Returned");
+		itemHistory.add("MCG7777,Borrowed");
+//		itemHistory.add("CON5555,Borrowed");
+//		itemHistory.add("CON6666,Returned");
+//		itemHistory.add("MON5555,Borrowed");
+//		itemHistory.add("MON6666,Returned");
+		
 //		itemHistory.add("MCG2012,Borrowed");
 //		itemHistory.add("MCG2013,Borrowed");
 //		itemHistory.add("MON2014,Borrowed");
@@ -73,6 +75,7 @@ public class McgillServer {
 		userHistory.put("MCGU1011", itemHistory);
 		userHistory.put("MCGU1012", itemHistory);
 		userHistory.put("MCGU1013", itemHistory);
+		
 //		userHistory.put("MCGU1014", itemHistory);
 //		userHistory.put("MCGU1015", itemHistory);
 //		userHistory.put("MCGU1016", itemHistory);
@@ -277,7 +280,8 @@ public class McgillServer {
 			String[] itemDetails = item.getValue().split(",");
 			if (itemDetails[0].equalsIgnoreCase(itemName)) {
 				System.out.println("Key matches");
-				response = item.getKey() + " " + itemDetails[1];
+			//	response = item.getKey() + " " + itemDetails[1];
+				response = item.getKey() + "-" + item.getValue();
 			}
 		}
 		return response;
