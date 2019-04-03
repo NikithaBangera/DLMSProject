@@ -40,11 +40,15 @@ public class ConcordiaServer {
 	 */
 	public ConcordiaServer() {
 
-		conLibrary.put("CON2011", "Distributed Systems,5");
-		conLibrary.put("CON2012", "Advanced Programming,6");
-		conLibrary.put("CON2013", "Pattern Recognition,0");
-		conLibrary.put("CON2014", "Machine learning,0");
-		conLibrary.put("CON2015", "Advanced Java,0");
+		conLibrary.put("CON1111", "COMPILER DESIGN,4");
+		conLibrary.put("CON2222", "DISCRETE MATHEMATICAL STRUCTURE,0");
+		conLibrary.put("CON3333", "GRAPH THEORY,2");
+		conLibrary.put("CON4444", "DATA STRUCTURE,8");
+//		conLibrary.put("CON2011", "Distributed Systems,5");
+//		conLibrary.put("CON2012", "Advanced Programming,6");
+//		conLibrary.put("CON2013", "Pattern Recognition,0");
+//		conLibrary.put("CON2014", "Machine learning,0");
+//		conLibrary.put("CON2015", "Advanced Java,0");
 
 		conWaitlist.put("CON2013", "CONU1015,MONU1016");
 		conWaitlist.put("CON2014", "MCGU1017,MONU1018");
