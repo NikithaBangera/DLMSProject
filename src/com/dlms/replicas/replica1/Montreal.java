@@ -206,10 +206,10 @@ public class Montreal {
 		String[] managerIDs = { "MONM1122", "MONM2233", "MONM3344" };
 		Collections.addAll(managerUserList, managerIDs);
 
-		Books.put("MON1111", "Computer Networks,9");
-		Books.put("MON2222", "Computer Organization,0");
-		Books.put("MON3333", "Discrete Mathmatical Structure,1");
-		Books.put("MON4444", "Data Structure,8");
+		Books.put("MON1111", "COMPILER DESIGN,4");
+		Books.put("MON2222", "DISCRETE MATHEMATICAL STRUCTURE,0");
+		Books.put("MON3333", "GRAPH THEORY,2");
+		Books.put("MON4444", "DATA STRUCTURE,8");
 
 		HashMap<String, Integer> temp = new HashMap<String, Integer>();
 		temp.put("MON1111", 12);

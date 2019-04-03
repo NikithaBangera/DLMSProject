@@ -204,10 +204,10 @@ public class McGill {
 		String[] managerIDs = { "MCGM1122", "MCGM2233", "MCGM3344" };
 		Collections.addAll(managerUserList, managerIDs);
 
-		Books.put("MCG1111", "Compiler Design,5");
-		Books.put("MCG2222", "JAVA and J2EE,1");
-		Books.put("MCG3333", "Computer Organization,4");
-		Books.put("MCG4444", "Data Structure,8");
+		Books.put("MCG1111", "COMPILER DESIGN,4");
+		Books.put("MCG2222", "DISCRETE MATHEMATICAL STRUCTURE,0");
+		Books.put("MCG3333", "GRAPH THEORY,2");
+		Books.put("MCG4444", "DATA STRUCTURE,8");
 
 		HashMap<String, Integer> temp = new HashMap<String, Integer>();
 		temp.put("MCG1111", 12);

@@ -19,8 +19,8 @@ public class ReplicaManager {
 		DatagramSocket aSocket = null;
 		try {
 			aSocket = new DatagramSocket();
-			byte[] msg = message.getBytes(); 
-			InetAddress aHost = InetAddress.getByName("localhost");  // Address of Sequencer
+			byte[] msg = message.getBytes();
+			InetAddress aHost = InetAddress.getByName("localhost"); // Address of Sequencer
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
 
@@ -61,18 +61,18 @@ public class ReplicaManager {
 					}
 					System.out.println("abcd---" + request.getData().toString());
 					String data = new String(request.getData());
-					System.out.println("----"+data);
-//				String dataArray[] = data.split(",");
+					System.out.println("----" + data);
+					// String dataArray[] = data.split(",");
 
 					// set data in queue
-					if(queue.contains(data)) {
+					if (queue.contains(data)) {
 						System.out.println("Duplicate message");
-					}else {
-					queue.add(data);
+					} else {
+						queue.add(data);
 					}
 
 					String message[] = queue.poll().split(",");
-					String seqNum =  message[0];
+					String seqNum = message[0];
 					String operation = message[1];
 					String managerID = message[2];
 					String userID = message[3];
@@ -83,10 +83,6 @@ public class ReplicaManager {
 					int numberOfDays = Integer.parseInt(message[8]);
 					String failureType = message[9];
 
-//				if (failureType.equalsIgnoreCase("faultyBug")) {
-//
-//				}
-
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 
 					} else {
@@ -95,12 +91,12 @@ public class ReplicaManager {
 						} else if (operation.equalsIgnoreCase("removeItem")) {
 							result = action.removeItem(managerID, oldItemID, quantity);
 						} else if (operation.equalsIgnoreCase("listItemAvailability")) {
-							count += 1;
-							if (count <= 3) {
-								String response = "someJunkValue";
-							} else {
-								result = action.listItemAvailability(managerID);
-							}
+							// count += 1;
+							// if (count <= 3) {
+							// String response = "someJunkValue";
+							// } else {
+							result = action.listItemAvailability(managerID);
+							// }
 
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
 							result = action.borrowItem(userID, oldItemID, numberOfDays);
@@ -119,15 +115,14 @@ public class ReplicaManager {
 
 				}
 			}).start();
-			;
 		} catch (Exception e) {
 
 		}
 
 	}
 
-//	private static String getBuggyResult() {
-//		String res = action.listItemAvailability(managerID);
-//		return null;
-//	}
+	// private static String getBuggyResult() {
+	// String res = action.listItemAvailability(managerID);
+	// return null;
+	// }
 }

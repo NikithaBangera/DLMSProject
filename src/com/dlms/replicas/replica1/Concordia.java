@@ -204,10 +204,10 @@ public class Concordia {
 		String[] managerIDs = { "CONM1122", "CONM2233", "CONM3344", "CONM4455" };
 		Collections.addAll(managerUserList, managerIDs);
 
-		Books.put("CON1111", "Compiler Design,4");
-		Books.put("CON2222", "Discrete Mathmatical Structure,0");
-		Books.put("CON3333", "Graph Theory,2");
-		Books.put("CON4444", "Data Structure,8");
+		Books.put("CON1111", "COMPILER DESIGN,4");
+		Books.put("CON2222", "DISCRETE MATHEMATICAL STRUCTURE,0");
+		Books.put("CON3333", "GRAPH THEORY,2");
+		Books.put("CON4444", "DATA STRUCTURE,8");
 
 		HashMap<String, Integer> temp = new HashMap<String, Integer>();
 		temp.put("CON1111", 12);
