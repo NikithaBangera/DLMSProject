@@ -574,7 +574,8 @@ public class ActionServiceImpl implements ActionService {
 				Entry<String, String> item = mapIterator.next();
 				String[] itemDetails = item.getValue().split(",");
 				if (itemDetails[0].equalsIgnoreCase(itemName)) {
-					conResponse = item.getKey() + " " + itemDetails[1];
+				//	conResponse = item.getKey() + " " + itemDetails[1];
+					conResponse = item.getKey() + "-" + item.getValue();
 					itemFound = true;
 					break;
 				}
@@ -588,8 +589,8 @@ public class ActionServiceImpl implements ActionService {
 			mcgResponse = findItemHandler(7777, userID, itemName);
 			monResponse = findItemHandler(8888, userID, itemName);
 
-			conResponse = conResponse.length() > 0 ? conResponse + ", " : "";
-			mcgResponse = mcgResponse.length() > 0 ? mcgResponse + ", " : "";
+			conResponse = conResponse.length() > 0 ? conResponse + "'" : "";
+			mcgResponse = mcgResponse.length() > 0 ? mcgResponse + "'" : "";
 
 			response = conResponse + mcgResponse + monResponse;
 
@@ -602,7 +603,8 @@ public class ActionServiceImpl implements ActionService {
 				Entry<String, String> item = mapIterator1.next();
 				String[] itemDetails = item.getValue().split(",");
 				if (itemDetails[0].equalsIgnoreCase(itemName)) {
-					mcgResponse = item.getKey() + " " + itemDetails[1];
+				//	mcgResponse = item.getKey() + " " + itemDetails[1];
+					mcgResponse = item.getKey() + "-" + item.getValue();
 					itemFound = true;
 					break;
 				}
@@ -617,8 +619,8 @@ public class ActionServiceImpl implements ActionService {
 
 			monResponse = findItemHandler(8888, userID, itemName);
 
-			conResponse = conResponse.length() > 0 ? conResponse + ", " : "";
-			mcgResponse = mcgResponse.length() > 0 ? mcgResponse + ", " : "";
+			conResponse = conResponse.length() > 0 ? conResponse + "'" : "";
+			mcgResponse = mcgResponse.length() > 0 ? mcgResponse + "'" : "";
 
 			response = conResponse + mcgResponse + monResponse;
 
@@ -631,7 +633,8 @@ public class ActionServiceImpl implements ActionService {
 				Entry<String, String> item = mapIterator2.next();
 				String[] itemDetails = item.getValue().split(",");
 				if (itemDetails[0].equalsIgnoreCase(itemName)) {
-					monResponse = item.getKey() + " " + itemDetails[1];
+				//	monResponse = item.getKey() + " " + itemDetails[1];
+					monResponse = item.getKey() + "-" + item.getValue();
 					itemFound = true;
 					break;
 				}
@@ -645,8 +648,8 @@ public class ActionServiceImpl implements ActionService {
 			conResponse = findItemHandler(6666, userID, itemName);
 			mcgResponse = findItemHandler(7777, userID, itemName);
 
-			conResponse = conResponse.length() > 0 ? conResponse + ", " : "";
-			mcgResponse = mcgResponse.length() > 0 ? mcgResponse + ", " : "";
+			conResponse = conResponse.length() > 0 ? conResponse + "'" : "";
+			mcgResponse = mcgResponse.length() > 0 ? mcgResponse + "'" : "";
 
 			response = conResponse + mcgResponse + monResponse;
 
@@ -1040,7 +1043,7 @@ public class ActionServiceImpl implements ActionService {
 		populateWaitList(userID.substring(0, 3));
 
 		if (validateForUserWaitList(userID, itemID)) {
-			return "Already Added";
+			return "Fail:Already Added";
 		} else {
 			switch (userID.substring(0, 3)) {
 			case "CON":
