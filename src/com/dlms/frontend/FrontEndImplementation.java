@@ -19,7 +19,6 @@ import ActionServiceApp.ActionServicePOA;
 
 public class FrontEndImplementation extends ActionServicePOA {
 	private String replicaName;
-	
 
 	private ORB orb;
 	private String timetaken;
@@ -31,6 +30,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	private HashMap<Integer, Integer> badReplicaMap = new HashMap<Integer, Integer>();
 	private Set<String> successSet = new HashSet<String>();
 	private List<Long> waitTimeList = new ArrayList<Long>();
+	private static int replicaNumber = 0;
 
 	public FrontEndImplementation(String replicaName) {
 
@@ -49,15 +49,13 @@ public class FrontEndImplementation extends ActionServicePOA {
 	// operation,managerID,userID,exchangeItemID,itemID,itemName,quantity,numberOfDays,failureType
 
 	public synchronized String addItem(String managerID, String itemID, String itemName, int quantity) {
-		
-	
-		 String result = sendToSequencer("addItem", managerID, "", null, itemID, itemName, quantity, 0, null);
-		 
-		
+
+		String result = sendToSequencer("addItem", managerID, "", null, itemID, itemName, quantity, 0, null);
+
 		System.out.println("FE result " + result + ":");
 
 		return result;
-		
+
 	}
 
 	public synchronized String removeItem(String managerID, String itemID, int quantity) {
@@ -127,7 +125,6 @@ public class FrontEndImplementation extends ActionServicePOA {
 		long startTime = 0;
 		long endTime = 0;
 
-		
 		try {
 
 			key = operation + "," + managerID + "," + userID + "," + exchangeItemID + "," + itemID + "," + itemName
@@ -141,7 +138,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 			// to receiver at port 22222
 			aSocket.send(request);
-			//aSocket.send(request);
+			// aSocket.send(request);
 			byte[] buffer1 = new byte[1000];
 			byte[] buffer2 = new byte[1000];
 			byte[] buffer3 = new byte[1000];
@@ -163,9 +160,13 @@ public class FrontEndImplementation extends ActionServicePOA {
 					 */
 					System.out.println("Duplicate caused this issue");
 					
+					String crashIntimation = "listItemAvailability" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
+							+ "," + 0 + "," + 0 + "," + "faultyCrash";
 					
-					//aSocket.send(new DatagramPacket("replicaCrashed".getBytes(), "replicaCrashed".length(),
-					//		InetAddress.getByName("132.205.64.177"), 1313));
+					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
+							InetAddress.getByName(replicaNumber == 1? "132.205.64.201":replicaNumber==2? "132.205.64.218":"132.205.64.202"), 1314)); // For Crash failure
+
+				
 
 				}
 				/*
@@ -177,15 +178,15 @@ public class FrontEndImplementation extends ActionServicePOA {
 					waitTimeList.add(endTime - startTime);
 				}
 			}
-//			duration = Collections.max(waitTimeList);
+			// duration = Collections.max(waitTimeList);
 			new String(request.getData());
 			message1 = new String(reply[0].getData()).trim();
 			message2 = new String(reply[1].getData()).trim();
 			message3 = new String(reply[2].getData()).trim();
 
-			System.out.println(message1.trim() + "message1");
-			System.out.println(message2.trim() + "message2");
-			System.out.println(message3.trim() + "message3");
+			System.out.println(message1.trim() + " Before Majority message1");
+			System.out.println(message2.trim() + " Before Majority message2");
+			System.out.println(message3.trim() + " Before Majority message3");
 
 			// message1 = new String(reply[0].getAddress().equals("replica1") ?
 			// reply[0].getData()
@@ -205,9 +206,17 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 			majorityElement = majorityOfResult(message1, message2, message3);
 
-			System.out.println(message1 + "majormessage1");
-			System.out.println(message2 + " majo message2");
-			System.out.println(message3 + "majo message3");
+			if (replicaNumber > 0) {
+				String faultIntimation = "listItemAvailability" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
+						+ "," + 0 + "," + 0 + "," + "faultyBug";
+				
+				aSocket.send(new DatagramPacket(faultIntimation.getBytes(), faultIntimation.length(),
+						InetAddress.getByName(replicaNumber == 1? "132.205.64.201":replicaNumber==2? "132.205.64.218":"132.205.64.202"), 1314));
+			}
+
+			System.out.println(message1 + "After Majority message1");
+			System.out.println(message2 + "After Majority message2");
+			System.out.println(message3 + "After Majority message3");
 			if (invalidElement == 1) {
 				badReplicaMap.put(1, badReplicaMap.get(1) + 1);
 				badReplicaMap.put(2, 0);
@@ -243,7 +252,8 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	}
 
-	public synchronized void validateReplicaAndSend(int i, DatagramSocket aSocket, InetAddress aHost) throws IOException {
+	public synchronized void validateReplicaAndSend(int i, DatagramSocket aSocket, InetAddress aHost)
+			throws IOException {
 
 		String key = "replace," + i;
 		byte mess[] = key.getBytes();
@@ -260,26 +270,49 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 		invalidElement = 0;
 		majorityMessage = "";
+		boolean isJunk = false;
+		replicaNumber = 0;
 
+		// Crash
 		if (message1 == null) {
 			majorityMessage = message2.split(":", 3)[2];
 		} else if (message2 == null) {
 			majorityMessage = message1.split(":", 3)[2];
 		} else if (message3 == null) {
 			majorityMessage = message1.split(":", 3)[2];
-		} else if (message1.equalsIgnoreCase("someJunkValue")) {
-			int replica = Integer.parseInt(message1.split(":")[0].substring(2, 3));
-			invalidElement = replica;
+		}
+		// Faulty Bug
+		else if ((message1.split(":")[1].equalsIgnoreCase("success"))
+				&& (message1.split(":")[2].equalsIgnoreCase("somejunkvalue"))) {
+			isJunk = true;
+			replicaNumber = Integer.parseInt(message1.split(":")[0].substring(2, 3));
+			majorityMessage = message2.split(":", 3)[2];
 
-		} else if (message2.equalsIgnoreCase("someJunkValue")) {
-			int replica = Integer.parseInt(message2.split(":")[0].substring(2, 3));
-			invalidElement = replica;
+		} else if ((message2.split(":")[1].equalsIgnoreCase("success"))
+				&& (message2.split(":")[2].equalsIgnoreCase("somejunkvalue"))) {
+			replicaNumber = Integer.parseInt(message2.split(":")[0].substring(2, 3));
+			isJunk = true;
+			majorityMessage = message1.split(":", 3)[2];
+		} else if ((message3.split(":")[1].equalsIgnoreCase("success"))
+				&& (message3.split(":")[2].equalsIgnoreCase("somejunkvalue"))) {
+			replicaNumber = Integer.parseInt(message3.split(":")[0].substring(2, 3));
+			isJunk = true;
+			majorityMessage = message2.split(":", 3)[2];
+		}
 
-		} else if (message3.equalsIgnoreCase("someJunkValue")) {
-			int replica = Integer.parseInt(message3.split(":")[0].substring(2, 3));
-			invalidElement = replica;
+		// } else if (message1.equalsIgnoreCase("someJunkValue")) {
+		// int replica = Integer.parseInt(message1.split(":")[0].substring(2, 3));
+		// invalidElement = replica;
+		//
+		// } else if (message2.equalsIgnoreCase("someJunkValue")) {
+		// int replica = Integer.parseInt(message2.split(":")[0].substring(2, 3));
+		// invalidElement = replica;
+		//
+		// } else if (message3.equalsIgnoreCase("someJunkValue")) {
+		// int replica = Integer.parseInt(message3.split(":")[0].substring(2, 3));
+		// invalidElement = replica;
 
-		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Success")
+		else if (message1.split(":", 3)[1].equalsIgnoreCase("Success")
 				&& message2.split(":", 3)[1].equalsIgnoreCase("Success")
 				&& message3.split(":", 3)[1].equalsIgnoreCase("Success")) {
 			majorityMessage = message1.split(":", 3)[2];

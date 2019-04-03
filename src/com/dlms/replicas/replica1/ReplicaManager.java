@@ -34,6 +34,8 @@ public class ReplicaManager {
 				aSocket.close();
 		}
 	}
+	
+	
 
 	public static void main(String[] args) {
 		try {
@@ -91,31 +93,42 @@ public class ReplicaManager {
 						} else if (operation.equalsIgnoreCase("removeItem")) {
 							result = action.removeItem(managerID, oldItemID, quantity);
 						} else if (operation.equalsIgnoreCase("listItemAvailability")) {
-							// count += 1;
-							// if (count <= 3) {
-							// String response = "someJunkValue";
-							// } else {
-							result = action.listItemAvailability(managerID);
-							// }
+
+							if (managerID.equalsIgnoreCase("CONM1013"))
+								count += 1;
+							if (count <= 3) {
+								result = "success:someJunkValue";
+							} else {
+								count=0;
+								result = action.listItemAvailability(managerID);
+								
+							}
 
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
+							count=0;
 							result = action.borrowItem(userID, oldItemID, numberOfDays);
 						} else if (operation.equalsIgnoreCase("waitList")) {
+							count=0;
 							result = action.waitList(userID, oldItemID, numberOfDays);
 						} else if (operation.equalsIgnoreCase("findItem")) {
+							count=0;
 							result = action.findItem(userID, itemName);
 						} else if (operation.equalsIgnoreCase("returnItem")) {
+							count=0;
 							result = action.returnItem(userID, oldItemID);
 						} else if (operation.equalsIgnoreCase("exchangeItem")) {
+							count=0;
 							result = action.exchangeItem(userID, newItemID, oldItemID);
 						}
 
 					}
-					System.out.println("RESULT :"+result);
+					System.out.println("RESULT :" + result);
 					sendUDPMessage(11111, "rm1:" + result);
 
 				}
 			}).start();
+			
+			
 		} catch (Exception e) {
 
 		}
