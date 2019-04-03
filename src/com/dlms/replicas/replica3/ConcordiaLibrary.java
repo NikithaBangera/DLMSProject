@@ -1,22 +1,16 @@
 package com.dlms.replicas.replica3;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
-
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NameComponent;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
-import org.omg.PortableServer.POA;
-import org.omg.PortableServer.POAHelper;
-
-
-import java.util.concurrent.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.SimpleFormatter;
 
 public class ConcordiaLibrary {
 
@@ -25,6 +19,7 @@ public class ConcordiaLibrary {
 	public static void startConcordiaLibrary() {
 		try {
 			conStub = new ActionserviceImpl("Concordia");
+			
 
 			System.out.println("Concordia Server ready and waiting ...");
 
@@ -38,6 +33,9 @@ public class ConcordiaLibrary {
 
 		}
 	}
+	
+	
+
 
 	static void receiverequest(ActionserviceImpl conStub) {
 
@@ -251,7 +249,7 @@ public class ConcordiaLibrary {
 								}
 
 							} else {
-								message = "Unavailability";
+								message = "Unavailable";
 								conStub.LOG.info("-----FAILED-----");
 								conStub.LOG.info(
 										"Item does not exist in the library. User to be asked If he wants to be added in the waiting queue. ");
@@ -261,7 +259,7 @@ public class ConcordiaLibrary {
 
 					} else {
 						message = "fail: Item does not exist in the library";
-						message = "Unavailability";
+						message = "Unavailable";
 						conStub.LOG.info("-----FAILED-----");
 						conStub.LOG.info(
 								"Item does not exist in the library. User to be asked If he wants to be added in the waiting queue. ");
