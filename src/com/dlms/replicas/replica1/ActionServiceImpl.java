@@ -13,8 +13,8 @@ public class ActionServiceImpl implements ActionService {
 //		orb = orb_value;
 //	}
 
-	String success = "success: ";
-	String fail = "fail: ";
+	String success = "success:";
+	String fail = "fail:";
 
 	@Override
 	public synchronized String addItem(String managerID, String itemID, String itemName, int quantity) {
@@ -354,7 +354,7 @@ public class ActionServiceImpl implements ActionService {
 			int length = booklist.length();
 			booklist.substring(0, length - 1);
 		}
-		return booklist;
+		return success+booklist;
 	}
 
 	@Override

@@ -104,8 +104,9 @@ public class MontrealLibrary {
 
 						for (String s : monStub.libraryInfo.keySet()) {
 							if (monStub.libraryInfo.get(s).containsKey(itemName)) {
-
-								message = "success:" + s + " " + monStub.libraryInfo.get(s).get(itemName) + "\n";
+                                                                Map.Entry<String, Integer> bookName = monStub.libraryInfo.get(s).entrySet().iterator().next();
+//								message = "success:" + s + " " + monStub.libraryInfo.get(s).get(itemName) + "\n";
+                                                                message = s + "-" + bookName.getKey()+","+monStub.libraryInfo.get(s).get(itemName) + "'";
 								flag = 1;
 
 								monStub.LOG.info("Item present in Montreal library.");

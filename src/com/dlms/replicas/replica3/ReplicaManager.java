@@ -28,7 +28,7 @@ public class ReplicaManager {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("132.205.64.178");
+			InetAddress aHost = InetAddress.getByName("132.205.64.201");
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
 
@@ -142,7 +142,7 @@ public class ReplicaManager {
 
 					} else {
 						ActionserviceImpl action;
-						if (managerID != null) {
+						if (!managerID.isEmpty()) {
 							String idPrefix = managerID.substring(0, 3);
 							action = idPrefix.equalsIgnoreCase("CON") ? conStub
 									: idPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;

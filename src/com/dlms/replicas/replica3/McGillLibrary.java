@@ -108,8 +108,9 @@ public class McGillLibrary {
 					mcStub.LOG.info("---------Request recieved to Find an item---------");
 					for (String s : mcStub.libraryInfo.keySet()) {
 						if (mcStub.libraryInfo.get(s).containsKey(itemName)) {
-
-							message = "success:"+s + " " + mcStub.libraryInfo.get(s).get(itemName) + "\n";
+                                                         Map.Entry<String, Integer> bookName = mcStub.libraryInfo.get(s).entrySet().iterator().next();
+//							message = "success:"+s + " " + mcStub.libraryInfo.get(s).get(itemName) + "\n";
+                                                        message = s + "-" + bookName.getKey()+","+mcStub.libraryInfo.get(s).get(itemName) + "'";
 							flag = 1;
 							mcStub.LOG.info("Item present in Mcgill library.");
 							mcStub.LOG.info("----SUCCESS----");

@@ -107,8 +107,9 @@ public class ConcordiaLibrary {
 
 					for (String s : conStub.libraryInfo.keySet()) {
 						if (conStub.libraryInfo.get(s).containsKey(itemName)) {
-
-							message = "success:"+ s + " " + conStub.libraryInfo.get(s).get(itemName) + "\n";
+                                                        Map.Entry<String, Integer> bookName = conStub.libraryInfo.get(s).entrySet().iterator().next();
+//							message = "success:"+ s + " " + conStub.libraryInfo.get(s).get(itemName) + "\n";
+                                                        message = s + "-" + bookName.getKey()+","+conStub.libraryInfo.get(s).get(itemName) + "'";
 							flag = 1;
 							conStub.LOG.info("Item present in Concordia library.");
 							conStub.LOG.info("----SUCCESS----");

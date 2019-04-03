@@ -209,29 +209,37 @@ public class Concordia {
 		Books.put("CON3333", "GRAPH THEORY,2");
 		Books.put("CON4444", "DATA STRUCTURE,8");
 
-		HashMap<String, Integer> temp = new HashMap<String, Integer>();
-		temp.put("CON1111", 12);
-		temp.put("CON2222", 23);
-		temp.put("MCG2222", 18);
-		temp.put("MON2222", 18);
+		/**
+		 * Starts Commenting the code for assigning users the books
+		 */
+		// HashMap<String, Integer> temp = new HashMap<String, Integer>();
+		// temp.put("CON1111", 12);
+		// temp.put("CON2222", 23);
+		// temp.put("MCG2222", 18);
+		// temp.put("MON2222", 18);
 
-		userlist = new LinkedHashMap<String, HashMap<String, Integer>>();
-		userlist.put("CONU1011", temp);
-		HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
-		userlist.put("CONU1012", temp1);
-		HashMap<String, Integer> temp2 = new HashMap<String, Integer>();
-		userlist.put("CONU1013", temp2);
+		// userlist = new LinkedHashMap<String, HashMap<String, Integer>>();
+		// userlist.put("CONU1011", temp);
+		// HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
+		// userlist.put("CONU1012", temp1);
+		// HashMap<String, Integer> temp2 = new HashMap<String, Integer>();
+		// userlist.put("CONU1013", temp2);
+		/**
+		 * Starts Commenting the code for assigning users the books
+		 */
 
 		logger.info(" ** Books registered while initialization\n");
 		Books.forEach((k, v) -> logger.info(("**  " + k + " " + v.split(",")[0] + " " + v.split(",")[1] + "\n")));
 		logger.info(" ** User registered while initialization\n");
 		userlist.forEach((k, v) -> logger.info(("**  " + k + " " + v + "\n")));
 
-		LinkedHashMap<String, Integer> waitUserList1 = new LinkedHashMap<String, Integer>();
-
-		waitUserList1.put("MONU1012", 17);
-		waitUserList1.put("CONU1012", 19);
-		waitlistBook.put("CON2222", waitUserList1);
+//		LinkedHashMap<String, Integer> waitUserList1 = new LinkedHashMap<String, Integer>();
+		/**
+		 * Starts Commenting the code for assigning users the books
+		 */
+		// waitUserList1.put("MONU1012", 17);
+		// waitUserList1.put("CONU1012", 19);
+		// waitlistBook.put("CON2222", waitUserList1);
 
 		logger.info("Books WaitList registered while initialization\n");
 		if (!waitlistBook.isEmpty())

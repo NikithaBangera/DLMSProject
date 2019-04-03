@@ -211,17 +211,17 @@ public class Montreal {
 		Books.put("MON3333", "GRAPH THEORY,2");
 		Books.put("MON4444", "DATA STRUCTURE,8");
 
-		HashMap<String, Integer> temp = new HashMap<String, Integer>();
-		temp.put("MON1111", 12);
-		temp.put("MON3333", 23);
+//		HashMap<String, Integer> temp = new HashMap<String, Integer>();
+//		temp.put("MON1111", 12);
+//		temp.put("MON3333", 23);
+//
+//		userlist = new HashMap<String, HashMap<String, Integer>>();
+//		userlist.put("MONU1011", temp);
 
-		userlist = new HashMap<String, HashMap<String, Integer>>();
-		userlist.put("MONU1011", temp);
-
-		HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
-		temp1.put("MON3333", 2);
-		temp1.put("CON1111", 18);
-		userlist.put("MONU1012", temp1);
+//		HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
+//		temp1.put("MON3333", 2);
+//		temp1.put("CON1111", 18);
+//		userlist.put("MONU1012", temp1);
 
 		logger.info("Books registered while initialization\n");
 		Books.forEach((k, v) -> logger.info(("**  " + k + " " + v.split(",")[0] + " " + v.split(",")[1] + "\n")));

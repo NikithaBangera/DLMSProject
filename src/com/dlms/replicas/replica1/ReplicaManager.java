@@ -111,6 +111,7 @@ public class ReplicaManager {
 						}
 
 					}
+					System.out.println("RESULT :"+result);
 					sendUDPMessage(11111, "rm1:" + result);
 
 				}

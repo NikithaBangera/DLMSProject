@@ -510,7 +510,8 @@ public class ActionserviceImpl implements ActionService {
 		for (String s : libraryInfo.keySet()) {
 
 			if (libraryInfo.get(s).containsKey(itemName)) {
-				message = "success: " + s + " " + libraryInfo.get(s).get(itemName) + "\n";
+                                Map.Entry<String, Integer> bookName = libraryInfo.get(s).entrySet().iterator().next();
+				message = s + "-" + bookName.getKey() +","+libraryInfo.get(s).get(itemName) + "'";
 				LOG.info("----SUCCESS----");
 				break;
 			}
@@ -525,7 +526,9 @@ public class ActionserviceImpl implements ActionService {
 			LOG.info(" SENDING REQUEST to MONTREAL library to find an item");
 			reply2 = send("finditem", null, itemName, 7777, userID);
 			LOG.info("RESPONSE recieved from MONTREAL library.");
-			message = message + "\n" + reply1 + "\n" + reply2;
+//			message = message + "\n" + reply1 + "\n" + reply2;
+                        
+                        message = message + reply1 + reply2;
 		}
 
 		else if (userID.substring(0, 3).equalsIgnoreCase("MCG")) {
@@ -538,7 +541,8 @@ public class ActionserviceImpl implements ActionService {
 			reply2 = send("finditem", null, itemName, 7777, userID);
 			LOG.info("RESPONSE recieved from MONTREAL library.");
 
-			message = message + "\n" + reply1 + "\n" + reply2;
+//			message = message + "\n" + reply1 + "\n" + reply2;
+                        message = message + reply1 + reply2;
 		} else {
 
 			LOG.info(" SENDING REQUEST to MCGILL library to find an item");
@@ -549,14 +553,16 @@ public class ActionserviceImpl implements ActionService {
 			reply2 = send("finditem", null, itemName, 5555, userID);
 			LOG.info("RESPONSE recieved from CONCORDIA library.");
 
-			message = message + "\n" + reply1 + "\n" + reply2;
+//			message = message + "\n" + reply1 + "\n" + reply2;
+                        message = message + reply1 + reply2;
 
 		}
 
 		LOG.info("Result is: " + message);
 		LOG.info("Sending result back to the user.");
+                message = message.substring(0,message.length()-1 );
 
-		return message;
+		return "success:"+message;
 	}
 
 	@Override
@@ -593,13 +599,13 @@ public class ActionserviceImpl implements ActionService {
 					if (result == null) {
 
 						LOG.info("----SUCCESS----");
-						message = "success: Item returned to the library successfully. Have a nice day!";
+						message = "success:Item returned to the library successfully. Have a nice day!";
 
 					} else {
 
 						String s[] = result.split(",");
 						String answer = borrowItem(s[0], s[1], 0);
-						message = "success: Item returned to the library successfully. Have a nice day!";
+						message = "success:Item returned to the library successfully. Have a nice day!";
 						LOG.info("----SUCCESS----");
 						message = message + "Waiting queue result: " + answer;
 
@@ -609,7 +615,7 @@ public class ActionserviceImpl implements ActionService {
 
 				} else {
 
-					message = "fail: Item: " + itemID + " is not issued to user" + userID + "\n";
+					message = "fail:Item: " + itemID + " is not issued to user" + userID + "\n";
 					LOG.info("----FAILED----");
 				}
 
@@ -617,7 +623,7 @@ public class ActionserviceImpl implements ActionService {
 
 			else {
 
-				message = "fail: No such Item ID Exist in the library";
+				message = "fail:No such Item ID Exist in the library";
 				LOG.info("----FAILED----");
 			}
 

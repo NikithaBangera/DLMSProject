@@ -1,6 +1,0 @@
-
-Tue Apr 02 22:42:49 EDT 2019	AddItem	CONM1122	con1234	Request Completed Successfully	Success
-Tue Apr 02 22:48:40 EDT 2019	AddItem	CONM1122	con1234	Request Completed Successfully	Success
-Tue Apr 02 22:49:00 EDT 2019	AddItem	CONM1122	con1234	Request Completed Successfully	Success
-Tue Apr 02 22:51:24 EDT 2019	RemoveItem	CONM1122	con1234	Request Completed Successfully	Success
-Tue Apr 02 22:51:39 EDT 2019	ListItem	CONM1122	null	Request Completed Successfully	Success
