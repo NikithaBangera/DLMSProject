@@ -28,7 +28,7 @@ public class ReplicaManager {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("localhost");
+			InetAddress aHost = InetAddress.getByName("132.205.64.178");
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
 
@@ -55,7 +55,7 @@ public class ReplicaManager {
 
 			MulticastSocket aSocket = new MulticastSocket(1313);
 
-			aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
+			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
 			System.out.println("Server Started............");
 
@@ -82,12 +82,13 @@ public class ReplicaManager {
 					} else {
 						queue.add(data);
 					}
-
+					
+					
 					String message[] = queue.poll().split(",");
-					String operation = message[0];
-					String managerID = message[1];
-					String userID = message[2];
-					String itemID = message[3];
+					String seqNum = message[0];
+					String operation = message[1];
+					String managerID = message[2];
+					String userID = message[3];
 					String newItemID = message[4];
 					String oldItemID = message[5];
 					String itemName = message[6];
