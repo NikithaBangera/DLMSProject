@@ -1,0 +1,20 @@
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill receive
+INFO: Request received at Concordia Server
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill receive
+INFO: Request received is for REMOVE
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill removeItemFromUserlist
+INFO: Before Removal of CON1234 from library, McGill user's Borrow List:
+{MCGU1011={CON2222=10, MCG1111=12, MCG2222=23, MON2222=18, MCG4592=23}, MCGU1012={}, MCGU1013={}}
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill removeItemFromUserlist
+INFO: Before Removal of CON1234 from library, McGill waitList:
+{}
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill removeItemFromUserlist
+INFO: Before Removal of CON1234 from library, McGill user's Borrow List:
+{MCGU1011={CON2222=10, MCG1111=12, MCG2222=23, MON2222=18, MCG4592=23}, MCGU1012={}, MCGU1013={}}
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill removeItemFromUserlist
+INFO: Before Removal of CON1234 from library, McGill waitList:
+{}
+

@@ -36,8 +36,8 @@ public class McGill {
 	public static Logger logger;
 	static private FileHandler fileHandler;
 	private static boolean running;
-	private static String success = "success: ";
-	private static String fail = "fail: ";
+	private static String success = "success:";
+	private static String fail = "fail:";
 
 	protected McGill() throws RemoteException {
 		super();
@@ -201,7 +201,7 @@ public class McGill {
 
 	private static synchronized void setLibraryDetails() {
 
-		String[] managerIDs = { "MCGM1122", "MCGM2233", "MCGM3344" };
+		String[] managerIDs = { "MCGM1011", "MCGM1012", "MCGM1013" };
 		Collections.addAll(managerUserList, managerIDs);
 
 		Books.put("MCG1111", "COMPILER DESIGN,4");
@@ -217,12 +217,12 @@ public class McGill {
 
 		userlist = new LinkedHashMap<String, HashMap<String, Integer>>();
 		;
-		userlist.put("MCGU1122", temp);
+		userlist.put("MCGU1011", temp);
 		HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
 		temp.put("MCG4592", 23);
-		userlist.put("MCGU2233", temp1);
+		userlist.put("MCGU1012", temp1);
 		HashMap<String, Integer> temp2 = new HashMap<String, Integer>();
-		userlist.put("MCGU3344", temp2);
+		userlist.put("MCGU1013", temp2);
 
 		logger.info("Books registered while initialization\n");
 		Books.forEach((k, v) -> logger.info(("**  " + k + " " + v.split(",")[0] + " " + v.split(",")[1] + "\n")));
@@ -616,7 +616,7 @@ public class McGill {
 					sendRequestMessage = "REMOVE" + "," + itemID;
 					sendMessage(1111);
 
-					operation = success + "Book removed Successfully and Borrowed List of User's.";
+					operation = success + "Book removed Successfully and also reomved from borrowed List of users.";
 				}
 
 			}

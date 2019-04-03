@@ -41,20 +41,21 @@ public class Sequencer {
 				/*
 				 * Checking for a duplicate message
 				 */
-				boolean isDuplicate = checkDuplicateMessage(message);
-				if (isDuplicate) {
-					continue;
-				} else {
-					/*
-					 * Attaching a unique sequencer number and multi-casting message to all replicas
-					 */
-					sequenceNumber++;
-					message = sequenceNumber + "," + message;
-					System.out.println(message + " : seq msg");
-					multicastMessage(message);
-					DatagramPacket reply = null;
+				System.out.println(message + "sssss");
+				// boolean isDuplicate = checkDuplicateMessage(message);
+				// if (isDuplicate) {
+				// continue;
+				// } else {
+				/*
+				 * Attaching a unique sequencer number and multi-casting message to all replicas
+				 */
+				sequenceNumber++;
+				message = sequenceNumber + "," + message;
+				System.out.println(message + " : seq msg");
+				multicastMessage(message);
+				DatagramPacket reply = null;
 
-				}
+				// }
 			}
 
 		}

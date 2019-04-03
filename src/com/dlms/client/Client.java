@@ -390,6 +390,7 @@ public class Client {
 							}
 						} else {
 							logger.info("Response received from server : " + operation);
+							System.out.println("ssss"+operation);
 							System.out.println("\n" + operation);
 							System.err.flush();
 						}

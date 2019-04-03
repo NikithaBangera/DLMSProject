@@ -36,8 +36,8 @@ public class Montreal {
 	public static Logger logger;
 	static private FileHandler fileHandler;
 	private static boolean running;
-	private static String success = "success: ";
-	private static String fail = "fail: ";
+	private static String success = "success:";
+	private static String fail = "fail:";
 
 	protected Montreal() throws RemoteException {
 		super();
@@ -203,7 +203,7 @@ public class Montreal {
 
 	private static synchronized void setLibraryDetails() {
 
-		String[] managerIDs = { "MONM1122", "MONM2233", "MONM3344" };
+		String[] managerIDs = { "MONM1011", "MONM1012", "MONM1013" };
 		Collections.addAll(managerUserList, managerIDs);
 
 		Books.put("MON1111", "COMPILER DESIGN,4");
@@ -216,12 +216,12 @@ public class Montreal {
 		temp.put("MON3333", 23);
 
 		userlist = new HashMap<String, HashMap<String, Integer>>();
-		userlist.put("MONU1122", temp);
+		userlist.put("MONU1011", temp);
 
 		HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
 		temp1.put("MON3333", 2);
 		temp1.put("CON1111", 18);
-		userlist.put("MONU2233", temp1);
+		userlist.put("MONU1012", temp1);
 
 		logger.info("Books registered while initialization\n");
 		Books.forEach((k, v) -> logger.info(("**  " + k + " " + v.split(",")[0] + " " + v.split(",")[1] + "\n")));
@@ -617,7 +617,7 @@ public class Montreal {
 					sendRequestMessage = "REMOVE" + "," + itemID;
 					sendMessage(3333);
 
-					operation = success + "Book removed Successfully and Borrowed List of User's.";
+					operation = success + "Book removed Successfully and also reomved from borrowed List of users.";
 					logger.info("After removal, waitlist is cleared. Available Waitlist:\n" + waitlistBook + "\n");
 				}
 

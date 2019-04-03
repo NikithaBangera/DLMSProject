@@ -31,8 +31,8 @@ public class Concordia {
 	public static Logger logger;
 	static FileHandler fileHandler;
 	private static boolean running;
-	private static String success = "success: ";
-	private static String fail = "fail: ";
+	private static String success = "success:";
+	private static String fail = "fail:";
 
 	public Concordia() throws RemoteException {
 		super();
@@ -168,13 +168,13 @@ public class Concordia {
 					String newItemID = params[1].trim();
 					repMessage = checkAvailability(newItemID);
 					break;
-//				case "EXCHANGE":
-//					userID = params[1].trim();
-//					String newItemID = params[2].trim();
-//					String oldItemID = params[3].trim();
-//					numberOfDays = Integer.parseInt(params[4].trim());
-//					repMessage = exchangeItem(userID, newItemID, oldItemID, numberOfDays);
-//					break;
+				// case "EXCHANGE":
+				// userID = params[1].trim();
+				// String newItemID = params[2].trim();
+				// String oldItemID = params[3].trim();
+				// numberOfDays = Integer.parseInt(params[4].trim());
+				// repMessage = exchangeItem(userID, newItemID, oldItemID, numberOfDays);
+				// break;
 				}
 				buffer = repMessage.getBytes();
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length, request.getAddress(),
@@ -201,7 +201,7 @@ public class Concordia {
 
 	private static synchronized void setLibraryDetails() {
 
-		String[] managerIDs = { "CONM1122", "CONM2233", "CONM3344", "CONM4455" };
+		String[] managerIDs = { "CONM1011", "CONM1012", "CONM1013" };
 		Collections.addAll(managerUserList, managerIDs);
 
 		Books.put("CON1111", "COMPILER DESIGN,4");
@@ -216,11 +216,11 @@ public class Concordia {
 		temp.put("MON2222", 18);
 
 		userlist = new LinkedHashMap<String, HashMap<String, Integer>>();
-		userlist.put("CONU1122", temp);
+		userlist.put("CONU1011", temp);
 		HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
-		userlist.put("CONU2233", temp1);
+		userlist.put("CONU1012", temp1);
 		HashMap<String, Integer> temp2 = new HashMap<String, Integer>();
-		userlist.put("CONU3344", temp2);
+		userlist.put("CONU1013", temp2);
 
 		logger.info(" ** Books registered while initialization\n");
 		Books.forEach((k, v) -> logger.info(("**  " + k + " " + v.split(",")[0] + " " + v.split(",")[1] + "\n")));
@@ -230,7 +230,7 @@ public class Concordia {
 		LinkedHashMap<String, Integer> waitUserList1 = new LinkedHashMap<String, Integer>();
 
 		waitUserList1.put("MONU1122", 17);
-		waitUserList1.put("CONU2233", 19);
+		waitUserList1.put("CONU1012", 19);
 		waitlistBook.put("CON2222", waitUserList1);
 
 		logger.info("Books WaitList registered while initialization\n");
@@ -620,7 +620,7 @@ public class Concordia {
 					sendRequestMessage = "REMOVE" + "," + itemID;
 					sendMessage(3333);
 
-					operation = "Book removed Successfully and Borrowed List of User's.";
+					operation = success + "Book removed Successfully and also reomved from borrowed List of users.";
 				}
 
 			}
@@ -746,58 +746,61 @@ public class Concordia {
 		return isBookAvailable;
 	}
 
-//	public static String exchangeItem(String userID, String newItemID, String oldItemID) {
-//
-//		String operation = "";
-//		HashMap<String, Integer> uBorrowList = new HashMap<String, Integer>();
-////		String lib = newItemID.substring(0, 3).toUpperCase();
-//		uBorrowList = userlist.get(userID);
-//		if (!uBorrowList.isEmpty() && !uBorrowList.containsKey(newItemID)) {
-//			if (uBorrowList.containsKey(oldItemID)) {
-//				int numberOfDays = uBorrowList.get(oldItemID);
-////				switch (lib) {
-////				case "CON":
-////				if (isBookAvailable(newItemID)) {
-//					message = borrowBookToUser(userID, newItemID, numberOfDays);
-//					if (message.contains("Success")) {
-//						returnBookFromUser(userID, oldItemID);
-//					} else {
-//						operation = message;
-//					}
-//
-////				} else {
-////					operation = "The requested book is unavailable!";
-////				}
-////					break;
-////				case "MON":
-////					logger.info("***********************************************\n");
-////					sendRequestMessage = "EXCHANGE" + "," + userID + "," + oldItemID + "," + newItemID + ','
-////							+ numberOfDays;
-////					sendMessage(2222);
-////					message = dataReceived;
-////					break;
-////				case "MCG":
-////					logger.info("***********************************************\n");
-////					sendRequestMessage = "EXCHANGE" + "," + userID + "," + oldItemID + "," + newItemID + ','
-////							+ numberOfDays;
-////					sendMessage(3333);
-////					message = dataReceived;
-////					break;
-////				}
-//			} else {
-//
-//				operation = "User doesn't have the item ID";
-//			}
-//
-//		}
-//		return operation;
-//	}
+	// public static String exchangeItem(String userID, String newItemID, String
+	// oldItemID) {
+	//
+	// String operation = "";
+	// HashMap<String, Integer> uBorrowList = new HashMap<String, Integer>();
+	//// String lib = newItemID.substring(0, 3).toUpperCase();
+	// uBorrowList = userlist.get(userID);
+	// if (!uBorrowList.isEmpty() && !uBorrowList.containsKey(newItemID)) {
+	// if (uBorrowList.containsKey(oldItemID)) {
+	// int numberOfDays = uBorrowList.get(oldItemID);
+	//// switch (lib) {
+	//// case "CON":
+	//// if (isBookAvailable(newItemID)) {
+	// message = borrowBookToUser(userID, newItemID, numberOfDays);
+	// if (message.contains("Success")) {
+	// returnBookFromUser(userID, oldItemID);
+	// } else {
+	// operation = message;
+	// }
+	//
+	//// } else {
+	//// operation = "The requested book is unavailable!";
+	//// }
+	//// break;
+	//// case "MON":
+	//// logger.info("***********************************************\n");
+	//// sendRequestMessage = "EXCHANGE" + "," + userID + "," + oldItemID + "," +
+	// newItemID + ','
+	//// + numberOfDays;
+	//// sendMessage(2222);
+	//// message = dataReceived;
+	//// break;
+	//// case "MCG":
+	//// logger.info("***********************************************\n");
+	//// sendRequestMessage = "EXCHANGE" + "," + userID + "," + oldItemID + "," +
+	// newItemID + ','
+	//// + numberOfDays;
+	//// sendMessage(3333);
+	//// message = dataReceived;
+	//// break;
+	//// }
+	// } else {
+	//
+	// operation = "User doesn't have the item ID";
+	// }
+	//
+	// }
+	// return operation;
+	// }
 
-//	private static boolean isBookAvailable(String newItemID) {
-//		while (Books.containsKey(newItemID))
-//			if ((Integer.parseInt(Books.get(newItemID).split(",")[1]) == 0)) {
-//				return false;
-//			}
-//		return true;
-//	}
+	// private static boolean isBookAvailable(String newItemID) {
+	// while (Books.containsKey(newItemID))
+	// if ((Integer.parseInt(Books.get(newItemID).split(",")[1]) == 0)) {
+	// return false;
+	// }
+	// return true;
+	// }
 }

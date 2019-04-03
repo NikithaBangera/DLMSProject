@@ -119,7 +119,6 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	public synchronized String sendToSequencer(String operation, String managerID, String userID, String exchangeItemID,
 			String itemID, String itemName, int quantity, int numberOfDays, String failureType) {
-
 		DatagramSocket aSocket = null;
 		String messageReceived = null;
 		String key = null;
@@ -162,8 +161,11 @@ public class FrontEndImplementation extends ActionServicePOA {
 					/*
 					 * Sending a message to RM of crashed replica
 					 */
-					aSocket.send(new DatagramPacket("replicaCrashed".getBytes(), "replicaCrashed".length(),
-							InetAddress.getByName("132.205.64.177"), 1313));
+					System.out.println("Duplicate caused this issue");
+					
+					
+					//aSocket.send(new DatagramPacket("replicaCrashed".getBytes(), "replicaCrashed".length(),
+					//		InetAddress.getByName("132.205.64.177"), 1313));
 
 				}
 				/*
@@ -175,7 +177,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 					waitTimeList.add(endTime - startTime);
 				}
 			}
-			duration = Collections.max(waitTimeList);
+//			duration = Collections.max(waitTimeList);
 			new String(request.getData());
 			message1 = new String(reply[0].getData()).trim();
 			message2 = new String(reply[1].getData()).trim();
@@ -237,7 +239,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 				aSocket.close();
 		}
 
-		return majorityElement;
+		return majorityElement.trim();
 
 	}
 

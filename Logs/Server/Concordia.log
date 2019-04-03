@@ -1,46 +1,131 @@
-Apr 02, 2019 10:48:40 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+Apr 03, 2019 1:00:15 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
 INFO: 
 *****Entering Concordia Server*****
 
-Apr 02, 2019 10:48:40 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+Apr 03, 2019 1:00:15 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
 INFO: Request Type: Add an item , Request params:
- managerID CONM1122, itemID CON1234, itemName gt, quantity 3
-Apr 02, 2019 10:48:40 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+ managerID CONM1011, itemID CON1234, itemName DS, quantity 4
+Apr 03, 2019 1:00:15 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
 INFO: Response returned: success: Item CON1234 added to the library Successfully.
 
-Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+Apr 03, 2019 1:00:29 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
 INFO: 
 *****Entering Concordia Server*****
 
-Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+Apr 03, 2019 1:00:29 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
 INFO: Request Type: Add an item , Request params:
- managerID CONM1122, itemID CON1234, itemName gt, quantity 2
-Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+ managerID CONM1011, itemID CON1234, itemName DS, quantity 5
+Apr 03, 2019 1:00:29 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
 INFO: CON1234 added successfully to libraray
 
-Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+Apr 03, 2019 1:00:29 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
 INFO: Request successfully completed,
 
-Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
-INFO: Response returned: success: Item CON1234 exists, hence increased item's quantity by 5 Successfully.
+Apr 03, 2019 1:00:29 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Response returned: success: Item CON1234 exists, hence increased item's quantity to 9 Successfully.
 
-Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+Apr 03, 2019 1:00:36 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
 INFO: 
 *****Entering Concordia Server*****
-Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.ActionServiceImpl removeItem
-INFO: Request Type: Remove an item , Request params: managerID CONM1122, itemID CON1234, quantity 1
-Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.Concordia removeItemFromLibrary
+Apr 03, 2019 1:00:36 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Request Type: List items , Request params: managerID CONM1011
+Apr 03, 2019 1:00:36 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Response returned: {CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=DS,9}
+Apr 03, 2019 1:01:12 AM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: 
+*****Entering Concordia Server*****
+Apr 03, 2019 1:01:12 AM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: Request Type: Remove an item , Request params: managerID CONM1011, itemID CON1234, quantity 2
+Apr 03, 2019 1:01:12 AM com.dlms.replicas.replica1.Concordia removeItemFromLibrary
 INFO: After removal:
-{CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=gt,4}
+{CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=DS,7}
 
-Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.Concordia removeItemFromLibrary
+Apr 03, 2019 1:01:12 AM com.dlms.replicas.replica1.Concordia removeItemFromLibrary
 INFO: Request completed successfully
-Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.ActionServiceImpl removeItem
-INFO: Response returned: success: Book's quantity decreased by 1 Successfully  from the available list! 
-Apr 02, 2019 10:51:39 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+Apr 03, 2019 1:01:12 AM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: Response returned: success: Book's quantity decreased by 2 Successfully  from the available list! 
+Apr 03, 2019 1:01:16 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
 INFO: 
 *****Entering Concordia Server*****
-Apr 02, 2019 10:51:39 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
-INFO: Request Type: List items , Request params: managerID CONM1122
-Apr 02, 2019 10:51:39 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
-INFO: Response returned: {CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=gt,4}
+Apr 03, 2019 1:01:16 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Request Type: List items , Request params: managerID CONM1011
+Apr 03, 2019 1:01:16 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Response returned: {CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=DS,7}
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: 
+*****Entering Concordia Server*****
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: Request Type: Remove an item , Request params: managerID CONM1011, itemID CON1234, quantity -1
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia removeItemFromUserlist
+INFO: Before Removal of CON1234 from library, Concordia user's Borrow List:
+{CONU1011={CON1111=12, CON2222=23, MCG2222=18, MON2222=18}, CONU1012={}, CONU1013={}}
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia removeItemFromUserlist
+INFO: Before Removal of CON1234 from library, Concordia waitList:
+{CON2222={MONU1122=17, CONU1012=19}}
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia removeItemFromUserlist
+INFO: Before Removal of CON1234 from library, Concordia user's Borrow List:
+{CONU1011={CON1111=12, CON2222=23, MCG2222=18, MON2222=18}, CONU1012={}, CONU1013={}}
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia removeItemFromUserlist
+INFO: Before Removal of CON1234 from library, Concordia waitList:
+{CON2222={MONU1122=17, CONU1012=19}}
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia removeItemFromLibrary
+INFO: ***********************************************
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia sendMessage
+INFO: Request message sent from the Concordia to server with port number 2222 is: REMOVE,CON1234
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia sendMessage
+INFO: Reply received from the server with port number 2222 to Concordia server is: 
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia removeItemFromLibrary
+INFO: ***********************************************
+
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia sendMessage
+INFO: Request message sent from the Concordia to server with port number 3333 is: REMOVE,CON1234
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Concordia sendMessage
+INFO: Reply received from the server with port number 3333 to Concordia server is: 
+Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: Response returned: success: Book removed Successfully and also reomved from borrowed List of users.
+Apr 03, 2019 1:02:03 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: 
+*****Entering Concordia Server*****
+
+Apr 03, 2019 1:02:03 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Request Type: Add an item , Request params:
+ managerID CONM1011, itemID CON1234, itemName TS, quantity 2
+Apr 03, 2019 1:02:03 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Response returned: success: Item CON1234 added to the library Successfully.
+
+Apr 03, 2019 1:02:07 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: 
+*****Entering Concordia Server*****
+Apr 03, 2019 1:02:07 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Request Type: List items , Request params: managerID CONM1011
+Apr 03, 2019 1:02:07 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Response returned: {CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=TS,2}
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: 
+*****Entering Concordia Server*****
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: Request Type: Borrow an item , Request params: userID CONU1013, itemID CON1234, numberOfDays 12
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.Concordia borrowBookToUser
+INFO: Books in Concordia Library before user request {CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=TS,2}.
+
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.Concordia borrowBookToUser
+INFO: CONU1013 borrowed book details before borrowing CON1234:{}.
+
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.Concordia setUserDetails
+INFO: Book with book id CON1234 Successfully borrowed by user CONU1013. Added the book to user's borrowed list.
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.Concordia borrowBookToUser
+INFO: CONU1013 borrowed book details after borrowing CON1234:{CON1234=12}.
+
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.Concordia borrowBookToUser
+INFO: Request completed successfully.
+
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.Concordia borrowBookToUser
+INFO: Books in Concordia Library after user request {CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=TS,1}.
+
+Apr 03, 2019 1:02:26 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: Response returned: success: Book with book id CON1234 Successfully borrowed by user CONU1013.
