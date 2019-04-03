@@ -19,6 +19,7 @@ import ActionServiceApp.ActionServicePOA;
 
 public class FrontEndImplementation extends ActionServicePOA {
 	private String replicaName;
+	
 
 	private ORB orb;
 	private String timetaken;
@@ -47,46 +48,50 @@ public class FrontEndImplementation extends ActionServicePOA {
 	// params:
 	// operation,managerID,userID,exchangeItemID,itemID,itemName,quantity,numberOfDays,failureType
 
-	public String addItem(String managerID, String itemID, String itemName, int quantity) {
-
-		String result = sendToSequencer("addItem", managerID, null, null, itemID, itemName, quantity, 0, null);
+	public synchronized String addItem(String managerID, String itemID, String itemName, int quantity) {
+		
+	
+		 String result = sendToSequencer("addItem", managerID, null, null, itemID, itemName, quantity, 0, null);
+		 
+		
 		System.out.println("FE result " + result + ":");
 
 		return result;
+		
 	}
 
-	public String removeItem(String managerID, String itemID, int quantity) {
+	public synchronized String removeItem(String managerID, String itemID, int quantity) {
 		String result = sendToSequencer("removeItem", managerID, null, null, itemID, null, quantity, 0, null);
 		System.out.println(this);
 		return result;
 	}
 
-	public String listItemAvailability(String managerID) {
+	public synchronized String listItemAvailability(String managerID) {
 		String result = sendToSequencer("listItemAvailability", managerID, null, null, null, null, 0, 0, null);
 		return result;
 	}
 
-	public String borrowItem(String userID, String itemID, int numberOfDays) {
+	public synchronized String borrowItem(String userID, String itemID, int numberOfDays) {
 		String result = sendToSequencer("borrowItem", null, userID, null, itemID, null, 0, numberOfDays, null);
 		return result;
 	}
 
-	public String findItem(String userID, String itemName) {
+	public synchronized String findItem(String userID, String itemName) {
 		String result = sendToSequencer("findItem", null, userID, null, null, itemName, 0, 0, null);
 		return result;
 	}
 
-	public String returnItem(String userID, String itemID) {
+	public synchronized String returnItem(String userID, String itemID) {
 		String result = sendToSequencer("returnItem", null, userID, null, itemID, null, 0, 0, null);
 		return result;
 	}
 
-	public String waitList(String userID, String itemID, int numberOfDays) {
+	public synchronized String waitList(String userID, String itemID, int numberOfDays) {
 		String result = sendToSequencer("waitList", null, userID, null, itemID, null, 0, numberOfDays, null);
 		return result;
 	}
 
-	public String exchangeItem(String userID, String newItemID, String oldItemID) {
+	public synchronized String exchangeItem(String userID, String newItemID, String oldItemID) {
 		String result = sendToSequencer("exchangeItem", null, userID, newItemID, oldItemID, null, 0, 0, null);
 		return result;
 	}
@@ -123,6 +128,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 		long startTime = 0;
 		long endTime = 0;
 
+		
 		try {
 
 			key = operation + "," + managerID + "," + userID + "," + exchangeItemID + "," + itemID + "," + itemName
@@ -136,7 +142,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 			// to receiver at port 22222
 			aSocket.send(request);
-			aSocket.send(request);
+			//aSocket.send(request);
 			byte[] buffer1 = new byte[1000];
 			byte[] buffer2 = new byte[1000];
 			byte[] buffer3 = new byte[1000];
@@ -235,7 +241,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	}
 
-	public void validateReplicaAndSend(int i, DatagramSocket aSocket, InetAddress aHost) throws IOException {
+	public synchronized void validateReplicaAndSend(int i, DatagramSocket aSocket, InetAddress aHost) throws IOException {
 
 		String key = "replace," + i;
 		byte mess[] = key.getBytes();
@@ -248,7 +254,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	}
 
-	public String majorityOfResult(String message1, String message2, String message3) {
+	public synchronized String majorityOfResult(String message1, String message2, String message3) {
 
 		invalidElement = 0;
 
