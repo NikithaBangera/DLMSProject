@@ -275,7 +275,7 @@ public class ActionserviceImpl implements ActionService {
 
 		if (libraryInfo.containsKey(itemID)) {
 
-			if (quantity == 0) {
+			if (quantity == -1) {
 
 				libraryInfo.remove(itemID);
 
@@ -436,7 +436,7 @@ public class ActionserviceImpl implements ActionService {
 					}
 
 				} else {
-					message = "Unavailable";
+					message = "fail:Unavailable";
 
 					LOG.info(
 							"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
@@ -445,8 +445,8 @@ public class ActionserviceImpl implements ActionService {
 				}
 
 			} else {
-				message = "fail: Item does not exist in the library";
-				message = "Unavailable";
+				message = "fail:Item does not exist in the library";
+				message = "fail:Unavailable";
 				LOG.info(
 						"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
 
@@ -693,7 +693,7 @@ public class ActionserviceImpl implements ActionService {
 			}
 		}
 		LOG.info("User has been added in the wait List. Sending response back to the client.");
-		return "User has been added in the wait list";
+		return "Success:User has been added in the wait list";
 
 	}
 

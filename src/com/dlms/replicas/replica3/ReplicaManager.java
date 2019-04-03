@@ -28,7 +28,7 @@ public class ReplicaManager {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("132.205.64.178");
+			InetAddress aHost = InetAddress.getByName("132.205.64.200");
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
 
@@ -141,17 +141,22 @@ public class ReplicaManager {
 						}
 
 					} else {
-						ActionserviceImpl action;
-						if (managerID != null) {
+						ActionserviceImpl action = new ActionserviceImpl("Montreal");
+						System.out.println(userID + "userID");
+						System.out.println(managerID + "managerID");
+						if (!userID.equalsIgnoreCase("")) { 
+							System.out.println("Inside If");
+							String idPrefix = userID.substring(0, 3).toUpperCase().trim();
+							action = idPrefix.equalsIgnoreCase("CON") ? conStub
+									: idPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
+						} else if (!managerID.equalsIgnoreCase("")) {
+							
 							String idPrefix = managerID.substring(0, 3);
 							action = idPrefix.equalsIgnoreCase("CON") ? conStub
 									: idPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
-						} else {
-							String idPrefix = userID.substring(0, 3);
-							action = idPrefix.equalsIgnoreCase("CON") ? conStub
-									: idPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
+							
 
-						}
+						} 
 
 						if (operation.equalsIgnoreCase("addItem")) {
 
