@@ -90,7 +90,7 @@ public class Sequencer {
 
 			InetAddress mcIPAddress = InetAddress.getByName(mcIPStr);
 			byte[] msg = message.getBytes();
-			DatagramPacket mcPacket = new DatagramPacket(msg, msg.length, mcIPAddress, 1313);
+			DatagramPacket mcPacket = new DatagramPacket(msg, msg.length, mcIPAddress, 1314);
 			mcPacket.setAddress(mcIPAddress);
 			// mcPacket.setPort(mcPort);
 			aSocket.send(mcPacket);

@@ -43,7 +43,7 @@ public class ReplicaManager {
 
 			ActionServiceImpl action = new ActionServiceImpl();
 
-			MulticastSocket aSocket = new MulticastSocket(1313);
+			MulticastSocket aSocket = new MulticastSocket(1314);
 
 			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
