@@ -366,11 +366,12 @@ public class ActionserviceImpl implements ActionService {
 			message = message.concat(s+"-"+itemName+","+quantity+";");
 
 		}
-		LOG.info("--SUCCESS--");
+		LOG.info("---SUCCESS---");
 
 		LOG.info(message);
 
 		return "Success:"+message;
+		
 	}
 
 	@Override
