@@ -45,7 +45,7 @@ public class ActionserviceImpl implements ActionService {
 
 	Queue<String> waitingQueue = new LinkedList<String>();
 
-	public Logger LOG = Logger.getLogger(ActionServiceImpl.class.getName());
+	public Logger LOG = Logger.getLogger(this.getClass().getName());
 
 	String id, message;
 
@@ -66,6 +66,7 @@ public class ActionserviceImpl implements ActionService {
 	public void setORB(ORB orb_val) {
 		orb = orb_val;
 	}
+	
 
 	public void createLoggingFile(String library) {
 		File file = null;
@@ -368,7 +369,7 @@ public class ActionserviceImpl implements ActionService {
 			quantity = entry.getValue();
 //			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 //					+ thisEntry.getValue().split(",")[1] + ";");
-//	message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
+			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
 			message = message.concat(s+"-"+itemName+","+quantity+";");
 
 		}
@@ -376,7 +377,7 @@ public class ActionserviceImpl implements ActionService {
 
 		LOG.info(message);
 
-		return "Success:"+message;
+		return message;
 	}
 
 	@Override
@@ -441,8 +442,7 @@ public class ActionserviceImpl implements ActionService {
 					}
 
 				} else {
-
-					message = "Unavailability";
+					message = "Unavailable";
 
 					LOG.info(
 							"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
@@ -452,7 +452,7 @@ public class ActionserviceImpl implements ActionService {
 
 			} else {
 				message = "fail: Item does not exist in the library";
-				message = "Unavailability";
+				message = "Unavailable";
 				LOG.info(
 						"Item not available. Sending request to the user If a user would like to be added in the waiting queue");
 
@@ -805,7 +805,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 
-							if (reply1.equalsIgnoreCase("Unavailability")) {
+							if (reply1.equalsIgnoreCase("Unavailable")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -835,7 +835,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 
-							if (reply1.equalsIgnoreCase("Unavailability")) {
+							if (reply1.equalsIgnoreCase("Unavailable")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -865,7 +865,7 @@ public class ActionserviceImpl implements ActionService {
 								LOG.info(message);
 							}
 						} else {
-							if (reply1.equalsIgnoreCase("Unavailability")) {
+							if (reply1.equalsIgnoreCase("Unavailable")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -931,7 +931,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("Unavailability")) {
+				if (reply1.equalsIgnoreCase("Unavailable")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -983,7 +983,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("Unavailability")) {
+				if (reply1.equalsIgnoreCase("Unavailable")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -1034,7 +1034,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("Unavailability")) {
+				if (reply1.equalsIgnoreCase("Unavailable")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
