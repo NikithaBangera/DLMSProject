@@ -1,0 +1,46 @@
+Apr 02, 2019 10:48:40 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: 
+*****Entering Concordia Server*****
+
+Apr 02, 2019 10:48:40 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Request Type: Add an item , Request params:
+ managerID CONM1122, itemID CON1234, itemName gt, quantity 3
+Apr 02, 2019 10:48:40 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Response returned: success: Item CON1234 added to the library Successfully.
+
+Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: 
+*****Entering Concordia Server*****
+
+Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Request Type: Add an item , Request params:
+ managerID CONM1122, itemID CON1234, itemName gt, quantity 2
+Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: CON1234 added successfully to libraray
+
+Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Request successfully completed,
+
+Apr 02, 2019 10:49:00 PM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Response returned: success: Item CON1234 exists, hence increased item's quantity by 5 Successfully.
+
+Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: 
+*****Entering Concordia Server*****
+Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: Request Type: Remove an item , Request params: managerID CONM1122, itemID CON1234, quantity 1
+Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.Concordia removeItemFromLibrary
+INFO: After removal:
+{CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=gt,4}
+
+Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.Concordia removeItemFromLibrary
+INFO: Request completed successfully
+Apr 02, 2019 10:51:24 PM com.dlms.replicas.replica1.ActionServiceImpl removeItem
+INFO: Response returned: success: Book's quantity decreased by 1 Successfully  from the available list! 
+Apr 02, 2019 10:51:39 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: 
+*****Entering Concordia Server*****
+Apr 02, 2019 10:51:39 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Request Type: List items , Request params: managerID CONM1122
+Apr 02, 2019 10:51:39 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Response returned: {CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8, CON1234=gt,4}

@@ -1,0 +1,36 @@
+Apr 02, 2019 10:48:15 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1122 opted to add a book
+Apr 02, 2019 10:48:31 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1122 opted to add a book
+Apr 02, 2019 10:48:40 PM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID CONM1122initiated an add book request for book id 
+con1234 book name gt quantity 3 in CON library
+Apr 02, 2019 10:48:40 PM com.dlms.client.Client managerOperation
+INFO: **** Entering addItem operation ***
+Apr 02, 2019 10:48:40 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : Item ID's con1234 quantity updated in Concordia Library.
+Apr 02, 2019 10:48:52 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1122 opted to add a book
+Apr 02, 2019 10:49:00 PM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID CONM1122initiated an add book request for book id 
+con1234 book name gt quantity 2 in CON library
+Apr 02, 2019 10:49:00 PM com.dlms.client.Client managerOperation
+INFO: **** Entering addItem operation ***
+Apr 02, 2019 10:49:00 PM com.dlms.client.Client managerOperation
+INFO: Response received from server :  Item CON1234 exists, hence increased item's quantity by 5 Successfully
+Apr 02, 2019 10:51:01 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1122 opted to delete/reduce a book
+Apr 02, 2019 10:51:24 PM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID CONM1122 initiated an reduce quantity of book request for book id con1234 with quantity 1 in CON library
+Apr 02, 2019 10:51:24 PM com.dlms.client.Client managerOperation
+INFO: **** Entering removeItem operation to remove the entire book ***
+Apr 02, 2019 10:51:24 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : Item ID con1234 has been successully decreased.
+Apr 02, 2019 10:51:24 PM com.dlms.client.Client managerOperation
+SEVERE: Item ID con1234 has been successully decreased.
+Apr 02, 2019 10:51:39 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1122 opted to list all the books in the library
+Apr 02, 2019 10:51:39 PM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 02, 2019 10:51:39 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : Item ID con1234 has been successully decreased
