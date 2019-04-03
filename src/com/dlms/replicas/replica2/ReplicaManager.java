@@ -8,7 +8,7 @@ import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.util.PriorityQueue;
 
-import com.dlms.replicas.replica1.MessageComparator;
+import com.dlms.replicas.replica2.MessageComparator;
 
 public class ReplicaManager {
 
@@ -17,23 +17,27 @@ public class ReplicaManager {
 
 	public static void main(String[] args) {
 		try {
-			ConcordiaServer.startUDP();
-			McgillServer.startUDP();
-			MontrealServer.startUDP();
+			ConcordiaServer concordiaServer = new ConcordiaServer();
+			McgillServer mcgillServer = new McgillServer();
+			MontrealServer montrealServer = new MontrealServer();
+			concordiaServer.startUDP();
+			mcgillServer.startUDP();
+			montrealServer.startUDP();
 
 			ActionServiceImpl actionServiceImpl = new ActionServiceImpl();
 
-			MulticastSocket aSocket = new MulticastSocket(1313);
+			MulticastSocket aSocket = new MulticastSocket(1314);
 
 			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
-			System.out.println("Server Started............");
+			System.out.println("Replica manager 2 Started............");
 			new Thread(() -> {
 				while (true) {
 					byte[] buffer = new byte[1000];
 					DatagramPacket request = new DatagramPacket(buffer, buffer.length);
 					try {
 						aSocket.receive(request);
+						System.out.println("RM2:" + request.getData().toString());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -41,20 +45,20 @@ public class ReplicaManager {
 					System.out.println("abcd---" + request.getData().toString());
 					String data = new String(request.getData());
 					System.out.println(data);
-//				String dataArray[] = data.split(",");
+					// String dataArray[] = data.split(",");
 
 					// set data in queue
 					if (queue.contains(data)) {
-						System.out.println("Duplicate message. Message already in queue");
+						System.out.println("Duplicate message.");
 					} else {
 						queue.add(data);
 					}
 
 					String message[] = queue.poll().split(",");
-					String operation = message[0];
-					String managerID = message[1];
-					String userID = message[2];
-					String itemID = message[3];
+					String sequenceNumber = message[0];
+					String operation = message[1];
+					String managerID = message[2];
+					String userID = message[3];
 					String newItemID = message[4];
 					String oldItemID = message[5];
 					String itemName = message[6];
@@ -62,15 +66,16 @@ public class ReplicaManager {
 					int numberOfDays = Integer.parseInt(message[8]);
 					String failureType = message[9];
 
-//					if (failureType.equalsIgnoreCase("faultyBug")) {
-//
-//					} else 
+					// if (failureType.equalsIgnoreCase("faultyBug")) {
+					//
+					// } else
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 
 						result = actionServiceImpl.listItemAvailability(managerID);
 
 					} else {
 						if (operation.equalsIgnoreCase("addItem")) {
+							System.out.println("Add item started");
 							result = actionServiceImpl.addItem(managerID, oldItemID, itemName, quantity);
 						} else if (operation.equalsIgnoreCase("removeItem")) {
 							result = actionServiceImpl.removeItem(managerID, oldItemID, quantity);
@@ -88,10 +93,11 @@ public class ReplicaManager {
 							result = actionServiceImpl.exchangeItem(userID, newItemID, oldItemID);
 						}
 					}
+					System.out.println(result);
 					sendUDPMessage(11111, "rm2:" + result);
 				}
 
-			});
+			}).start();
 		}
 
 		catch (Exception e) {
@@ -104,7 +110,7 @@ public class ReplicaManager {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("localhost"); // add Front End Address
+			InetAddress aHost = InetAddress.getByName("132.205.64.178"); // add Front End Address
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
 

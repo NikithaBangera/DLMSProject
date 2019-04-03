@@ -41,11 +41,15 @@ public class McgillServer {
 	 */
 	public McgillServer() {
 
-		mcgLibrary.put("MCG2011", "Computer Networks,4");
-		mcgLibrary.put("MCG2012", "Data Structures,6");
-		mcgLibrary.put("MCG2013", "DBMS,0");
-		mcgLibrary.put("MCG2014", "Image Processing,0");
-		mcgLibrary.put("MCG2015", "Artificial Intelligence,0");
+//		mcgLibrary.put("MCG2011", "Computer Networks,4");
+//		mcgLibrary.put("MCG2012", "Data Structures,6");
+//		mcgLibrary.put("MCG2013", "DBMS,0");
+//		mcgLibrary.put("MCG2014", "Image Processing,0");
+//		mcgLibrary.put("MCG2015", "Artificial Intelligence,0");
+		mcgLibrary.put("MCG1111", "COMPILER DESIGN,5");
+		mcgLibrary.put("MCG2222", "JAVA and J2EE,1");
+		mcgLibrary.put("MCG3333", "COMPUTER ORGANIZATION,4");
+		mcgLibrary.put("MCG4444", "DATA STRUCTURE,8");
 
 		mcgWaitlist.put("MCG2013", "CONU1015,MONU1016");
 		mcgWaitlist.put("MCG2014", "MCGU1017,MONU1018");

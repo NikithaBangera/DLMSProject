@@ -40,11 +40,15 @@ public class MontrealServer {
 	 */
 	public MontrealServer() {
 
-		monLibrary.put("MON2011", "Computer Networks,7");
-		monLibrary.put("MON2012", "Systems Software,6");
-		monLibrary.put("MON2013", "Distributed Systems,0");
-		monLibrary.put("MON2014", "Machine Learning,0");
-		monLibrary.put("MON2015", "Advanced Java,0");
+//		monLibrary.put("MON2011", "Computer Networks,7");
+//		monLibrary.put("MON2012", "Systems Software,6");
+//		monLibrary.put("MON2013", "Distributed Systems,0");
+//		monLibrary.put("MON2014", "Machine Learning,0");
+//		monLibrary.put("MON2015", "Advanced Java,0");
+		monLibrary.put("MON1111", "COMPUTER NETWORKS,9");
+		monLibrary.put("MON2222", "COMPUTER ORGANIZATION,0");
+		monLibrary.put("MON3333", "DISCRETE MATHEMATICAL STRUCTURE,1");
+		monLibrary.put("MON4444", "DATA STRUCTURE,8");
 
 		monWaitlist.put("MON2013", "CONU1017,MONU1018");
 		monWaitlist.put("MON2014", "MCGU1019,MONU1020");
