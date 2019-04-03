@@ -229,7 +229,7 @@ public class Concordia {
 
 		LinkedHashMap<String, Integer> waitUserList1 = new LinkedHashMap<String, Integer>();
 
-		waitUserList1.put("MONU1122", 17);
+		waitUserList1.put("MONU1012", 17);
 		waitUserList1.put("CONU1012", 19);
 		waitlistBook.put("CON2222", waitUserList1);
 

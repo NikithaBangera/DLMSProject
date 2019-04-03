@@ -1,22 +1,19 @@
-Apr 03, 2019 12:59:44 AM com.dlms.replicas.replica1.McGill startMcGillServer
-INFO: MCGill server started
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Montreal receive
-INFO: Request received at Montreal Server
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Montreal receive
-INFO: Request received is for REMOVE
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Montreal removeItemFromUserlist
-INFO: Before Removal of CON1234 from library, Montreal user's Borrow List:
-{MONU1012={CON1111=18, MON3333=2}, MONU1011={MON1111=12, MON3333=23}}
+Apr 03, 2019 2:23:43 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: 
+*****Entering Montreal Server*****
+Apr 03, 2019 2:23:43 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: Request Type: Borrow an item , Request params: userID MONU1012, itemID CON2222, numberOfDays 17
+Apr 03, 2019 2:23:43 AM com.dlms.replicas.replica1.Montreal isUserAllowedInterLibraryBorrow
+INFO: Checking User Info for accessibilty for requested book
 
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Montreal removeItemFromUserlist
-INFO: Before Removal of CON1234 from library, Montreal waitList:
-{}
+Apr 03, 2019 2:23:43 AM com.dlms.replicas.replica1.Montreal borrowBookToUser
+INFO: Request failed: User is not allowed to borrow requested book. Already Borrowed one book.
+Apr 03, 2019 2:23:43 AM com.dlms.replicas.replica1.Montreal sendMessage
+INFO: Request message sent from the Montreal to server with port number 1111 is: CheckWaitlist,MONU1012,CON2222
+Apr 03, 2019 2:23:43 AM com.dlms.replicas.replica1.Montreal sendMessage
+INFO: Reply received from the server with port number 1111 to Montreal server is: User removed from waitlist.
+Apr 03, 2019 2:23:43 AM com.dlms.replicas.replica1.Montreal borrowBookToUser
+INFO: Request failed: User was not allowed to borrow requested book and is removed from waitlist
 
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Montreal removeItemFromUserlist
-INFO: Before Removal of CON1234 from library, Montreal user's Borrow List:
-{MONU1012={CON1111=18, MON3333=2}, MONU1011={MON1111=12, MON3333=23}}
-
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.Montreal removeItemFromUserlist
-INFO: Before Removal of CON1234 from library, Montreal waitList:
-{}
-
+Apr 03, 2019 2:23:43 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: Response returned: User removed from waitlist

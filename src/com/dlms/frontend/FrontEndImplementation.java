@@ -51,7 +51,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	public synchronized String addItem(String managerID, String itemID, String itemName, int quantity) {
 		
 	
-		 String result = sendToSequencer("addItem", managerID, null, null, itemID, itemName, quantity, 0, null);
+		 String result = sendToSequencer("addItem", managerID, "", null, itemID, itemName, quantity, 0, null);
 		 
 		
 		System.out.println("FE result " + result + ":");
@@ -61,38 +61,38 @@ public class FrontEndImplementation extends ActionServicePOA {
 	}
 
 	public synchronized String removeItem(String managerID, String itemID, int quantity) {
-		String result = sendToSequencer("removeItem", managerID, null, null, itemID, null, quantity, 0, null);
+		String result = sendToSequencer("removeItem", managerID, "", null, itemID, null, quantity, 0, null);
 		System.out.println(this);
 		return result;
 	}
 
 	public synchronized String listItemAvailability(String managerID) {
-		String result = sendToSequencer("listItemAvailability", managerID, null, null, null, null, 0, 0, null);
+		String result = sendToSequencer("listItemAvailability", managerID, "", null, null, null, 0, 0, null);
 		return result;
 	}
 
 	public synchronized String borrowItem(String userID, String itemID, int numberOfDays) {
-		String result = sendToSequencer("borrowItem", null, userID, null, itemID, null, 0, numberOfDays, null);
+		String result = sendToSequencer("borrowItem", "", userID, null, itemID, null, 0, numberOfDays, null);
 		return result;
 	}
 
 	public synchronized String findItem(String userID, String itemName) {
-		String result = sendToSequencer("findItem", null, userID, null, null, itemName, 0, 0, null);
+		String result = sendToSequencer("findItem", "", userID, null, null, itemName, 0, 0, null);
 		return result;
 	}
 
 	public synchronized String returnItem(String userID, String itemID) {
-		String result = sendToSequencer("returnItem", null, userID, null, itemID, null, 0, 0, null);
+		String result = sendToSequencer("returnItem", "", userID, null, itemID, null, 0, 0, null);
 		return result;
 	}
 
 	public synchronized String waitList(String userID, String itemID, int numberOfDays) {
-		String result = sendToSequencer("waitList", null, userID, null, itemID, null, 0, numberOfDays, null);
+		String result = sendToSequencer("waitList", "", userID, null, itemID, null, 0, numberOfDays, null);
 		return result;
 	}
 
 	public synchronized String exchangeItem(String userID, String newItemID, String oldItemID) {
-		String result = sendToSequencer("exchangeItem", null, userID, newItemID, oldItemID, null, 0, 0, null);
+		String result = sendToSequencer("exchangeItem", "", userID, newItemID, oldItemID, null, 0, 0, null);
 		return result;
 	}
 
@@ -259,6 +259,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	public synchronized String majorityOfResult(String message1, String message2, String message3) {
 
 		invalidElement = 0;
+		majorityMessage = "";
 
 		if (message1 == null) {
 			majorityMessage = message2.split(":", 3)[2];

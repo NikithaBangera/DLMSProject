@@ -1,20 +1,81 @@
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill receive
-INFO: Request received at Concordia Server
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill receive
-INFO: Request received is for REMOVE
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill removeItemFromUserlist
-INFO: Before Removal of CON1234 from library, McGill user's Borrow List:
-{MCGU1011={CON2222=10, MCG1111=12, MCG2222=23, MON2222=18, MCG4592=23}, MCGU1012={}, MCGU1013={}}
+Apr 03, 2019 2:28:08 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: 
+*****Entering McGill Server*****
+Apr 03, 2019 2:28:08 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: Request Type: Borrow an item , Request params: userID MCGU1013, itemID MCG2222, numberOfDays 2
+Apr 03, 2019 2:28:08 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: Response returned: fail:Unavailable : Book requested is currently not available.
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.ActionServiceImpl waitList
+INFO: 
+*****Entering McGill Server*****
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.ActionServiceImpl waitList
+INFO: Request Type: Waitlist , Request params: userID MCGU1013, itemID MCG2222, numberOfDays 2
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.McGill addUserToWaitlist
+INFO: *****Adding User to WaitList*******
 
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill removeItemFromUserlist
-INFO: Before Removal of CON1234 from library, McGill waitList:
-{}
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.McGill addUserToWaitlist
+INFO: Wait list of McGill Book before :
 
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill removeItemFromUserlist
-INFO: Before Removal of CON1234 from library, McGill user's Borrow List:
-{MCGU1011={CON2222=10, MCG1111=12, MCG2222=23, MON2222=18, MCG4592=23}, MCGU1012={}, MCGU1013={}}
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.McGill addUserToWaitlist
+INFO: Adding MCGU1013 to waitlist of itemIDMCG2222
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.McGill addUserToWaitlist
+INFO: Request completed successfully.
 
-Apr 03, 2019 1:01:32 AM com.dlms.replicas.replica1.McGill removeItemFromUserlist
-INFO: Before Removal of CON1234 from library, McGill waitList:
-{}
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.McGill addUserToWaitlist
+INFO: success:MCGU1013 added to MCG2222 waitlist Successfully !!. You are at position  1 in the Queue.
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.McGill addUserToWaitlist
+INFO: Wait list of McGill Book  After :
 
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.McGill lambda$5
+INFO: **  MCG2222 {MCGU1013=2}
+
+Apr 03, 2019 2:28:17 AM com.dlms.replicas.replica1.ActionServiceImpl waitList
+INFO: Response returned: success:MCGU1013 added to MCG2222 waitlist Successfully !!. You are at position  1 in the Queue.
+Apr 03, 2019 2:28:49 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: 
+*****Entering McGill Server*****
+Apr 03, 2019 2:28:49 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Request Type: List items , Request params: managerID MCGM1012
+Apr 03, 2019 2:28:49 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Response returned: {MCG4444=DATA STRUCTURE,8, MCG1111=COMPILER DESIGN,4, MCG2222=DISCRETE MATHEMATICAL STRUCTURE,0, MCG3333=GRAPH THEORY,2}
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: checking for any available in MCG2222waitlist.
+
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: 
+*****Entering McGill Server*****
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: Request Type: Borrow an item , Request params: userID MCGU1013, itemID MCG2222, numberOfDays 2
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.McGill borrowBookToUser
+INFO: Books in MCGill Library before user request {MCG4444=DATA STRUCTURE,8, MCG1111=COMPILER DESIGN,4, MCG2222=DISCRETE MATHEMATICAL STRUCTURE,2, MCG3333=GRAPH THEORY,2}
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.McGill borrowBookToUser
+INFO: MCGU1013 borrowed book details before borrowing MCG2222:{}.
+
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.McGill setUserDetails
+INFO: Book with book id MCG2222 Successfully borrowed by user MCGU1013. Added the book to user's borrowed list.
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.McGill borrowBookToUser
+INFO: MCGU1013 borrowed book details after borrowing MCG2222:{MCG2222=2}.
+
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.McGill borrowBookToUser
+INFO: Request completed successfully.
+
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.McGill borrowBookToUser
+INFO: Books in McGill Library after user request {MCG4444=DATA STRUCTURE,8, MCG1111=COMPILER DESIGN,4, MCG2222=DISCRETE MATHEMATICAL STRUCTURE,1, MCG3333=GRAPH THEORY,2}.
+
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.ActionServiceImpl borrowItem
+INFO: Response returned: success:Book with book id MCG2222 Successfully borrowed by user MCGU1013.
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: success:Book with book id MCG2222 Successfully borrowed by user MCGU1013.
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO:  Users removed from the waitlist
+ 
+Apr 03, 2019 2:29:09 AM com.dlms.replicas.replica1.ActionServiceImpl addItem
+INFO: Request successfully completed,
+
+Apr 03, 2019 2:29:24 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: 
+*****Entering McGill Server*****
+Apr 03, 2019 2:29:24 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Request Type: List items , Request params: managerID MCGM1012
+Apr 03, 2019 2:29:24 AM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Response returned: {MCG4444=DATA STRUCTURE,8, MCG1111=COMPILER DESIGN,4, MCG2222=DISCRETE MATHEMATICAL STRUCTURE,1, MCG3333=GRAPH THEORY,2}
