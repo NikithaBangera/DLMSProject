@@ -57,7 +57,7 @@ public class ActionServiceImpl implements ActionService {
 							}
 							Concordia.logger.info(" Users removed from the waitlist\n ");
 
-							operation = success + "Item " + itemID + " exists, hence increased item's quantity by "
+							operation = success + "Item " + itemID + " exists, hence increased item's quantity to "
 									+ quantity + " Successfully, and assigned to users existed in Waitlist";
 							Concordia.logger.info("Request successfully completed,\n");
 						}
@@ -65,7 +65,7 @@ public class ActionServiceImpl implements ActionService {
 							Concordia.waitlistBook.remove(itemID);
 						}
 					} else {
-						operation = success + "Item " + itemID + " exists, hence increased item's quantity by "
+						operation = success + "Item " + itemID + " exists, hence increased item's quantity to "
 								+ quantity + " Successfully";
 						Concordia.logger.info("Request successfully completed,\n");
 					}
