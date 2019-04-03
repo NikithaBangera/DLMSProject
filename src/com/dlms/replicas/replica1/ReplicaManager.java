@@ -45,22 +45,23 @@ public class ReplicaManager {
 
 			MulticastSocket aSocket = new MulticastSocket(1313);
 
-			aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
+			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
-			System.out.println("Server Started............");
+			System.out.println("Server Started 33333............");
 			new Thread(() -> {
 				while (true) {
 					byte[] buffer = new byte[1000];
 					DatagramPacket request = new DatagramPacket(buffer, buffer.length);
 					try {
 						aSocket.receive(request);
+						System.out.println("Replica 1" + request.getData().toString());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					System.out.println("abcd---" + request.getData().toString());
 					String data = new String(request.getData());
-					System.out.println(data);
+					System.out.println("----"+data);
 //				String dataArray[] = data.split(",");
 
 					// set data in queue
@@ -71,10 +72,10 @@ public class ReplicaManager {
 					}
 
 					String message[] = queue.poll().split(",");
-					String operation = message[0];
-					String managerID = message[1];
-					String userID = message[2];
-					String itemID = message[3];
+					String seqNum =  message[0];
+					String operation = message[1];
+					String managerID = message[2];
+					String userID = message[3];
 					String newItemID = message[4];
 					String oldItemID = message[5];
 					String itemName = message[6];
@@ -114,7 +115,7 @@ public class ReplicaManager {
 						}
 
 					}
-					sendUDPMessage(11111, "rm1" + result);
+					sendUDPMessage(11111, "rm1:" + result);
 
 				}
 			}).start();

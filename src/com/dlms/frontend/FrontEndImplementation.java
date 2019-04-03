@@ -22,9 +22,9 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	private ORB orb;
 	private String timetaken;
-	private long duration = 1000;
-	String majorityElement;
-	String majorityMessage = "";
+	private long duration = 100000;
+	private static String majorityElement = null;
+	private static String majorityMessage = "";
 	private int invalidElement;
 	private int crashElement;
 	private HashMap<Integer, Integer> badReplicaMap = new HashMap<Integer, Integer>();
@@ -48,8 +48,9 @@ public class FrontEndImplementation extends ActionServicePOA {
 	// operation,managerID,userID,exchangeItemID,itemID,itemName,quantity,numberOfDays,failureType
 
 	public String addItem(String managerID, String itemID, String itemName, int quantity) {
-		
+
 		String result = sendToSequencer("addItem", managerID, null, null, itemID, itemName, quantity, 0, null);
+		System.out.println("FE result " + result + ":");
 
 		return result;
 	}
@@ -61,9 +62,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	}
 
 	public String listItemAvailability(String managerID) {
-		String c[] = managerID.split(",");
-		
-		String result = sendToSequencer("listItemAvailability", c[0], null, null, null, null, 0, 0, c[1]);
+		String result = sendToSequencer("listItemAvailability", managerID, null, null, null, null, 0, 0, null);
 		return result;
 	}
 
@@ -92,23 +91,26 @@ public class FrontEndImplementation extends ActionServicePOA {
 		return result;
 	}
 
-//	@Override
-//	public boolean validateUser(String userID) {
-//		String result = sendToSequencer("validateUser", null, userID, null, null, null, 0, 0, null);
-//		if (result.contains("success:")) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//
-//	}
+	// @Override
+	// public boolean validateUser(String userID) {
+	// String result = sendToSequencer("validateUser", null, userID, null, null,
+	// null, 0, 0, null);
+	// if (result.contains("success:")) {
+	// return true;
+	// } else {
+	// return false;
+	// }
+	//
+	// }
 
-//	public synchronized String sendToSequencerUser(String operation, String userID, String exchangeItemID,
-//			String itemID, String itemName, String newItemID, String oldItemID, int noOfDays, String failureType) {
-//
-//		return null;
-//
-//	}
+	// public synchronized String sendToSequencerUser(String operation, String
+	// userID, String exchangeItemID,
+	// String itemID, String itemName, String newItemID, String oldItemID, int
+	// noOfDays, String failureType) {
+	//
+	// return null;
+	//
+	// }
 
 	public synchronized String sendToSequencer(String operation, String managerID, String userID, String exchangeItemID,
 			String itemID, String itemName, int quantity, int numberOfDays, String failureType) {
@@ -120,7 +122,6 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 		long startTime = 0;
 		long endTime = 0;
-		
 
 		try {
 
@@ -156,7 +157,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 					 * Sending a message to RM of crashed replica
 					 */
 					aSocket.send(new DatagramPacket("replicaCrashed".getBytes(), "replicaCrashed".length(),
-							InetAddress.getByName("crashed replica address"), 55555));
+							InetAddress.getByName("132.205.64.177"), 1313));
 
 				}
 				/*
@@ -169,19 +170,36 @@ public class FrontEndImplementation extends ActionServicePOA {
 				}
 			}
 			duration = Collections.max(waitTimeList);
+			new String(request.getData());
+			message1 = new String(reply[0].getData()).trim();
+			message2 = new String(reply[1].getData()).trim();
+			message3 = new String(reply[2].getData()).trim();
 
-			message1 = new String(reply[0].getAddress().equals("replica1") ? reply[0].getData()
-					: reply[1].getAddress().equals("replica1") ? reply[1].getData() : reply[2].getData());
-			message1 = message1.trim();
-			message2 = new String(reply[0].getAddress().equals("replica2") ? reply[0].getData()
-					: reply[1].getAddress().equals("replica2") ? reply[1].getData() : reply[2].getData());
-			message2 = message2.trim();
-			message3 = new String(reply[0].getAddress().equals("replica3") ? reply[0].getData()
-					: reply[1].getAddress().equals("replica3") ? reply[1].getData() : reply[2].getData());
-			message3 = message3.trim();
+			System.out.println(message1.trim() + "message1");
+			System.out.println(message2.trim() + "message2");
+			System.out.println(message3.trim() + "message3");
 
-			majorityOfResult(message1, message2, message3);
+			// message1 = new String(reply[0].getAddress().equals("replica1") ?
+			// reply[0].getData()
+			// : reply[1].getAddress().equals("replica1") ? reply[1].getData() :
+			// reply[2].getData());
+			// message1 = message1.trim();
+			// message2 = new String(reply[0].getAddress().equals("replica2") ?
+			// reply[0].getData()
+			// : reply[1].getAddress().equals("replica2") ? reply[1].getData() :
+			// reply[2].getData());
+			// message2 = message2.trim();
+			// message3 = new String(reply[0].getAddress().equals("replica3") ?
+			// reply[0].getData()
+			// : reply[1].getAddress().equals("replica3") ? reply[1].getData() :
+			// reply[2].getData());
+			// message3 = message3.trim();
 
+			majorityElement = majorityOfResult(message1, message2, message3);
+
+			System.out.println(message1 + "majormessage1");
+			System.out.println(message2 + " majo message2");
+			System.out.println(message3 + "majo message3");
 			if (invalidElement == 1) {
 				badReplicaMap.put(1, badReplicaMap.get(1) + 1);
 				badReplicaMap.put(2, 0);
@@ -234,104 +252,118 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 		invalidElement = 0;
 
-		if(message1 == null) {
-			majorityMessage = message2.split(":",3)[2];
+		if (message1 == null) {
+			majorityMessage = message2.split(":", 3)[2];
+		} else if (message2 == null) {
+			majorityMessage = message1.split(":", 3)[2];
+		} else if (message3 == null) {
+			majorityMessage = message1.split(":", 3)[2];
+		} else if (message1.equalsIgnoreCase("someJunkValue")) {
+			int replica = Integer.parseInt(message1.split(":")[0].substring(2, 3));
+			invalidElement = replica;
+
+		} else if (message2.equalsIgnoreCase("someJunkValue")) {
+			int replica = Integer.parseInt(message2.split(":")[0].substring(2, 3));
+			invalidElement = replica;
+
+		} else if (message3.equalsIgnoreCase("someJunkValue")) {
+			int replica = Integer.parseInt(message3.split(":")[0].substring(2, 3));
+			invalidElement = replica;
+
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Success")
+				&& message2.split(":", 3)[1].equalsIgnoreCase("Success")
+				&& message3.split(":", 3)[1].equalsIgnoreCase("Success")) {
+			majorityMessage = message1.split(":", 3)[2];
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Fail")
+				&& message2.split(":", 3)[1].equalsIgnoreCase("Fail")
+				&& message3.split(":")[1].equalsIgnoreCase("Fail")) {
+			majorityMessage = message1.split(":", 3)[2];
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Success")
+				&& message2.split(":", 3)[1].equalsIgnoreCase("Success")
+				&& message3.split(":", 3)[1].equalsIgnoreCase("Fail")) {
+			majorityMessage = message1.split(":", 3)[2];
+			invalidElement = 3;
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Success")
+				&& message2.split(":", 3)[1].equalsIgnoreCase("Fail")
+				&& message3.split(":", 3)[1].equalsIgnoreCase("Success")) {
+			majorityMessage = message1.split(":", 3)[2];
+			invalidElement = 2;
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Fail")
+				&& message2.split(":", 3)[1].equalsIgnoreCase("Success")
+				&& message3.split(":", 3)[1].equalsIgnoreCase("Success")) {
+			majorityMessage = message2.split(":", 3)[2];
+			invalidElement = 1;
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Fail")
+				&& message2.split(":", 3)[1].equalsIgnoreCase("Fail")
+				&& message3.split(":", 3)[1].equalsIgnoreCase("Success")) {
+			majorityMessage = message1.split(":", 3)[2];
+			invalidElement = 3;
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Fail")
+				&& message2.split(":", 3)[1].equalsIgnoreCase("Success")
+				&& message3.split(":", 3)[1].equalsIgnoreCase("Fail")) {
+			majorityMessage = message1.split(":", 3)[2];
+			invalidElement = 2;
+		} else if (message1.split(":", 3)[1].equalsIgnoreCase("Success")
+				&& message2.split(":", 3)[1].equalsIgnoreCase("Fail")
+				&& message3.split(":", 3)[1].equalsIgnoreCase("Fail")) {
+			majorityMessage = message2.split(":", 3)[2];
+			invalidElement = 1;
 		}
-		else if(message2 == null) {
-			majorityMessage = message1.split(":",3)[2];
-		}
-		else if (message3 == null) {
-			majorityMessage = message1.split(":",3)[2]; 
-		}
-		
-		else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
-					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
-				majorityMessage =  message1.split(":",3)[2];
-			}
-			else if(message1.split(":",3)[1].equalsIgnoreCase("Fail") && message2.split(":",3)[1].equalsIgnoreCase("Fail") 
-					&& message3.split(":")[1].equalsIgnoreCase("Fail")) {
-				majorityMessage = message1.split(":",3)[2];
-			}
-			else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
-					&& message3.split(":",3)[1].equalsIgnoreCase("Fail")) {
-				majorityMessage = message1.split(":",3)[2];
-				invalidElement = 3;
-			}
-			else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Fail") 
-					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
-				majorityMessage = message1.split(":",3)[2];
-				invalidElement = 2;
-			}
-			else if(message1.split(":",3)[1].equalsIgnoreCase("Fail") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
-					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
-				majorityMessage = message2.split(":",3)[2];
-				invalidElement = 1;
-			}
-			else if(message1.split(":",3)[1].equalsIgnoreCase("Fail") && message2.split(":",3)[1].equalsIgnoreCase("Fail") 
-					&& message3.split(":",3)[1].equalsIgnoreCase("Success")) {
-				majorityMessage = message1.split(":",3)[2];
-				invalidElement = 3;
-			}
-			else if(message1.split(":",3)[1].equalsIgnoreCase("Fail") && message2.split(":",3)[1].equalsIgnoreCase("Success") 
-					&& message3.split(":",3)[1].equalsIgnoreCase("Fail")) {
-				majorityMessage = message1.split(":",3)[2];
-				invalidElement = 2;
-			}
-			else if(message1.split(":",3)[1].equalsIgnoreCase("Success") && message2.split(":",3)[1].equalsIgnoreCase("Fail") 
-					&& message3.split(":",3)[1].equalsIgnoreCase("Fail")) {
-				majorityMessage = message2.split(":",3)[2];
-				invalidElement = 1;
-			}
 		return majorityMessage;
 
 	}
-	
-//	public String majorityOfResult(String message1, String message2, String message3) {
-//
-//		majorityElement = null;
-//		invalidElement = 0;
-//		int i;
-//		successSet.clear();
-//		
-//		if(message1.contains("success") || message1.contains("Success")) {
-//			successSet.add(message1);
-//			i=1;
-//			
-//		}
-//		if(message2.contains("success") || message1.contains("Success")) {
-//			successSet.add(message2);
-//			i=2;
-//		}
-//		if(message3.contains("success") || message1.contains("Success")) {
-//			successSet.add(message3);
-//			i=3;
-//		}
-//		
-//		
-//		
-//		if (message1.equalsIgnoreCase(message2) && message2.equalsIgnoreCase(message3)) {
-//
-//			majorityElement = message1;
-//
-//		} else if (message1.equalsIgnoreCase(message2) && !message2.equalsIgnoreCase(message3)) {
-//
-//			majorityElement = message1;
-//			invalidElement = 3;
-//
-//		} else if (!message1.equalsIgnoreCase(message2) && message2.equalsIgnoreCase(message3)) {
-//
-//			majorityElement = message2;
-//			invalidElement = 1;
-//		} else if (message1.equalsIgnoreCase(message3) && !message2.equalsIgnoreCase(message3)) {
-//
-//			majorityElement = message1;
-//			invalidElement = 2;
-//		} else {
-//			invalidElement = 0;
-//		}
-//
-//		return majorityElement + "," + invalidElement;
-//
-//	}
+
+	// public String majorityOfResult(String message1, String message2, String
+	// message3) {
+	//
+	// majorityElement = null;
+	// invalidElement = 0;
+	// int i;
+	// successSet.clear();
+	//
+	// if(message1.contains("success") || message1.contains("Success")) {
+	// successSet.add(message1);
+	// i=1;
+	//
+	// }
+	// if(message2.contains("success") || message1.contains("Success")) {
+	// successSet.add(message2);
+	// i=2;
+	// }
+	// if(message3.contains("success") || message1.contains("Success")) {
+	// successSet.add(message3);
+	// i=3;
+	// }
+	//
+	//
+	//
+	// if (message1.equalsIgnoreCase(message2) &&
+	// message2.equalsIgnoreCase(message3)) {
+	//
+	// majorityElement = message1;
+	//
+	// } else if (message1.equalsIgnoreCase(message2) &&
+	// !message2.equalsIgnoreCase(message3)) {
+	//
+	// majorityElement = message1;
+	// invalidElement = 3;
+	//
+	// } else if (!message1.equalsIgnoreCase(message2) &&
+	// message2.equalsIgnoreCase(message3)) {
+	//
+	// majorityElement = message2;
+	// invalidElement = 1;
+	// } else if (message1.equalsIgnoreCase(message3) &&
+	// !message2.equalsIgnoreCase(message3)) {
+	//
+	// majorityElement = message1;
+	// invalidElement = 2;
+	// } else {
+	// invalidElement = 0;
+	// }
+	//
+	// return majorityElement + "," + invalidElement;
+	//
+	// }
 
 }
