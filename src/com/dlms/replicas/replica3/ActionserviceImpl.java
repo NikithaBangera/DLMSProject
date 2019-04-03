@@ -350,7 +350,7 @@ public class ActionserviceImpl implements ActionService {
 
 		String itemName;
 		int quantity;
-		message = "Below is the list of all the available items in the Library: \n";
+		message = "";
 		LOG.info("The current Date and time for this request is: " + getCurrentDate());
 		LOG.info("Starting -----LIST ALL AVAILABLE ITEMS----- operation in the library for Manager with ID: "
 				+ managerID);
@@ -362,7 +362,7 @@ public class ActionserviceImpl implements ActionService {
 			quantity = entry.getValue();
 //			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
 //					+ thisEntry.getValue().split(",")[1] + ";");
-			message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
+		//	message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
 			message = message.concat(s+"-"+itemName+","+quantity+";");
 
 		}
@@ -370,7 +370,7 @@ public class ActionserviceImpl implements ActionService {
 
 		LOG.info(message);
 
-		return message;
+		return "Success:"+message;
 	}
 
 	@Override

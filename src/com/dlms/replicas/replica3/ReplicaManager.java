@@ -53,7 +53,7 @@ public class ReplicaManager {
 			mcStub = McGillLibrary.mcStub;
 			monStub = MontrealLibrary.monStub;
 
-			MulticastSocket aSocket = new MulticastSocket(1313);
+			MulticastSocket aSocket = new MulticastSocket(1314);
 
 			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
