@@ -50,18 +50,19 @@ public class ConcordiaServer {
 //		conLibrary.put("CON2014", "Machine learning,0");
 //		conLibrary.put("CON2015", "Advanced Java,0");
 
-		conWaitlist.put("CON2222", "CONU1013,MONU1012");
+//		conWaitlist.put("CON2222", "CONU1013,MONU1012");
 //		conWaitlist.put("CON2013", "CONU1015,MONU1016");
 //		conWaitlist.put("CON2014", "MCGU1017,MONU1018");
 //		conWaitlist.put("CON2015", "MONU1019,MCGU1020");
 
-		itemHistory.add("CON1111,Borrowed");
-		itemHistory.add("CON2222,Returned");
-		itemHistory.add("CON3333,Borrowed");
-		itemHistory.add("MCG2222,Borrowed");
-		itemHistory.add("MCG3333,Returned");
-		itemHistory.add("MON2222,Borrowed");
-		itemHistory.add("MON3333,Returned");
+		itemHistory.add("CON5555,Borrowed");
+		itemHistory.add("CON6666,Returned");
+		itemHistory.add("CON7777,Borrowed");
+//		itemHistory.add("MCG2222,Borrowed");
+//		itemHistory.add("MCG3333,Returned");
+//		itemHistory.add("MON2222,Borrowed");
+//		itemHistory.add("MON3333,Returned");
+		
 //		itemHistory.add("CON2012,Borrowed");
 //		itemHistory.add("CON2013,Borrowed");
 //		itemHistory.add("MON2014,Borrowed");
@@ -74,6 +75,7 @@ public class ConcordiaServer {
 		userHistory.put("CONU1011", itemHistory);
 		userHistory.put("CONU1012", itemHistory);
 		userHistory.put("CONU1013", itemHistory);
+		
 //		userHistory.put("CONU1014", itemHistory);
 //		userHistory.put("CONU1015", itemHistory);
 //		userHistory.put("CONU1016", itemHistory);
@@ -295,7 +297,8 @@ public class ConcordiaServer {
 			Entry<String, String> item = mapIterator.next();
 			String[] itemDetails = item.getValue().split(",");
 			if (itemDetails[0].equalsIgnoreCase(itemName)) {
-				response = item.getKey() + " " + itemDetails[1];
+			//	response = item.getKey() + " " + itemDetails[1];
+				response = item.getKey() + "-" + item.getValue();
 			}
 		}
 		return response;
