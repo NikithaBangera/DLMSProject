@@ -73,7 +73,7 @@ public class ActionserviceImpl implements ActionService {
 		FileHandler handler = null;
 		LogManager.getLogManager().reset();
 
-		file = new File("C:\\Users\\Arpit\\Desktop\\Distributed system\\Server\\logs");
+		file = new File("G:\\My Documents");
 
 		if (!file.exists()) {
 			file.mkdirs();
@@ -104,36 +104,32 @@ public class ActionserviceImpl implements ActionService {
 
 		if (library.equalsIgnoreCase("Concordia")) {
 			libraryInfo.put("CON1111", new HashMap<String, Integer>());
-			libraryInfo.get("CON1111").put("DISTRIBUTED SYSTEM DESIGN", 0);
-
-			libraryInfo.put("CON6231", new HashMap<String, Integer>());
-			libraryInfo.get("CON6231").put("DS", 2);
-
-			libraryInfo.put("CON6651", new HashMap<String, Integer>());
-			libraryInfo.get("CON6651").put("ADT", 2);
+			libraryInfo.get("CON1111").put("COMPILER DESIGN", 4);
 
 			libraryInfo.put("CON2222", new HashMap<String, Integer>());
-			libraryInfo.get("CON2222").put("ALGORITHM DESIGN TECHNIQUES", 1);
+			libraryInfo.get("CON2222").put("DISCRETE MATHEMATICAL STRUCTURE", 0);
 
 			libraryInfo.put("CON3333", new HashMap<String, Integer>());
-			libraryInfo.get("CON3333").put("ADVANCED PROGRAMMING PRACTICES", 3);
+			libraryInfo.get("CON3333").put("GRAPH THEORY", 2);
 
 			libraryInfo.put("CON4444", new HashMap<String, Integer>());
-			libraryInfo.get("CON4444").put("COMPUTER GRAPHICS", 3);
+			libraryInfo.get("CON4444").put("DATA STRUCTURE", 8);
+			
 
 		} else if (library.equalsIgnoreCase("McGill")) {
+			
 			libraryInfo.put("MCG1111", new HashMap<String, Integer>());
-			libraryInfo.get("MCG1111").put("DISTRIBUTED SYSTEM DESIGN", 1);
+			libraryInfo.get("MCG1111").put("COMPILER DESIGN", 4);
 
 			libraryInfo.put("MCG2222", new HashMap<String, Integer>());
-			libraryInfo.get("MCG2222").put("ALGORITHM DESIGN TECHNIQUES", 2);
+			libraryInfo.get("MCG2222").put("DISCRETE MATHEMATICAL STRUCTURE", 0);
 
 			libraryInfo.put("MCG3333", new HashMap<String, Integer>());
-			libraryInfo.get("MCG3333").put("ADVANCED PROGRAMMING PRACTICES", 2);
+			libraryInfo.get("MCG3333").put("GRAPH THEORY", 2);
 
 			libraryInfo.put("MCG4444", new HashMap<String, Integer>());
-			libraryInfo.get("MCG4444").put("COMPUTER GRAPHICS", 5);
-
+			libraryInfo.get("MCG4444").put("DATA STRUCTURE", 8);
+			
 			userInfo.put("CONU1111", new ArrayList<String>());
 			userInfo.get("CONU1111").add("MCG1111");
 
@@ -149,22 +145,19 @@ public class ActionserviceImpl implements ActionService {
 		}
 
 		else {
-
+			
 			libraryInfo.put("MON1111", new HashMap<String, Integer>());
-			libraryInfo.get("MON1111").put("DISTRIBUTED SYSTEM DESIGN", 2);
-
-			libraryInfo.put("MON6231", new HashMap<String, Integer>());
-			libraryInfo.get("MON6231").put("DS", 1);
+			libraryInfo.get("MON1111").put("COMPILER DESIGN", 4);
 
 			libraryInfo.put("MON2222", new HashMap<String, Integer>());
-			libraryInfo.get("MON2222").put("ALGORITHM DESIGN TECHNIQUES", 2);
+			libraryInfo.get("MON2222").put("DISCRETE MATHEMATICAL STRUCTURE", 0);
 
 			libraryInfo.put("MON3333", new HashMap<String, Integer>());
-			libraryInfo.get("MON3333").put("ADVANCED PROGRAMMING PRACTICES", 3);
+			libraryInfo.get("MON3333").put("GRAPH THEORY", 2);
 
 			libraryInfo.put("MON4444", new HashMap<String, Integer>());
-			libraryInfo.get("MON4444").put("COMPUTER GRAPHICS", 5);
-
+			libraryInfo.get("MON4444").put("DATA STRUCTURE", 8);
+			
 		}
 
 	}

@@ -172,6 +172,7 @@ public class ReplicaManager {
 
 						}
 					}
+					System.out.println("Result RM3: "+ result);
 					sendUDPMessage(11111, "rm3:"+result);
 
 				}
