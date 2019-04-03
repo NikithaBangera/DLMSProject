@@ -45,22 +45,24 @@ public class MontrealServer {
 //		monLibrary.put("MON2013", "Distributed Systems,0");
 //		monLibrary.put("MON2014", "Machine Learning,0");
 //		monLibrary.put("MON2015", "Advanced Java,0");
-		monLibrary.put("MON1111", "COMPUTER NETWORKS,9");
-		monLibrary.put("MON2222", "COMPUTER ORGANIZATION,0");
-		monLibrary.put("MON3333", "DISCRETE MATHEMATICAL STRUCTURE,1");
+		monLibrary.put("MON1111", "COMPILER DESIGN,4");
+		monLibrary.put("MON2222", "DISCRETE MATHEMATICAL STRUCTURE,0");
+		monLibrary.put("MON3333", "GRAPH THEORY,2");
 		monLibrary.put("MON4444", "DATA STRUCTURE,8");
 
-		monWaitlist.put("MON2013", "CONU1017,MONU1018");
-		monWaitlist.put("MON2014", "MCGU1019,MONU1020");
-		monWaitlist.put("MON2015", "MONU1015,MCGU1016");
+//		monWaitlist.put("MON2222", "MONU1013,MCGU1012");
+//		monWaitlist.put("MON2013", "CONU1017,MONU1018");
+//		monWaitlist.put("MON2014", "MCGU1019,MONU1020");
+//		monWaitlist.put("MON2015", "MONU1015,MCGU1016");
 
-		itemHistory.add("MON1111,Borrowed");
-		itemHistory.add("MON2222,Borrowed");
-		itemHistory.add("MON3333,Returned");
-		itemHistory.add("MCG2222,Borrowed");
-		itemHistory.add("MCG3333,Returned");
-		itemHistory.add("CON2222,Borrowed");
-		itemHistory.add("CON3333,Returned");
+		itemHistory.add("MON5555,Borrowed");
+		itemHistory.add("MON6666,Borrowed");
+		itemHistory.add("MON7777,Returned");
+//		itemHistory.add("MCG2222,Borrowed");
+//		itemHistory.add("MCG3333,Returned");
+//		itemHistory.add("CON2222,Borrowed");
+//		itemHistory.add("CON3333,Returned");
+		
 //		itemHistory.add("MON2012,Borrowed");
 //		itemHistory.add("MON2013,Borrowed");
 //		itemHistory.add("CON2014,Borrowed");
@@ -315,7 +317,8 @@ public class MontrealServer {
 			Entry<String, String> item = mapIterator.next();
 			String[] itemDetails = item.getValue().split(",");
 			if (itemDetails[0].equalsIgnoreCase(itemName)) {
-				response = item.getKey() + " " + itemDetails[1];
+			//	response = item.getKey() + " " + itemDetails[1];
+				response = item.getKey() + "-" + item.getValue();
 			}
 		}
 		return response;
