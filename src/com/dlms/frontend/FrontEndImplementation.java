@@ -129,6 +129,8 @@ public class FrontEndImplementation extends ActionServicePOA {
 					+ "," + quantity + "," + numberOfDays + "," + failureType;
 			aSocket = new DatagramSocket(11111);
 			aSocket.setSoTimeout((int) duration * 2);
+			
+			
 
 			byte[] mess = key.getBytes();
 			InetAddress aHost = InetAddress.getByName("localhost"); // address of Sequencer
@@ -155,7 +157,9 @@ public class FrontEndImplementation extends ActionServicePOA {
 				} catch (SocketTimeoutException t) {
 					/*
 					 * Sending a message to RM of crashed replica
+					 * 
 					 */
+					System.out.println("Due to duration inside catch");
 					aSocket.send(new DatagramPacket("replicaCrashed".getBytes(), "replicaCrashed".length(),
 							InetAddress.getByName("132.205.64.177"), 1313));
 
