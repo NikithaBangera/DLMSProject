@@ -1040,7 +1040,7 @@ public class ActionServiceImpl implements ActionService {
 		populateWaitList(userID.substring(0, 3));
 
 		if (validateForUserWaitList(userID, itemID)) {
-			return "Already Added";
+			return "Fail:Already Added";
 		} else {
 			switch (userID.substring(0, 3)) {
 			case "CON":
