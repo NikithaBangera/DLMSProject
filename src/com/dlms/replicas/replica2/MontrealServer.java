@@ -54,24 +54,31 @@ public class MontrealServer {
 		monWaitlist.put("MON2014", "MCGU1019,MONU1020");
 		monWaitlist.put("MON2015", "MONU1015,MCGU1016");
 
-		itemHistory.add("MON2012,Borrowed");
-		itemHistory.add("MON2013,Borrowed");
-		itemHistory.add("CON2014,Borrowed");
-		itemHistory.add("CON2015,Returned");
-		itemHistory.add("MCG2014,Borrowed");
-		itemHistory.add("MCG2015,Returned");
-		itemHistory.add("MON2015,Returned");
+		itemHistory.add("MON1111,Borrowed");
+		itemHistory.add("MON2222,Borrowed");
+		itemHistory.add("MON3333,Returned");
+		itemHistory.add("MCG2222,Borrowed");
+		itemHistory.add("MCG3333,Returned");
+		itemHistory.add("CON2222,Borrowed");
+		itemHistory.add("CON3333,Returned");
+//		itemHistory.add("MON2012,Borrowed");
+//		itemHistory.add("MON2013,Borrowed");
+//		itemHistory.add("CON2014,Borrowed");
+//		itemHistory.add("CON2015,Returned");
+//		itemHistory.add("MCG2014,Borrowed");
+//		itemHistory.add("MCG2015,Returned");
+//		itemHistory.add("MON2015,Returned");
 
 		userHistory.put("MONU1011", itemHistory);
 		userHistory.put("MONU1012", itemHistory);
-		userHistory.put("MONU1013", itemHistory);
-		userHistory.put("MONU1014", itemHistory);
-		userHistory.put("MONU1015", itemHistory);
-		userHistory.put("MONU1016", itemHistory);
-		userHistory.put("MONU1017", itemHistory);
-		userHistory.put("MONU1018", itemHistory);
-		userHistory.put("MONU1019", itemHistory);
-		userHistory.put("MONU1020", itemHistory);
+//		userHistory.put("MONU1013", itemHistory);
+//		userHistory.put("MONU1014", itemHistory);
+//		userHistory.put("MONU1015", itemHistory);
+//		userHistory.put("MONU1016", itemHistory);
+//		userHistory.put("MONU1017", itemHistory);
+//		userHistory.put("MONU1018", itemHistory);
+//		userHistory.put("MONU1019", itemHistory);
+//		userHistory.put("MONU1020", itemHistory);
 
 	}
 
