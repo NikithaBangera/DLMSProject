@@ -55,9 +55,10 @@ public class ConcordiaServer {
 //		conWaitlist.put("CON2014", "MCGU1017,MONU1018");
 //		conWaitlist.put("CON2015", "MONU1019,MCGU1020");
 
-		itemHistory.add("CON5555,Borrowed");
-		itemHistory.add("CON6666,Returned");
-		itemHistory.add("CON7777,Borrowed");
+//		itemHistory.add("CON5555,Borrowed");
+//		itemHistory.add("CON6666,Returned");
+//		itemHistory.add("CON7777,Borrowed");
+		
 //		itemHistory.add("MCG2222,Borrowed");
 //		itemHistory.add("MCG3333,Returned");
 //		itemHistory.add("MON2222,Borrowed");

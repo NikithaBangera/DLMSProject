@@ -22,6 +22,7 @@ public class ReplicaManager {
 	static ActionserviceImpl conStub;
 	static ActionserviceImpl mcStub;
 	static ActionserviceImpl monStub;
+	private static PriorityQueue<String> messageBuffer = new PriorityQueue<String>(new MessageComparator());
 
 	public static void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
@@ -80,10 +81,17 @@ public class ReplicaManager {
 					if (queue.contains(data)) {
 						System.out.println("Duplicate message. Message already in queue");
 					} else {
-						queue.add(data);
+						queue.add(data.trim());
+						messageBuffer.add(data.trim());
+						
 					}
-					
-					
+					int c=0;
+					for (String string : messageBuffer) {
+						
+						System.out.println(++c + ". "+ string);
+						
+						
+					}
 					String message[] = queue.poll().split(",");
 					String seqNum = message[0];
 					String operation = message[1];
@@ -122,16 +130,16 @@ public class ReplicaManager {
 							conStub = ConcordiaLibrary.conStub;
 							mcStub = McGillLibrary.mcStub;
 							monStub = MontrealLibrary.monStub;
-							int size = queue.size();
-							String crashedMessage = queue.poll();
+							int size = messageBuffer.size();
+							String crashedMessage = messageBuffer.poll();
 							executeQueueMessages(crashedMessage);
-							queue.add(crashedMessage);
+							messageBuffer.add(crashedMessage);
 							size--;
 							while (size != 0) {
 
-								String mess = queue.poll();
+								String mess = messageBuffer.poll();
 								executeQueueMessages(mess);
-								queue.add(mess);
+								messageBuffer.add(mess);
 								size--;
 
 							}

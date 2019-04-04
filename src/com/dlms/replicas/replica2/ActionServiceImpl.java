@@ -56,7 +56,7 @@ public class ActionServiceImpl implements ActionService {
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (val1 > 0 && !(itemAllocated) && val1 > i) {
+						while (val1 > 0 && !(itemAllocated) && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "CON");
 							if (itemAllocated) {
 								val1--;
@@ -73,7 +73,7 @@ public class ActionServiceImpl implements ActionService {
 				} else if (!(ConcordiaServer.conLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (quantity > 0 && !itemAllocated && quantity > i) {
+						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "CON");
 							if (itemAllocated) {
 								quantity--;
@@ -96,7 +96,7 @@ public class ActionServiceImpl implements ActionService {
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (val1 > 0 && !itemAllocated && val1 > i) {
+						while (val1 > 0 && !itemAllocated && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MCG");
 							if (itemAllocated) {
 								val1--;
@@ -112,7 +112,7 @@ public class ActionServiceImpl implements ActionService {
 				} else if (!(McgillServer.mcgLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (quantity > 0 && !itemAllocated && quantity > i) {
+						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MCG");
 							if (itemAllocated) {
 								quantity--;
@@ -135,7 +135,7 @@ public class ActionServiceImpl implements ActionService {
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (val1 > 0 && !itemAllocated && val1 > i) {
+						while (val1 > 0 && !itemAllocated && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MON");
 							if (itemAllocated) {
 								val1--;
@@ -151,7 +151,7 @@ public class ActionServiceImpl implements ActionService {
 				} else if (!(MontrealServer.monLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (quantity > 0 && !itemAllocated && quantity > i) {
+						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MON");
 							if (itemAllocated) {
 								quantity--;
@@ -334,8 +334,8 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator.next();
 					conItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(";" + pair.getKey() + "-" + pair.getValue())
-							: itemsList.concat(pair.getKey() + "-" + pair.getValue());
+					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue()+";")
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue()+";");
 				}
 				String[] conItemsArray = new String[conItems.size()];
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
@@ -348,8 +348,8 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator1.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator1.next();
 					mcgItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(";" + pair.getKey() + "-" + pair.getValue())
-							: itemsList.concat(pair.getKey() + "-" + pair.getValue());
+					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue()+";")
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue()+";");
 		
 				}
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
@@ -363,8 +363,8 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator2.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator2.next();
 					monItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(";" + pair.getKey() + "-" + pair.getValue())
-							: itemsList.concat(pair.getKey() + "-" + pair.getValue());
+					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue()+";")
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue()+";");
 
 				}
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
@@ -548,7 +548,9 @@ public class ActionServiceImpl implements ActionService {
 			if (requestStatus) {
 				reqStatus = "Request Completed Successfully";
 			}
-			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\src\\Logs\\" + serverName + "Logs.txt",
+//			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\src\\Logs\\" + serverName + "Logs.txt",
+//					true);
+			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\Logs\\Server\\" + serverName + "Logs.txt",
 					true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.newLine();
@@ -1170,7 +1172,7 @@ public class ActionServiceImpl implements ActionService {
 					} else {
 						message = returnItem(userID, oldItemID);
 						message += "\n" + borrowItem(userID, newItemID, numberOfDays);
-						message = "Success:" + message;
+						message = "Success: Exchanged book "+ oldItemID+" with "+newItemID+ " successfully.";
 						logInformationOnServer(userID, oldItemID, "Success", "ExchangeItem :" + newItemID, false,
 								userServer);
 					}

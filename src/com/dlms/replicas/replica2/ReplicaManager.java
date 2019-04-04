@@ -43,7 +43,7 @@ public class ReplicaManager {
 						e.printStackTrace();
 					}
 					System.out.println("abcd---" + request.getData().toString());
-					String data = new String(request.getData());
+					String data = new String(request.getData()).trim();
 					System.out.println(data);
 					// String dataArray[] = data.split(",");
 

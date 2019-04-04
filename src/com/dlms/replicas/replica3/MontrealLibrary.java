@@ -262,7 +262,7 @@ public class MontrealLibrary {
 									}
 
 								} else {
-									message = "Unavailable";
+									message = "fail:Unavailable";
 									monStub.LOG.info("-----FAILED-----");
 									monStub.LOG.info(
 											"Item does not exist in the library. User to be asked If he wants to be added in the waiting queue. ");
@@ -272,7 +272,7 @@ public class MontrealLibrary {
 
 						} else {
 							message = "fail: Item does not exist in the library";
-							message = "Unavailable";
+							message = "fail:Unavailable";
 							monStub.LOG.info("-----FAILED-----");
 							monStub.LOG.info(
 									"Item does not exist in the library. User to be asked If he wants to be added in the waiting queue. ");

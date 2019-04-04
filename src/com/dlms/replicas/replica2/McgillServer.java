@@ -56,9 +56,10 @@ public class McgillServer {
 //		mcgWaitlist.put("MCG2014", "MCGU1017,MONU1018");
 //		mcgWaitlist.put("MCG2015", "MONU1019,MCGU1020");
 
-		itemHistory.add("MCG5555,Borrowed");
-		itemHistory.add("MCG6666,Returned");
-		itemHistory.add("MCG7777,Borrowed");
+//		itemHistory.add("MCG5555,Borrowed");
+//		itemHistory.add("MCG6666,Returned");
+//		itemHistory.add("MCG7777,Borrowed");
+		
 //		itemHistory.add("CON5555,Borrowed");
 //		itemHistory.add("CON6666,Returned");
 //		itemHistory.add("MON5555,Borrowed");
