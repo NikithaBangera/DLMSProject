@@ -32,7 +32,7 @@ public class ReplicaManager {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("132.205.64.201");
+			InetAddress aHost = InetAddress.getByName("132.205.64.19");
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
 
@@ -214,7 +214,7 @@ public class ReplicaManager {
 							}
 							crashCounter--;
 							System.out.println("Result RM3: " + result);
-							sendUDPMessage(11111, "rm3:" + result);
+						//	sendUDPMessage(11111, "rm3:" + result);
 
 						}
 

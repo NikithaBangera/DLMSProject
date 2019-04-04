@@ -168,15 +168,18 @@ public class FrontEndImplementation extends ActionServicePOA {
 					 */
 					System.out.println("Replica 3 crashed");
 
-					String crashIntimation = 10000000 + "," +"listItemAvailability"+","+ managerID + "," + userID + "," + exchangeItemID + "," + itemID
-							+ "," + itemName + "," + quantity + "," + numberOfDays + "," + "faultyCrash";
+					String crashIntimation = 10000000 + "," + "listItemAvailability" + "," + managerID + "," + userID
+							+ "," + exchangeItemID + "," + itemID + "," + itemName + "," + quantity + "," + numberOfDays
+							+ "," + "faultyCrash";
 					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
-							InetAddress.getByName("132.205.64.202"),
-							1314)); // For Crash failure
-					aSocket.setSoTimeout(100000);
-					aSocket.receive(reply[2]);
-	//				replicaNumber == 1 ? "132.205.64.201"
-		//					: replicaNumber == 2 ? "132.205.64.218" : 
+							InetAddress.getByName("132.205.64.202"), 1314)); // For Crash failure
+
+					message1 = new String(reply[0].getData()).trim();
+					message2 = new String(reply[1].getData()).trim();
+					message3 = null;
+
+					return majorityOfResult(message1, message2, message3);
+
 
 				}
 				/*
