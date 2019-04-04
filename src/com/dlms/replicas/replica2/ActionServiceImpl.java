@@ -59,6 +59,7 @@ public class ActionServiceImpl implements ActionService {
 						while (val1 > 0 && !(itemAllocated) && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "CON");
 							if (itemAllocated) {
+								populateWaitList(managerID.substring(0, 3));
 								val1--;
 								itemAllocated = false;
 							}
@@ -76,6 +77,7 @@ public class ActionServiceImpl implements ActionService {
 						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "CON");
 							if (itemAllocated) {
+								populateWaitList(managerID.substring(0, 3));
 								quantity--;
 								itemAllocated = false;
 							}
@@ -99,6 +101,7 @@ public class ActionServiceImpl implements ActionService {
 						while (val1 > 0 && !itemAllocated && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MCG");
 							if (itemAllocated) {
+								populateWaitList(managerID.substring(0, 3));
 								val1--;
 								itemAllocated = false;
 							}
@@ -115,6 +118,7 @@ public class ActionServiceImpl implements ActionService {
 						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MCG");
 							if (itemAllocated) {
+								populateWaitList(managerID.substring(0, 3));
 								quantity--;
 								itemAllocated = false;
 							}
@@ -138,6 +142,7 @@ public class ActionServiceImpl implements ActionService {
 						while (val1 > 0 && !itemAllocated && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MON");
 							if (itemAllocated) {
+								populateWaitList(managerID.substring(0, 3));
 								val1--;
 								itemAllocated = false;
 							}
@@ -154,6 +159,7 @@ public class ActionServiceImpl implements ActionService {
 						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MON");
 							if (itemAllocated) {
+								populateWaitList(managerID.substring(0, 3));
 								quantity--;
 								itemAllocated = false;
 							}
