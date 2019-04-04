@@ -18,6 +18,7 @@ import com.dlms.replicas.replica1.Montreal;
 public class ReplicaManager {
 
 	private static String result = "";
+	private static int Bugcount = 0;
 
 	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 	private static int crashCounter = 0;
@@ -77,7 +78,7 @@ public class ReplicaManager {
 					String itemName = "";
 					int quantity = 0;
 					int numberOfDays = 0;
-					String failureType;
+					String failureType = "";
 					String message[] = new String[10];
 
 					try {
@@ -129,6 +130,10 @@ public class ReplicaManager {
 						failureType = "faultyCrash";
 					}
 
+					if (failureType.equalsIgnoreCase("faultyBug")) {
+						Bugcount += 1;
+						System.out.println("Number of fault intimation received by FE to Replica Manager 2: " + Bugcount);
+					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 
 						if (crashCounter == 0) {
@@ -191,7 +196,7 @@ public class ReplicaManager {
 								tempBuffer.add(crashedMessage);
 								size--;
 							}
-							
+
 							while (size != 0) {
 
 								String mess = messageBuffer.poll();
@@ -214,7 +219,7 @@ public class ReplicaManager {
 							}
 							crashCounter--;
 							System.out.println("Result RM3: " + result);
-						//	sendUDPMessage(11111, "rm3:" + result);
+							// sendUDPMessage(11111, "rm3:" + result);
 
 						}
 

@@ -13,6 +13,7 @@ import com.dlms.replicas.replica2.MessageComparator;
 public class ReplicaManager {
 
 	private static String result = "";
+	private static int Bugcount = 0;
 	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 
 	public static void main(String[] args) {
@@ -66,9 +67,10 @@ public class ReplicaManager {
 					int numberOfDays = Integer.parseInt(message[8]);
 					String failureType = message[9];
 
-					// if (failureType.equalsIgnoreCase("faultyBug")) {
-					//
-					// } else
+					if (failureType.equalsIgnoreCase("faultyBug")) {
+						Bugcount += 1;
+						System.out.println("Number of fault intimation received by FE to Replica Manager 2: " + Bugcount);
+					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 
 						result = actionServiceImpl.listItemAvailability(managerID);

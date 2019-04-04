@@ -12,7 +12,7 @@ public class ReplicaManager {
 
 	private static String result = "";
 	private static String replicaId = "rm1:";
-	private static int count = 0;
+	private static int Bugcount = 0;
 	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
 
 	static public void sendUDPMessage(int serverPort, String message) {
@@ -82,10 +82,10 @@ public class ReplicaManager {
 					int quantity = Integer.parseInt(message[7]);
 					int numberOfDays = Integer.parseInt(message[8]);
 					String failureType = message[9];
-					System.out.println("failureType " + failureType);
+//					System.out.println("failureType " + failureType);
 					if (failureType.equalsIgnoreCase("faultyBug")) {
-						count += 1;
-						System.out.println("inside faultYYYYy rm1 " + count);
+						Bugcount += 1;
+						System.out.println("Number of fault intimation received by FE to Replica Manager 1: " + Bugcount);
 					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 						result = action.listItemAvailability(managerID);
@@ -98,33 +98,33 @@ public class ReplicaManager {
 						} else if (operation.equalsIgnoreCase("listItemAvailability")) {
 
 							if (managerID.equalsIgnoreCase("CONM1013")) {
-								if (count < 3) {
+								if (Bugcount < 3) {
 									result = "success:someJunkValue";
 								} else {
-									count = 0;
+									Bugcount = 0;
 									result = action.listItemAvailability(managerID);
 
 								}
 							} else {
-								count = 0;
+								Bugcount = 0;
 								result = action.listItemAvailability(managerID);
 							}
 
 							// System.out.println("inside faulty rm1 " + count);
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
-							count = 0;
+							Bugcount = 0;
 							result = action.borrowItem(userID, oldItemID, numberOfDays);
 						} else if (operation.equalsIgnoreCase("waitList")) {
-							count = 0;
+							Bugcount = 0;
 							result = action.waitList(userID, oldItemID, numberOfDays);
 						} else if (operation.equalsIgnoreCase("findItem")) {
-							count = 0;
+							Bugcount = 0;
 							result = action.findItem(userID, itemName);
 						} else if (operation.equalsIgnoreCase("returnItem")) {
-							count = 0;
+							Bugcount = 0;
 							result = action.returnItem(userID, oldItemID);
 						} else if (operation.equalsIgnoreCase("exchangeItem")) {
-							count = 0;
+							Bugcount = 0;
 							result = action.exchangeItem(userID, newItemID, oldItemID);
 						}
 
