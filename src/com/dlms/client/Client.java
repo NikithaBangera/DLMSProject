@@ -120,7 +120,7 @@ public class Client {
 			System.out.println("\nEnter your choice : " + "\n1. Type 1 to add a book to the library."
 					+ "\n2. Type 2 to remove a book from the library."
 					+ "\n3. Type 3 to list all the available books in the library."
-					+ "\n4. Type 4 Display crash Failure.");
+					+ "\n4. Type 4 Display crash Failure and list all the available books in the library.");
 			System.out.println("\nEnter your choice : ");
 			String managerCommand = (reader.readLine());
 			switch (managerCommand) {
@@ -285,7 +285,7 @@ public class Client {
 				logger.info("Manager with manager id " + managerID + " opted to list all the books in the library");
 				bookList = "";
 				logger.info("**** Entering listItemAvailability operation to display crash failure operation ***");
-				bookList = serverRef.listItemAvailability("faultyCrash");
+				bookList = serverRef.listItemAvailability("CONM1012:faultyCrash");
 
 				logger.info("Response received from server : " + result);
 

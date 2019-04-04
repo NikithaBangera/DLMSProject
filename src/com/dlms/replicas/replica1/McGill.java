@@ -209,19 +209,19 @@ public class McGill {
 		Books.put("MCG3333", "GRAPH THEORY,2");
 		Books.put("MCG4444", "DATA STRUCTURE,8");
 
-//		HashMap<String, Integer> temp = new HashMap<String, Integer>();
+		HashMap<String, Integer> temp = new HashMap<String, Integer>();
 //		temp.put("MCG1111", 12);
 //		temp.put("MCG2222", 23);
 //		temp.put("MON2222", 18);
 //		temp.put("CON2222", 10);
 
-//		userlist = new LinkedHashMap<String, HashMap<String, Integer>>();
-//		userlist.put("MCGU1011", temp);
-//		HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
+		userlist = new LinkedHashMap<String, HashMap<String, Integer>>();
+		userlist.put("MCGU1011", temp);
+		HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
 //		temp.put("MCG4592", 23);
-//		userlist.put("MCGU1012", temp1);
-//		HashMap<String, Integer> temp2 = new HashMap<String, Integer>();
-//		userlist.put("MCGU1013", temp2);
+		userlist.put("MCGU1012", temp1);
+		HashMap<String, Integer> temp2 = new HashMap<String, Integer>();
+		userlist.put("MCGU1013", temp2);
 
 		logger.info("Books registered while initialization\n");
 		Books.forEach((k, v) -> logger.info(("**  " + k + " " + v.split(",")[0] + " " + v.split(",")[1] + "\n")));

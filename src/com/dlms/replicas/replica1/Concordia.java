@@ -212,18 +212,18 @@ public class Concordia {
 		/**
 		 * Starts Commenting the code for assigning users the books
 		 */
-		// HashMap<String, Integer> temp = new HashMap<String, Integer>();
+		 HashMap<String, Integer> temp = new HashMap<String, Integer>();
 		// temp.put("CON1111", 12);
 		// temp.put("CON2222", 23);
 		// temp.put("MCG2222", 18);
 		// temp.put("MON2222", 18);
 
-		// userlist = new LinkedHashMap<String, HashMap<String, Integer>>();
-		// userlist.put("CONU1011", temp);
-		// HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
-		// userlist.put("CONU1012", temp1);
-		// HashMap<String, Integer> temp2 = new HashMap<String, Integer>();
-		// userlist.put("CONU1013", temp2);
+		 userlist = new LinkedHashMap<String, HashMap<String, Integer>>();
+		 userlist.put("CONU1011", temp);
+		 HashMap<String, Integer> temp1 = new HashMap<String, Integer>();
+		 userlist.put("CONU1012", temp1);
+		 HashMap<String, Integer> temp2 = new HashMap<String, Integer>();
+		 userlist.put("CONU1013", temp2);
 		/**
 		 * Starts Commenting the code for assigning users the books
 		 */

@@ -34,8 +34,6 @@ public class ReplicaManager {
 				aSocket.close();
 		}
 	}
-	
-	
 
 	public static void main(String[] args) {
 		try {
@@ -62,7 +60,7 @@ public class ReplicaManager {
 						e.printStackTrace();
 					}
 					System.out.println("abcd---" + request.getData().toString());
-					String data = new String(request.getData());
+					String data = new String(request.getData()).trim();
 					System.out.println("----" + data);
 					// String dataArray[] = data.split(",");
 
@@ -84,8 +82,13 @@ public class ReplicaManager {
 					int quantity = Integer.parseInt(message[7]);
 					int numberOfDays = Integer.parseInt(message[8]);
 					String failureType = message[9];
-
+					System.out.println("failureType " + failureType);
+					if (failureType.equalsIgnoreCase("faultyBug")) {
+						count += 1;
+						System.out.println("inside faultYYYYy rm1 " + count);
+					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
+						result = action.listItemAvailability(managerID);
 
 					} else {
 						if (operation.equalsIgnoreCase("addItem")) {
@@ -94,30 +97,34 @@ public class ReplicaManager {
 							result = action.removeItem(managerID, oldItemID, quantity);
 						} else if (operation.equalsIgnoreCase("listItemAvailability")) {
 
-							if (managerID.equalsIgnoreCase("CONM1013"))
-								count += 1;
-							if (count <= 3) {
-								result = "success:someJunkValue";
+							if (managerID.equalsIgnoreCase("CONM1013")) {
+								if (count < 3) {
+									result = "success:someJunkValue";
+								} else {
+									count = 0;
+									result = action.listItemAvailability(managerID);
+
+								}
 							} else {
-								count=0;
+								count = 0;
 								result = action.listItemAvailability(managerID);
-								
 							}
 
+							// System.out.println("inside faulty rm1 " + count);
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
-							count=0;
+							count = 0;
 							result = action.borrowItem(userID, oldItemID, numberOfDays);
 						} else if (operation.equalsIgnoreCase("waitList")) {
-							count=0;
+							count = 0;
 							result = action.waitList(userID, oldItemID, numberOfDays);
 						} else if (operation.equalsIgnoreCase("findItem")) {
-							count=0;
+							count = 0;
 							result = action.findItem(userID, itemName);
 						} else if (operation.equalsIgnoreCase("returnItem")) {
-							count=0;
+							count = 0;
 							result = action.returnItem(userID, oldItemID);
 						} else if (operation.equalsIgnoreCase("exchangeItem")) {
-							count=0;
+							count = 0;
 							result = action.exchangeItem(userID, newItemID, oldItemID);
 						}
 
@@ -127,8 +134,7 @@ public class ReplicaManager {
 
 				}
 			}).start();
-			
-			
+
 		} catch (Exception e) {
 
 		}

@@ -527,11 +527,11 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				}
-				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "Successfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 
 			} else if (operation.contains("Success")) {
-				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "Successfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 			}
 
@@ -557,11 +557,11 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				}
-				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "Successfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 
 			} else if (operation.contains("Success")) {
-				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "Successfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 			}
 			Montreal.logger.info("Response returned: " + operation);
@@ -586,11 +586,11 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				}
-				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "Successfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 
 			} else if (operation.contains("Success")) {
-				operation = success + "\nSuccessfully exchanged previously borrowed book " + oldItemID
+				operation = success + "Successfully exchanged previously borrowed book " + oldItemID
 						+ " with newly borrowed book " + newItemID;
 			}
 			McGill.logger.info("Response returned: " + operation);

@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.ws.FaultAction;
+
 import org.omg.CORBA.ORB;
 
 import ActionServiceApp.ActionServicePOA;
@@ -65,7 +67,14 @@ public class FrontEndImplementation extends ActionServicePOA {
 	}
 
 	public synchronized String listItemAvailability(String managerID) {
-		String result = sendToSequencer("listItemAvailability", managerID, "", null, null, null, 0, 0, null);
+		String result;
+		if (managerID.contains("faultyCrash")) {
+			managerID = managerID.split(":")[0];
+			result = sendToSequencer("listItemAvailability", managerID, "", null, null, null, 0, 0,
+					"faultyCrash");
+		} else {
+			result = sendToSequencer("listItemAvailability", managerID, "", null, null, null, 0, 0, null);
+		}
 		return result;
 	}
 
@@ -159,14 +168,14 @@ public class FrontEndImplementation extends ActionServicePOA {
 					 * Sending a message to RM of crashed replica
 					 */
 					System.out.println("Duplicate caused this issue");
-					
-					String crashIntimation = "listItemAvailability" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
-							+ "," + 0 + "," + 0 + "," + "faultyCrash";
-					
-					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
-							InetAddress.getByName(replicaNumber == 1? "132.205.64.201":replicaNumber==2? "132.205.64.218":"132.205.64.202"), 1314)); // For Crash failure
 
-				
+					String crashIntimation = 1 + "," + managerID + "," + userID + "," + exchangeItemID + "," + itemID + "," + itemName
+							+ "," + quantity + "," + numberOfDays + "," + failureType;
+					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
+							InetAddress.getByName(replicaNumber == 1 ? "132.205.64.201"
+									: replicaNumber == 2 ? "132.205.64.218" : "132.205.64.202"),
+							1314)); // For Crash failure
+					aSocket.receive(reply[2]);
 
 				}
 				/*
@@ -207,11 +216,13 @@ public class FrontEndImplementation extends ActionServicePOA {
 			majorityElement = majorityOfResult(message1, message2, message3);
 
 			if (replicaNumber > 0) {
-				String faultIntimation = "listItemAvailability" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
+				String faultIntimation = 1 + "," + "" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
 						+ "," + 0 + "," + 0 + "," + "faultyBug";
-				
+
 				aSocket.send(new DatagramPacket(faultIntimation.getBytes(), faultIntimation.length(),
-						InetAddress.getByName(replicaNumber == 1? "132.205.64.201":replicaNumber==2? "132.205.64.218":"132.205.64.202"), 1314));
+						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.201"
+								: replicaNumber == 2 ? "132.205.64.218" : "132.205.64.202"),
+						1314));
 			}
 
 			System.out.println(message1 + "After Majority message1");
