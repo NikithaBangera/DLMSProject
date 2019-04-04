@@ -20,7 +20,7 @@ import org.omg.PortableServer.POAHelper;
 public class McGillLibrary {
 
 	
-	
+	static DatagramSocket aSocket = null;
 	static ActionserviceImpl mcStub;
 
 	public static void startMcGillLibrary() {
@@ -42,7 +42,7 @@ public class McGillLibrary {
 
 	static void receiverequest(ActionserviceImpl mcStub) {
 
-		DatagramSocket aSocket = null;
+		
 		try {
 			aSocket = new DatagramSocket(6666);
 			System.out.println("Server 6666 Started............");
