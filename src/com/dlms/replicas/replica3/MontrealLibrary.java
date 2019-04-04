@@ -18,6 +18,7 @@ import org.omg.PortableServer.POAHelper;
 public class MontrealLibrary {
 
 	static ActionserviceImpl monStub;
+	static DatagramSocket aSocket = null;
 
 	public static void startMontrealLibrary() {
 		try {
@@ -38,7 +39,7 @@ public class MontrealLibrary {
 
 	static void receiverequest(ActionserviceImpl monStub) {
 
-		DatagramSocket aSocket = null;
+		
 		try {
 			aSocket = new DatagramSocket(7777);
 			System.out.println("Server 7777 Started............");

@@ -15,6 +15,7 @@ import java.util.logging.SimpleFormatter;
 public class ConcordiaLibrary {
 
 	static ActionserviceImpl conStub;
+	static DatagramSocket aSocket = null;
 
 	public static void startConcordiaLibrary() {
 		try {
@@ -39,7 +40,7 @@ public class ConcordiaLibrary {
 
 	static void receiverequest(ActionserviceImpl conStub) {
 
-		DatagramSocket aSocket = null;
+		
 		try {
 			aSocket = new DatagramSocket(5555);
 			System.out.println("Server 5555 Started............");
