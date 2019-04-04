@@ -55,9 +55,10 @@ public class MontrealServer {
 //		monWaitlist.put("MON2014", "MCGU1019,MONU1020");
 //		monWaitlist.put("MON2015", "MONU1015,MCGU1016");
 
-		itemHistory.add("MON5555,Borrowed");
-		itemHistory.add("MON6666,Borrowed");
-		itemHistory.add("MON7777,Returned");
+//		itemHistory.add("MON5555,Borrowed");
+//		itemHistory.add("MON6666,Borrowed");
+//		itemHistory.add("MON7777,Returned");
+		
 //		itemHistory.add("MCG2222,Borrowed");
 //		itemHistory.add("MCG3333,Returned");
 //		itemHistory.add("CON2222,Borrowed");

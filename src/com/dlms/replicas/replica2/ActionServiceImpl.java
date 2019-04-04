@@ -56,7 +56,7 @@ public class ActionServiceImpl implements ActionService {
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (val1 > 0 && !(itemAllocated) && val1 > i) {
+						while (val1 > 0 && !(itemAllocated) && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "CON");
 							if (itemAllocated) {
 								val1--;
@@ -73,7 +73,7 @@ public class ActionServiceImpl implements ActionService {
 				} else if (!(ConcordiaServer.conLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (quantity > 0 && !itemAllocated && quantity > i) {
+						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "CON");
 							if (itemAllocated) {
 								quantity--;
@@ -96,7 +96,7 @@ public class ActionServiceImpl implements ActionService {
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (val1 > 0 && !itemAllocated && val1 > i) {
+						while (val1 > 0 && !itemAllocated && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MCG");
 							if (itemAllocated) {
 								val1--;
@@ -112,7 +112,7 @@ public class ActionServiceImpl implements ActionService {
 				} else if (!(McgillServer.mcgLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (quantity > 0 && !itemAllocated && quantity > i) {
+						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MCG");
 							if (itemAllocated) {
 								quantity--;
@@ -135,7 +135,7 @@ public class ActionServiceImpl implements ActionService {
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (val1 > 0 && !itemAllocated && val1 > i) {
+						while (val1 > 0 && !itemAllocated && val1 >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MON");
 							if (itemAllocated) {
 								val1--;
@@ -151,7 +151,7 @@ public class ActionServiceImpl implements ActionService {
 				} else if (!(MontrealServer.monLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
-						while (quantity > 0 && !itemAllocated && quantity > i) {
+						while (quantity > 0 && !itemAllocated && quantity >= i) {
 							itemAllocated = allocateItem(managerID, itemID, "MON");
 							if (itemAllocated) {
 								quantity--;
@@ -1172,7 +1172,7 @@ public class ActionServiceImpl implements ActionService {
 					} else {
 						message = returnItem(userID, oldItemID);
 						message += "\n" + borrowItem(userID, newItemID, numberOfDays);
-						message = "Success:" + message;
+						message = "Success: Exchanged book "+ oldItemID+" with "+newItemID+ " successfully.";
 						logInformationOnServer(userID, oldItemID, "Success", "ExchangeItem :" + newItemID, false,
 								userServer);
 					}
