@@ -24,7 +24,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	private ORB orb;
 	private String timetaken;
-	private long duration = 100000;
+	private long duration = 5000;
 	private static String majorityElement = null;
 	private static String majorityMessage = "";
 	private int invalidElement;
@@ -70,8 +70,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 		String result;
 		if (managerID.contains("faultyCrash")) {
 			managerID = managerID.split(":")[0];
-			result = sendToSequencer("listItemAvailability", managerID, "", null, null, null, 0, 0,
-					"faultyCrash");
+			result = sendToSequencer("listItemAvailability", managerID, "", null, null, null, 0, 0, "faultyCrash");
 		} else {
 			result = sendToSequencer("listItemAvailability", managerID, "", null, null, null, 0, 0, null);
 		}
@@ -167,15 +166,17 @@ public class FrontEndImplementation extends ActionServicePOA {
 					/*
 					 * Sending a message to RM of crashed replica
 					 */
-					System.out.println("Duplicate caused this issue");
+					System.out.println("Replica 3 crashed");
 
-					String crashIntimation = 1 + "," + managerID + "," + userID + "," + exchangeItemID + "," + itemID + "," + itemName
-							+ "," + quantity + "," + numberOfDays + "," + failureType;
+					String crashIntimation = 10000000 + "," +"listItemAvailability"+","+ managerID + "," + userID + "," + exchangeItemID + "," + itemID
+							+ "," + itemName + "," + quantity + "," + numberOfDays + "," + "faultyCrash";
 					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
-							InetAddress.getByName(replicaNumber == 1 ? "132.205.64.201"
-									: replicaNumber == 2 ? "132.205.64.218" : "132.205.64.202"),
+							InetAddress.getByName("132.205.64.202"),
 							1314)); // For Crash failure
+					aSocket.setSoTimeout(100000);
 					aSocket.receive(reply[2]);
+	//				replicaNumber == 1 ? "132.205.64.201"
+		//					: replicaNumber == 2 ? "132.205.64.218" : 
 
 				}
 				/*

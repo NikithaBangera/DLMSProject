@@ -289,7 +289,15 @@ public class Client {
 
 				logger.info("Response received from server : " + result);
 
-				System.out.println("Crash Failure Result: " + result);
+				bookList = bookList.substring(0, bookList.length() - 1);
+
+				logger.info("Response received from server : " + bookList);
+				books = bookList.split(";");
+				System.out.println("Library has following " + books.length + " books:\n");
+				for (String book : books) {
+					System.out.println(book.split("-")[0] + " " + book.split("-")[1].split(",")[0] + " , "
+							+ book.split("-")[1].split(",")[1]);
+				}
 				break;
 
 			// case "5":
