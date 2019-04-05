@@ -33,11 +33,12 @@ public class FrontEndImplementation extends ActionServicePOA {
 	private Set<String> successSet = new HashSet<String>();
 	private List<Long> waitTimeList = new ArrayList<Long>();
 	private static int replicaNumber = 0;
+	int bugC = 1000;
 
 	public FrontEndImplementation(String replicaName) {
 
 		this.replicaName = replicaName;
-		badReplicaMap.put(1, 0); 
+		badReplicaMap.put(1, 0);
 		badReplicaMap.put(2, 0);
 		badReplicaMap.put(3, 0);
 
@@ -54,7 +55,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 		String result = sendToSequencer("addItem", managerID, "", null, itemID, itemName, quantity, 0, null);
 
-		System.out.println("FE result " + result + ":");
+		System.out.println("\nFE result " + result + ":");
 
 		return result;
 
@@ -102,27 +103,6 @@ public class FrontEndImplementation extends ActionServicePOA {
 		return result;
 	}
 
-	// @Override
-	// public boolean validateUser(String userID) {
-	// String result = sendToSequencer("validateUser", null, userID, null, null,
-	// null, 0, 0, null);
-	// if (result.contains("success:")) {
-	// return true;
-	// } else {
-	// return false;
-	// }
-	//
-	// }
-
-	// public synchronized String sendToSequencerUser(String operation, String
-	// userID, String exchangeItemID,
-	// String itemID, String itemName, String newItemID, String oldItemID, int
-	// noOfDays, String failureType) {
-	//
-	// return null;
-	//
-	// }
-
 	public synchronized String sendToSequencer(String operation, String managerID, String userID, String exchangeItemID,
 			String itemID, String itemName, int quantity, int numberOfDays, String failureType) {
 		DatagramSocket aSocket = null;
@@ -166,20 +146,21 @@ public class FrontEndImplementation extends ActionServicePOA {
 					/*
 					 * Sending a message to RM of crashed replica
 					 */
-					System.out.println("Replica 3 crashed");
+					System.out.println("\n-----------Replica 3 crashed-----------");
 
 					String crashIntimation = 10000000 + "," + "listItemAvailability" + "," + managerID + "," + userID
 							+ "," + exchangeItemID + "," + itemID + "," + itemName + "," + quantity + "," + numberOfDays
 							+ "," + "faultyCrash";
 
-					System.out.println("Sending message to replica manager at replica 3 to recover from crash");
+					System.out.println(
+							"\n----------Sending message to replica manager at replica 3 to recover from crash----------");
 					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
-							InetAddress.getByName("132.205.64.41"), 1314)); // For Crash failure
+							InetAddress.getByName("132.205.64.22"), 1314)); // For Crash failure
 
 					message1 = new String(reply[0].getData()).trim();
-					System.out.println("message1: " + message1);
+					System.out.println("\nmessage1: " + message1);
 					message2 = new String(reply[1].getData()).trim();
-					System.out.println("message2: " + message2);
+					System.out.println("\nmessage2: " + message2);
 					message3 = null;
 
 					return majorityOfResult(message1, message2, message3);
@@ -198,10 +179,10 @@ public class FrontEndImplementation extends ActionServicePOA {
 			message1 = new String(reply[0].getData()).trim();
 			message2 = new String(reply[1].getData()).trim();
 			message3 = new String(reply[2].getData()).trim();
-
-			System.out.println(message1.trim() + " Before Majority message1");
-			System.out.println(message2.trim() + " Before Majority message2");
-			System.out.println(message3.trim() + " Before Majority message3");
+			System.out.println("\n----------------Messages Received from Replicas----------------");
+			System.out.println(message1.trim());
+			System.out.println(message2.trim());
+			System.out.println(message3.trim());
 
 			// message1 = new String(reply[0].getAddress().equals("replica1") ?
 			// reply[0].getData()
@@ -222,36 +203,37 @@ public class FrontEndImplementation extends ActionServicePOA {
 			majorityElement = majorityOfResult(message1, message2, message3);
 
 			if (replicaNumber > 0) {
-				String faultIntimation = 1 + "," + "" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
-						+ "," + 0 + "," + 0 + "," + "faultyBug";
+				String faultIntimation = bugC++ + "," + "" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + ","
+						+ "" + "," + 0 + "," + 0 + "," + "faultyBug";
 
-				System.out.println("Sending intimation to faulty replica: " + faultIntimation);
+				System.out.println("\n------------Sending intimation to faulty replica: " + faultIntimation
+						+ "------------------");
 
 				aSocket.send(new DatagramPacket(faultIntimation.getBytes(), faultIntimation.length(),
-						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.38"
-								: replicaNumber == 2 ? "132.205.64.61" : "132.205.64.41"),
+						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.197"
+								: replicaNumber == 2 ? "132.205.64.21" : "132.205.64.22"),
 						1314));
 			}
 
-			System.out.println("Majority response sent to client : " + majorityElement);
-//			if (invalidElement == 1) {
-//				badReplicaMap.put(1, badReplicaMap.get(1) + 1);
-//				badReplicaMap.put(2, 0);
-//				badReplicaMap.put(3, 0);
-//				validateReplicaAndSend(1, aSocket, aHost);
-//			} else if (invalidElement == 2) {
-//				badReplicaMap.put(2, badReplicaMap.get(2) + 1);
-//				badReplicaMap.put(1, 0);
-//				badReplicaMap.put(3, 0);
-//				validateReplicaAndSend(2, aSocket, aHost);
-//
-//			} else if (invalidElement == 3) {
-//				badReplicaMap.put(3, badReplicaMap.get(3) + 1);
-//				badReplicaMap.put(2, 0);
-//				badReplicaMap.put(1, 0);
-//				validateReplicaAndSend(3, aSocket, aHost);
-//
-//			}
+			System.out.println("\nMajority response sent to client : " + majorityElement);
+			// if (invalidElement == 1) {
+			// badReplicaMap.put(1, badReplicaMap.get(1) + 1);
+			// badReplicaMap.put(2, 0);
+			// badReplicaMap.put(3, 0);
+			// validateReplicaAndSend(1, aSocket, aHost);
+			// } else if (invalidElement == 2) {
+			// badReplicaMap.put(2, badReplicaMap.get(2) + 1);
+			// badReplicaMap.put(1, 0);
+			// badReplicaMap.put(3, 0);
+			// validateReplicaAndSend(2, aSocket, aHost);
+			//
+			// } else if (invalidElement == 3) {
+			// badReplicaMap.put(3, badReplicaMap.get(3) + 1);
+			// badReplicaMap.put(2, 0);
+			// badReplicaMap.put(1, 0);
+			// validateReplicaAndSend(3, aSocket, aHost);
+			//
+			// }
 
 		} catch (SocketException e) {
 			System.out.println("Socket: " + e.getMessage());
@@ -269,19 +251,21 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	}
 
-//	public synchronized void validateReplicaAndSend(int i, DatagramSocket aSocket, InetAddress aHost)
-//			throws IOException {
-//
-//		String key = "replace," + i;
-//		byte mess[] = key.getBytes();
-//		DatagramPacket request = new DatagramPacket(mess, key.length(), aHost, 22222);
-//
-//		if (badReplicaMap.get(i) == 3) {
-//
-//			aSocket.send(request);
-//		}
-//
-//	}
+	// public synchronized void validateReplicaAndSend(int i, DatagramSocket
+	// aSocket, InetAddress aHost)
+	// throws IOException {
+	//
+	// String key = "replace," + i;
+	// byte mess[] = key.getBytes();
+	// DatagramPacket request = new DatagramPacket(mess, key.length(), aHost,
+	// 22222);
+	//
+	// if (badReplicaMap.get(i) == 3) {
+	//
+	// aSocket.send(request);
+	// }
+	//
+	// }
 
 	public synchronized String majorityOfResult(String message1, String message2, String message3) {
 

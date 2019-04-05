@@ -48,46 +48,29 @@ public class ReplicaManager {
 
 			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
-			System.out.println("Server Started 33333............");
+			System.out.println("\nReplica manager 1 Started.............");
 			new Thread(() -> {
 				while (true) {
 					byte[] buffer = new byte[1000];
 					DatagramPacket request = new DatagramPacket(buffer, buffer.length);
 					try {
 						aSocket.receive(request);
-						System.out.println("Replica 1" + request.getData().toString());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println("abcd---" + request.getData().toString());
+
 					String data = new String(request.getData()).trim();
-					System.out.println("----" + data);
-					// String dataArray[] = data.split(",");
-//					for (String s : queue) {
-//						System.out.print("---------before q " + s);
-//					}
-//					System.out.println();
-//					for (String s : messageBuffer) {
-//						System.out.print("--------before msg " + s);
-//					}
-//					System.out.println();
+					System.out.println("\n------------Request received at Replica 1 " + data + "---------");
 					// set data in queue
 					if (messageBuffer.contains(data)) {
-						System.out.println("Duplicate message");
+						System.out.println("\n Duplicate message. Message already in queue");
 						continue;
 					} else {
 						queue.add(data);
 						messageBuffer.add(data);
 					}
-//					for (String s : queue) {
-//						System.out.print("-----------after q " + s);
-//					}
-//					System.out.println();
-//					for (String s : messageBuffer) {
-//						System.out.print("----------after msg " + s);
-//					}
-//					System.out.println();
+
 					String message[] = queue.poll().split(",");
 					String seqNum = message[0];
 					String operation = message[1];
@@ -99,11 +82,11 @@ public class ReplicaManager {
 					int quantity = Integer.parseInt(message[7]);
 					int numberOfDays = Integer.parseInt(message[8]);
 					String failureType = message[9];
-					// System.out.println("failureType " + failureType);
+
 					if (failureType.equalsIgnoreCase("faultyBug")) {
 						Bugcount += 1;
-						System.out
-								.println("Number of fault intimation received by FE to Replica Manager 1: " + Bugcount);
+						System.out.println(
+								"\nNumber of fault intimation received by FE to Replica Manager 1: " + Bugcount);
 					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 						result = action.listItemAvailability(managerID);
@@ -128,7 +111,6 @@ public class ReplicaManager {
 								result = action.listItemAvailability(managerID);
 							}
 
-							// System.out.println("inside faulty rm1 " + count);
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
 							Bugcount = 0;
 							result = action.borrowItem(userID, oldItemID, numberOfDays);
@@ -147,7 +129,7 @@ public class ReplicaManager {
 						}
 
 					}
-					System.out.println("RESULT :" + result);
+					System.out.println("\n---------RESULT in RM1 :" + result + "---------");
 					sendUDPMessage(11111, "rm1:" + result);
 
 				}
@@ -158,9 +140,4 @@ public class ReplicaManager {
 		}
 
 	}
-
-	// private static String getBuggyResult() {
-	// String res = action.listItemAvailability(managerID);
-	// return null;
-	// }
 }
