@@ -33,6 +33,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	private Set<String> successSet = new HashSet<String>();
 	private List<Long> waitTimeList = new ArrayList<Long>();
 	private static int replicaNumber = 0;
+	int bugC = 1000;
 
 	public FrontEndImplementation(String replicaName) {
 
@@ -174,7 +175,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 					System.out.println("Sending message to replica manager at replica 3 to recover from crash");
 					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
-							InetAddress.getByName("132.205.64.41"), 1314)); // For Crash failure
+							InetAddress.getByName("132.205.64.22"), 1314)); // For Crash failure
 
 					message1 = new String(reply[0].getData()).trim();
 					System.out.println("message1: " + message1);
@@ -221,15 +222,16 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 			majorityElement = majorityOfResult(message1, message2, message3);
 
+		
 			if (replicaNumber > 0) {
-				String faultIntimation = 1 + "," + "" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
+				String faultIntimation = bugC++ + "," + "" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
 						+ "," + 0 + "," + 0 + "," + "faultyBug";
 
 				System.out.println("Sending intimation to faulty replica: " + faultIntimation);
 
 				aSocket.send(new DatagramPacket(faultIntimation.getBytes(), faultIntimation.length(),
-						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.38"
-								: replicaNumber == 2 ? "132.205.64.61" : "132.205.64.41"),
+						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.197"
+								: replicaNumber == 2 ? "132.205.64.21" : "132.205.64.22"),
 						1314));
 			}
 
