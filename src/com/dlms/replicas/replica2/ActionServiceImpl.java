@@ -27,15 +27,15 @@ import com.dlms.replicas.replica1.Montreal;
 
 public class ActionServiceImpl implements ActionService {
 	private static final long serialVersionUID = 1L;
-//	ConcordiaServer conObj = new ConcordiaServer();
-//	McgillServer mcgObj = new McgillServer();
-//	MontrealServer monObj = new MontrealServer();
+	// ConcordiaServer conObj = new ConcordiaServer();
+	// McgillServer mcgObj = new McgillServer();
+	// MontrealServer monObj = new MontrealServer();
 	public String userID, itemID;
 	public int numberOfDays;
 	public String response = "";
 	Map<String, String> waitList = null;
 	HashMap<String, String> userItems = new HashMap<String, String>();
-//	private ORB orb;
+	// private ORB orb;
 
 	/**
 	 * Method to add item into the library which is performed by the library
@@ -70,7 +70,7 @@ public class ActionServiceImpl implements ActionService {
 					ConcordiaServer.conLibrary.put(itemID, ConcordiaServer.convalues);
 
 					logInformationOnServer(managerID, itemID, "Success", "AddItem", true, serverName);
-					return ("Success:"+"Item ID's " + itemID + " quantity updated in Concordia Library.");
+					return ("Success:" + "Item ID's " + itemID + " quantity updated in Concordia Library.");
 				} else if (!(ConcordiaServer.conLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
@@ -87,10 +87,10 @@ public class ActionServiceImpl implements ActionService {
 					ConcordiaServer.convalues = itemName + "," + quantity;
 					ConcordiaServer.conLibrary.put(itemID, ConcordiaServer.convalues); // add book to hashmap
 					logInformationOnServer(managerID, itemID, "Success", "AddItem", true, serverName);
-					return ("Success:"+"Item ID " + itemID + " added to the Concordia Library.");
+					return ("Success:" + "Item ID " + itemID + " added to the Concordia Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Fail:"+"Concordia:Add item operation not successfull");
+				return ("Fail:" + "Concordia:Add item operation not successfull");
 
 			case "MCG":
 				if (McgillServer.mcgLibrary.containsKey(itemID)) {
@@ -111,7 +111,7 @@ public class ActionServiceImpl implements ActionService {
 					McgillServer.mcgvalues = itemName + "," + val1;
 					McgillServer.mcgLibrary.put(itemID, McgillServer.mcgvalues);
 					logInformationOnServer(managerID, itemID, "Success", "AddItem", true, serverName);
-					return ("Success:"+"Item ID's " + itemID + " quantity updated in Mcgill Library.");
+					return ("Success:" + "Item ID's " + itemID + " quantity updated in Mcgill Library.");
 				} else if (!(McgillServer.mcgLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
@@ -128,10 +128,10 @@ public class ActionServiceImpl implements ActionService {
 					McgillServer.mcgvalues = itemName + "," + quantity;
 					McgillServer.mcgLibrary.put(itemID, McgillServer.mcgvalues); // add book to hashmap
 					logInformationOnServer(managerID, itemID, "Success", "AddItem", true, serverName);
-					return ("Success:"+"Item ID " + itemID + " added to the Mcgill Library.");
+					return ("Success:" + "Item ID " + itemID + " added to the Mcgill Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Fail:"+"Mcgill:Add item operation not successfull");
+				return ("Fail:" + "Mcgill:Add item operation not successfull");
 
 			case "MON":
 				if (MontrealServer.monLibrary.containsKey(itemID)) {
@@ -152,7 +152,7 @@ public class ActionServiceImpl implements ActionService {
 					MontrealServer.monvalues = itemName + "," + val1;
 					MontrealServer.monLibrary.put(itemID, MontrealServer.monvalues);
 					logInformationOnServer(managerID, itemID, "Success", "AddItem", true, serverName);
-					return ("Success:"+"Item ID's " + itemID + " quantity updated in Montreal Library.");
+					return ("Success:" + "Item ID's " + itemID + " quantity updated in Montreal Library.");
 				} else if (!(MontrealServer.monLibrary.containsKey(itemID))) {
 					if (waitList.get(itemID) != null) {
 						int i = 0;
@@ -169,10 +169,10 @@ public class ActionServiceImpl implements ActionService {
 					MontrealServer.monvalues = itemName + "," + quantity;
 					MontrealServer.monLibrary.put(itemID, MontrealServer.monvalues); // add book to hashmap
 					logInformationOnServer(managerID, itemID, "Success", "AddItem", true, serverName);
-					return ("Success:"+"Item ID " + itemID + " added to the Montreal Library.");
+					return ("Success:" + "Item ID " + itemID + " added to the Montreal Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Fail:"+"Montreal:Add item operation not successfull");
+				return ("Fail:" + "Montreal:Add item operation not successfull");
 			}
 
 		} catch (Exception e) {
@@ -197,72 +197,72 @@ public class ActionServiceImpl implements ActionService {
 					ConcordiaServer.conLibrary.remove(itemID);
 					removeItemFromUserList(itemID, quantity, "Concordia");
 					logInformationOnServer(managerID, itemID, "Success", "RemoveItem", true, serverName);
-					return ("Success:"+"Item ID " + itemID + " is removed from the Concordia Library");
+					return ("Success:" + "Item ID " + itemID + " is removed from the Concordia Library");
 				} else if (quantity > 0) {
 					String value = ConcordiaServer.conLibrary.get(itemID);
 					String splitt[] = value.split(",");
 					int value1 = Integer.parseInt(splitt[1]);
 					if (value1 < quantity) {
 						logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-						return ("Fail:"+"Concordia: Cannot reduce the quantity of the item" + itemID);
+						return ("Fail:" + "Concordia: Cannot reduce the quantity of the item" + itemID);
 					} else {
 						int value2 = value1 - quantity;
 						ConcordiaServer.convalues = splitt[0] + "," + value2;
 						ConcordiaServer.conLibrary.put(itemID, ConcordiaServer.convalues);
 						logInformationOnServer(managerID, itemID, "Success", "RemoveItem", true, serverName);
-						return ("Success:"+"Concordia: Quantity of item Id " + itemID + " has been reduced.");
+						return ("Success:" + "Concordia: Quantity of item Id " + itemID + " has been reduced.");
 					}
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-				return ("Fail:"+"Concordia:Remove item operation not successfull");
+				return ("Fail:" + "Concordia:Remove item operation not successfull");
 
 			case "MCG":
 				if (quantity == -1) {
 					McgillServer.mcgLibrary.remove(itemID);
 					removeItemFromUserList(itemID, quantity, "Mcgill");
 					logInformationOnServer(managerID, itemID, "Success", "RemoveItem", true, serverName);
-					return ("Success:"+"Item ID " + itemID + " is removed from the Mcgill Library");
+					return ("Success:" + "Item ID " + itemID + " is removed from the Mcgill Library");
 				} else if (quantity > 0) {
 					String value = McgillServer.mcgLibrary.get(itemID);
 					String splitt[] = value.split(",");
 					int value1 = Integer.parseInt(splitt[1]);
 					if (value1 < quantity) {
 						logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-						return ("Fail:"+"Mcgill: Cannot reduce the quantity of the item" + itemID);
+						return ("Fail:" + "Mcgill: Cannot reduce the quantity of the item" + itemID);
 					} else {
 						int value2 = value1 - quantity;
 						McgillServer.mcgvalues = splitt[0] + "," + value2;
 						McgillServer.mcgLibrary.put(itemID, McgillServer.mcgvalues);
 						logInformationOnServer(managerID, itemID, "Success", "RemoveItem", true, serverName);
-						return ("Success:"+"Mcgill: Quantity of item Id " + itemID + " has been reduced.");
+						return ("Success:" + "Mcgill: Quantity of item Id " + itemID + " has been reduced.");
 					}
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-				return ("Fail:"+"Mcgill:Remove item operation not successfull");
+				return ("Fail:" + "Mcgill:Remove item operation not successfull");
 
 			case "MON":
 				if (quantity == -1) {
 					MontrealServer.monLibrary.remove(itemID);
 					removeItemFromUserList(itemID, quantity, "Montreal");
 					logInformationOnServer(managerID, itemID, "Success", "RemoveItem", true, serverName);
-					return ("Success:"+"Item ID " + itemID + " is removed from the Montreal Library");
+					return ("Success:" + "Item ID " + itemID + " is removed from the Montreal Library");
 				} else if (quantity > 0) {
 					String value = MontrealServer.monLibrary.get(itemID);
 					String splitt[] = value.split(",");
 					int value1 = Integer.parseInt(splitt[1]);
 					if (value1 < quantity) {
 						logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-						return ("Fail:"+"Montreal: Cannot reduce the quantity of the item" + itemID);
+						return ("Fail:" + "Montreal: Cannot reduce the quantity of the item" + itemID);
 					} else {
 						int value2 = value1 - quantity;
 						MontrealServer.monvalues = splitt[0] + "," + value2;
 						MontrealServer.monLibrary.put(itemID, MontrealServer.monvalues);
 						logInformationOnServer(managerID, itemID, "Success", "RemoveItem", true, serverName);
-						return ("Success:"+"Montreal: Quantity of item Id " + itemID + " has been reduced.");
+						return ("Success:" + "Montreal: Quantity of item Id " + itemID + " has been reduced.");
 					}
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "RemoveItem", false, serverName);
-				return ("Fail:"+"Montreal:Remove item operation not successfull");
+				return ("Fail:" + "Montreal:Remove item operation not successfull");
 			}
 
 		} catch (Exception e) {
@@ -340,13 +340,13 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator.next();
 					conItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue()+";")
-							: itemsList.concat(pair.getKey() + "-" + pair.getValue()+";");
+					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue() + ";")
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue() + ";");
 				}
 				String[] conItemsArray = new String[conItems.size()];
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
 				// conItemsArray = conItems.toArray(conItemsArray);
-				return "Success:"+itemsList;
+				return "Success:" + itemsList;
 
 			case "MCG":
 				Iterator mapIterator1 = McgillServer.mcgLibrary.entrySet().iterator();
@@ -354,14 +354,14 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator1.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator1.next();
 					mcgItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue()+";")
-							: itemsList.concat(pair.getKey() + "-" + pair.getValue()+";");
-		
+					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue() + ";")
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue() + ";");
+
 				}
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
 				String[] mcgItemsArray = new String[mcgItems.size()];
 				// mcgItemsArray = mcgItems.toArray(mcgItemsArray);
-				return "Success:"+itemsList;
+				return "Success:" + itemsList;
 
 			case "MON":
 				Iterator mapIterator2 = MontrealServer.monLibrary.entrySet().iterator();
@@ -369,14 +369,14 @@ public class ActionServiceImpl implements ActionService {
 				while (mapIterator2.hasNext()) {
 					Map.Entry pair = (Map.Entry) mapIterator2.next();
 					monItems.add(pair.getKey() + "," + pair.getValue());
-					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue()+";")
-							: itemsList.concat(pair.getKey() + "-" + pair.getValue()+";");
+					itemsList = itemsList.length() > 0 ? itemsList.concat(pair.getKey() + "-" + pair.getValue() + ";")
+							: itemsList.concat(pair.getKey() + "-" + pair.getValue() + ";");
 
 				}
 				logInformationOnServer(managerID, itemID, "Success", "ListItem", true, serverName);
 				String[] monItemsArray = new String[monItems.size()];
 				// monItemsArray = monItems.toArray(monItemsArray);
-				return "Success:"+itemsList;
+				return "Success:" + itemsList;
 			}
 		} catch (Exception e) {
 			System.out.println("Exception caught at ListItem");
@@ -397,10 +397,9 @@ public class ActionServiceImpl implements ActionService {
 						: (userID.substring(0, 3).equalsIgnoreCase("MON") ? "Montreal" : "")));
 		try {
 			if (validateBookAvailability(userID, itemID)) {
-//				populateReturnItemsList(userID, userItems);
+				populateReturnItemsList(userID, userItems);
 				switch (userID.substring(0, 3)) {
 				case "CON":
-					populateReturnItemsList(userID, userItems);
 					if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
 						if (userItems.get(itemID) == null || (userItems.get(itemID) != null
 								&& userItems.get(itemID).equalsIgnoreCase("Returned"))) {
@@ -415,16 +414,16 @@ public class ActionServiceImpl implements ActionService {
 								userItems.put(itemID, "Borrowed");
 								saveUserHistoryDetails(userID, userItems);
 								logInformationOnServer(userID, itemID, "Success", "BorrowItem", true, "Concordia");
-								return ("Success:"+"User " + userID + " has borrowed the item " + itemID
+								return ("Success:" + "User " + userID + " has borrowed the item " + itemID
 										+ " from Concordia library.\n");
 							} else if (quantity == 0) {
 								logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Concordia");
-							//	return ("Failure:"+"Cannot be Borrowed");
+								// return ("Failure:"+"Cannot be Borrowed");
 								return ("Fail:Unavailable");
 							}
 						} else {
 							logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Concordia");
-							return ("Fail:"+"Item already borrowed");
+							return ("Fail:" + "Item already borrowed");
 						}
 					} else if (itemID.substring(0, 3).equalsIgnoreCase("MCG")) {
 						return borrowItemHandler(7777, userID, itemID);
@@ -434,7 +433,6 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				case "MCG":
-					populateReturnItemsList(userID, userItems);
 					if (itemID.substring(0, 3).equalsIgnoreCase("MCG")) {
 						if (userItems.get(itemID) == null || (userItems.get(itemID) != null
 								&& userItems.get(itemID).equalsIgnoreCase("Returned"))) {
@@ -451,17 +449,17 @@ public class ActionServiceImpl implements ActionService {
 								userItems.put(itemID, "Borrowed");
 								saveUserHistoryDetails(userID, userItems);
 								logInformationOnServer(userID, itemID, "Success", "BorrowItem", true, "Mcgill");
-								return ("Success:"+"User " + userID + " has borrowed the item " + itemID
+								return ("Success:" + "User " + userID + " has borrowed the item " + itemID
 										+ " from Mcgill library.\n");
 							} else if (quantity == 0) {
 								logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Mcgill");
-								//return ("Failure:"+"Cannot be Borrowed");
+								// return ("Failure:"+"Cannot be Borrowed");
 								return ("Fail:Unavailable");
 							}
 
 						} else {
 							logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Mcgill");
-							return ("Fail:"+"Item Already borrowed");
+							return ("Fail:" + "Item Already borrowed");
 						}
 					} else if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
 						return borrowItemHandler(6666, userID, itemID);
@@ -471,7 +469,6 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				case "MON":
-					populateReturnItemsList(userID, userItems);
 					if (itemID.substring(0, 3).equalsIgnoreCase("MON")) {
 						if (userItems.get(itemID) == null || (userItems.get(itemID) != null
 								&& userItems.get(itemID).equalsIgnoreCase("Returned"))) {
@@ -488,16 +485,16 @@ public class ActionServiceImpl implements ActionService {
 								userItems.put(itemID, "Borrowed");
 								saveUserHistoryDetails(userID, userItems);
 								logInformationOnServer(userID, itemID, "Success", "BorrowItem", true, "Montreal");
-								return ("Success:"+"User " + userID + " has borrowed the item " + itemID
+								return ("Success:" + "User " + userID + " has borrowed the item " + itemID
 										+ " from Montreal library.\n");
 							} else if (quantity == 0) {
 								logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Montreal");
-							//	return ("Failure:"+"Cannot be Borrowed");
-								return("Fail:Unavailable");
+								// return ("Failure:"+"Cannot be Borrowed");
+								return ("Fail:Unavailable");
 							}
 						} else {
 							logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, "Montreal");
-							return ("Fail:"+"Item Already borrowed");
+							return ("Fail:" + "Item Already borrowed");
 						}
 					} else if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
 						return borrowItemHandler(6666, userID, itemID);
@@ -508,7 +505,7 @@ public class ActionServiceImpl implements ActionService {
 				}
 			} else {
 				logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
-				return ("Fail:"+"Item Not Available in " + serverName + " Library");
+				return ("Fail:" + "Item Not Available in " + serverName + " Library");
 			}
 		} catch (Exception e) {
 			System.out.println("Exception caught at BorrowItem");
@@ -557,10 +554,11 @@ public class ActionServiceImpl implements ActionService {
 			if (requestStatus) {
 				reqStatus = "Request Completed Successfully";
 			}
-//			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\src\\Logs\\" + serverName + "Logs.txt",
-//					true);
-			FileWriter fw = new FileWriter(System.getProperty("user.dir") + "\\Logs\\Server\\" + serverName + "Logs.txt",
-					true);
+			// FileWriter fw = new FileWriter(System.getProperty("user.dir") +
+			// "\\src\\Logs\\" + serverName + "Logs.txt",
+			// true);
+			FileWriter fw = new FileWriter(
+					System.getProperty("user.dir") + "\\Logs\\Server\\" + serverName + "Logs.txt", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.newLine();
 			bw.write(dateTime + "\t" + typeOfRequest + "\t" + userID + "\t" + item + "\t" + reqStatus
@@ -585,7 +583,7 @@ public class ActionServiceImpl implements ActionService {
 				Entry<String, String> item = mapIterator.next();
 				String[] itemDetails = item.getValue().split(",");
 				if (itemDetails[0].equalsIgnoreCase(itemName)) {
-				//	conResponse = item.getKey() + " " + itemDetails[1];
+					// conResponse = item.getKey() + " " + itemDetails[1];
 					conResponse = item.getKey() + "-" + item.getValue();
 					itemFound = true;
 					break;
@@ -606,7 +604,7 @@ public class ActionServiceImpl implements ActionService {
 			response = conResponse + mcgResponse + monResponse;
 
 			System.out.println(response);
-			return "Success:"+response;
+			return "Success:" + response;
 
 		case "MCG":
 			Iterator<Entry<String, String>> mapIterator1 = McgillServer.mcgLibrary.entrySet().iterator();
@@ -614,7 +612,7 @@ public class ActionServiceImpl implements ActionService {
 				Entry<String, String> item = mapIterator1.next();
 				String[] itemDetails = item.getValue().split(",");
 				if (itemDetails[0].equalsIgnoreCase(itemName)) {
-				//	mcgResponse = item.getKey() + " " + itemDetails[1];
+					// mcgResponse = item.getKey() + " " + itemDetails[1];
 					mcgResponse = item.getKey() + "-" + item.getValue();
 					itemFound = true;
 					break;
@@ -636,7 +634,7 @@ public class ActionServiceImpl implements ActionService {
 			response = conResponse + mcgResponse + monResponse;
 
 			System.out.println(response);
-			return "Success:"+response;
+			return "Success:" + response;
 
 		case "MON":
 			Iterator<Entry<String, String>> mapIterator2 = MontrealServer.monLibrary.entrySet().iterator();
@@ -644,7 +642,7 @@ public class ActionServiceImpl implements ActionService {
 				Entry<String, String> item = mapIterator2.next();
 				String[] itemDetails = item.getValue().split(",");
 				if (itemDetails[0].equalsIgnoreCase(itemName)) {
-				//	monResponse = item.getKey() + " " + itemDetails[1];
+					// monResponse = item.getKey() + " " + itemDetails[1];
 					monResponse = item.getKey() + "-" + item.getValue();
 					itemFound = true;
 					break;
@@ -665,7 +663,7 @@ public class ActionServiceImpl implements ActionService {
 			response = conResponse + mcgResponse + monResponse;
 
 			System.out.println(response);
-			return "Success:"+response;
+			return "Success:" + response;
 		}
 		return null;
 	}
@@ -710,7 +708,7 @@ public class ActionServiceImpl implements ActionService {
 					returnItems.put(itemID, "Returned");
 					saveUserHistoryDetails(userID, returnItems);
 					logInformationOnServer(userID, itemID, "Success", "ReturnItem", true, "Concordia");
-					return "Success:"+"Item " + itemID + " returned by user " + userID + " successfully!";
+					return "Success:" + "Item " + itemID + " returned by user " + userID + " successfully!";
 				}
 
 			case "MCG":
@@ -732,7 +730,7 @@ public class ActionServiceImpl implements ActionService {
 					returnItems.put(itemID, "Returned");
 					saveUserHistoryDetails(userID, returnItems);
 					logInformationOnServer(userID, itemID, "Success", "ReturnItem", true, "Mcgill");
-					return "Success:"+"Item " + itemID + " returned by user " + userID + " successfully!";
+					return "Success:" + "Item " + itemID + " returned by user " + userID + " successfully!";
 				}
 
 			case "MON":
@@ -754,7 +752,7 @@ public class ActionServiceImpl implements ActionService {
 					returnItems.put(itemID, "Returned");
 					saveUserHistoryDetails(userID, returnItems);
 					logInformationOnServer(userID, itemID, "Success", "ReturnItem", true, "Montreal");
-					return "Success:"+"Item " + itemID + " returned by user " + userID + " successfully!";
+					return "Success:" + "Item " + itemID + " returned by user " + userID + " successfully!";
 				}
 
 			}
@@ -762,7 +760,7 @@ public class ActionServiceImpl implements ActionService {
 
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "ReturnItem", false, userServer);
-			message = "Fail:"+"Return not possible.";
+			message = "Fail:" + "Return not possible.";
 		}
 		return message;
 	}
@@ -784,10 +782,15 @@ public class ActionServiceImpl implements ActionService {
 		} else if (userID.substring(0, 3).equalsIgnoreCase("MON")) {
 			userHistoryList.addAll(MontrealServer.userHistory.get(userID));
 		}
-		for (String userHistory : userHistoryList) {
-			String[] itemStatus = userHistory.split(",");
-			returnItems.put(itemStatus[0], itemStatus[1]);
+		if (userHistoryList.isEmpty()) {
+			returnItems.clear();
+		} else {
+			for (String userHistory : userHistoryList) {
+				String[] itemStatus = userHistory.split(",");
+				returnItems.put(itemStatus[0], itemStatus[1]);
+			}
 		}
+
 	}
 
 	/**
@@ -974,20 +977,20 @@ public class ActionServiceImpl implements ActionService {
 		if (!(borrowItemFromOtherLibrary(itemID))) {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
 			System.out.println("Borrow item");
-			return "Fail:"+"Cannot borrow more books from this library.";
+			return "Fail:" + "Cannot borrow more books from this library.";
 		}
 		borrowResponse = sendMessage(port, reqMsg);
 		if (borrowResponse.equalsIgnoreCase("Success")) {
 			userItems.put(itemID, "Borrowed");
 			saveUserHistoryDetails(userID, userItems);
 			logInformationOnServer(userID, itemID, "Success", "BorrowItem", true, serverName);
-			return "Success:"+"Item " + itemID + " borrowed by user " + userID + " successfully!";
+			return "Success:" + "Item " + itemID + " borrowed by user " + userID + " successfully!";
 		} else if (borrowResponse.equalsIgnoreCase("Unavailable")) {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
-			return "Fail:"+borrowResponse;
+			return "Fail:" + borrowResponse;
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
-			//return "Fail:"+"Error/No response";
+			// return "Fail:"+"Error/No response";
 			return "Fail:Unavailable";
 		}
 
@@ -1030,10 +1033,10 @@ public class ActionServiceImpl implements ActionService {
 			returnItems.put(itemID, "Returned");
 			saveUserHistoryDetails(userID, returnItems);
 			logInformationOnServer(userID, itemID, "Success", "ReturnItem", true, serverName);
-			return "Success:"+"Item " + itemID + " returned by user " + userID + " successfully!";
+			return "Success:" + "Item " + itemID + " returned by user " + userID + " successfully!";
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "ReturnItem", false, serverName);
-			return "Fail:"+"Error/No response";
+			return "Fail:" + "Error/No response";
 		}
 	}
 
@@ -1064,7 +1067,7 @@ public class ActionServiceImpl implements ActionService {
 					returnMsg = ConcordiaServer.waitList(userID, itemID);
 					if (returnMsg.equalsIgnoreCase("Success")) {
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
-						returnMsg = "Success:"+userID + " added to the waitlist successfully!";
+						returnMsg = "Success:" + userID + " added to the waitlist successfully!";
 					}
 				} else if (itemID.substring(0, 3).equalsIgnoreCase("MCG")) {
 					returnMsg = waitListHandler(7777, userID, itemID);
@@ -1077,7 +1080,7 @@ public class ActionServiceImpl implements ActionService {
 				if (itemID.substring(0, 3).equalsIgnoreCase("MCG")) {
 					returnMsg = McgillServer.waitList(userID, itemID);
 					if (returnMsg.equalsIgnoreCase("Success")) {
-						returnMsg = "Success:"+userID + " added to the waitlist successfully!";
+						returnMsg = "Success:" + userID + " added to the waitlist successfully!";
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
 					}
 				} else if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
@@ -1091,7 +1094,7 @@ public class ActionServiceImpl implements ActionService {
 				if (itemID.substring(0, 3).equalsIgnoreCase("MON")) {
 					returnMsg = MontrealServer.waitList(userID, itemID);
 					if (returnMsg.equalsIgnoreCase("Success")) {
-						returnMsg = "Success:"+userID + " added to the waitlist successfully!";
+						returnMsg = "Success:" + userID + " added to the waitlist successfully!";
 						logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, userServer);
 					}
 				} else if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
@@ -1126,10 +1129,10 @@ public class ActionServiceImpl implements ActionService {
 		if (borrowResponse.equalsIgnoreCase("Success")) {
 			// addUserToWaitList(userID,itemID,serverName);
 			logInformationOnServer(userID, itemID, "Success", "WaitListItem", true, serverName);
-			return "Success:"+userID + " added to the waitlist successfully!";
+			return "Success:" + userID + " added to the waitlist successfully!";
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "WaitListItem", true, serverName);
-			return "Fail:"+borrowResponse;
+			return "Fail:" + borrowResponse;
 		}
 	}
 
@@ -1152,9 +1155,9 @@ public class ActionServiceImpl implements ActionService {
 
 	}
 
-//	public void setOrb(ORB orb) {
-//		this.orb = orb;
-//	}
+	// public void setOrb(ORB orb) {
+	// this.orb = orb;
+	// }
 
 	public String exchangeItem(String userID, String newItemID, String oldItemID) {
 
@@ -1183,21 +1186,21 @@ public class ActionServiceImpl implements ActionService {
 					} else {
 						message = returnItem(userID, oldItemID);
 						message += "\n" + borrowItem(userID, newItemID, numberOfDays);
-						message = "Success: Exchanged book "+ oldItemID+" with "+newItemID+ " successfully.";
+						message = "Success: Exchanged book " + oldItemID + " with " + newItemID + " successfully.";
 						logInformationOnServer(userID, oldItemID, "Success", "ExchangeItem :" + newItemID, false,
 								userServer);
 					}
 				} else {
 					logInformationOnServer(userID, oldItemID, "Failure", "ExchangeItem", false, userServer);
-					message = "Fail:"+"New Item is not available in Library";
+					message = "Fail:" + "New Item is not available in Library";
 				}
 			} else {
 				logInformationOnServer(userID, oldItemID, "Failure", "ExchangeItem", false, userServer);
-				message = "Fail:"+"New Item is already borrowed";
+				message = "Fail:" + "New Item is already borrowed";
 			}
 		} else {
 			logInformationOnServer(userID, oldItemID, "Failure", "ExchangeItem", false, userServer);
-			message = "Fail:"+"Old Item not available with user for exchange";
+			message = "Fail:" + "Old Item not available with user for exchange";
 		}
 
 		return message;
@@ -1242,44 +1245,44 @@ public class ActionServiceImpl implements ActionService {
 		}
 		return false;
 	}
-	
-//	@Override
-//	public boolean validateUser(String userID) {
-//		boolean flag = false;
-//		switch (userID.substring(0, 3)) {
-//		case "CON":
-//			if (userID.charAt(3) == 'U') {
-//				if (ConcordiaServer.userlist.containsKey(userID))
-//					flag = true;
-//			} else {
-//				if (ConcordiaServer.managerUserList.contains(userID)) {
-//					flag = true;
-//				}
-//			}
-//			break;
-//		case "MON":
-//			if (userID.charAt(3) == 'U') {
-//				if (MontrealServer.userlist.containsKey(userID))
-//					flag = true;
-//			} else {
-//				if (MontrealServer.managerUserList.contains(userID)) {
-//					flag = true;
-//				}
-//			}
-//			break;
-//
-//		case "MCG":
-//			if (userID.charAt(3) == 'U') {
-//				if (McgillServer.userlist.containsKey(userID))
-//					flag = true;
-//			} else {
-//				if (McgillServer.managerUserList.contains(userID)) {
-//					flag = true;
-//				}
-//			}
-//			break;
-//		}
-//		return flag;
-//	}
+
+	// @Override
+	// public boolean validateUser(String userID) {
+	// boolean flag = false;
+	// switch (userID.substring(0, 3)) {
+	// case "CON":
+	// if (userID.charAt(3) == 'U') {
+	// if (ConcordiaServer.userlist.containsKey(userID))
+	// flag = true;
+	// } else {
+	// if (ConcordiaServer.managerUserList.contains(userID)) {
+	// flag = true;
+	// }
+	// }
+	// break;
+	// case "MON":
+	// if (userID.charAt(3) == 'U') {
+	// if (MontrealServer.userlist.containsKey(userID))
+	// flag = true;
+	// } else {
+	// if (MontrealServer.managerUserList.contains(userID)) {
+	// flag = true;
+	// }
+	// }
+	// break;
+	//
+	// case "MCG":
+	// if (userID.charAt(3) == 'U') {
+	// if (McgillServer.userlist.containsKey(userID))
+	// flag = true;
+	// } else {
+	// if (McgillServer.managerUserList.contains(userID)) {
+	// flag = true;
+	// }
+	// }
+	// break;
+	// }
+	// return flag;
+	// }
 
 }
