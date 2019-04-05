@@ -6,14 +6,10 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.util.HashSet;
 import java.util.PriorityQueue;
 
-import com.dlms.replicas.replica1.ActionServiceImpl;
-import com.dlms.replicas.replica1.Concordia;
-import com.dlms.replicas.replica1.McGill;
 import com.dlms.replicas.replica1.MessageComparator;
-import com.dlms.replicas.replica1.Montreal;
 
 public class ReplicaManager {
 
@@ -27,15 +23,17 @@ public class ReplicaManager {
 	static ActionserviceImpl monStub;
 	private static PriorityQueue<String> messageBuffer = new PriorityQueue<String>(new MessageComparator());
 	private static PriorityQueue<String> tempBuffer = new PriorityQueue<String>(new MessageComparator());
-
+	private static HashSet<String> duplicateMessSet = new HashSet<String>();
+ 
 	public static void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
 		try {
 			aSocket = new DatagramSocket();
 			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("132.205.64.19");
+			InetAddress aHost = InetAddress.getByName("132.205.64.38");
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
+			
 
 		} catch (SocketException e) {
 			System.out.println("Socket: " + e.getMessage());
@@ -94,8 +92,13 @@ public class ReplicaManager {
 					// String dataArray[] = data.split(",");
 					// set data in queue
 
-					if (queue.contains(data)) {
+					System.out.println("Message recieved is : "+data);
+					int s = duplicateMessSet.size();
+					duplicateMessSet.add(data.trim());
+					
+					if (duplicateMessSet.size()==s) {
 						System.out.println("Duplicate message. Message already in queue");
+						continue;
 					} else {
 
 						if (request.getPort() != 11111) {
@@ -103,6 +106,7 @@ public class ReplicaManager {
 							System.out.println(data);
 							queue.add(data.trim());
 							messageBuffer.add(data.trim());
+							
 						}
 
 					}
