@@ -30,7 +30,7 @@ public class ConcordiaServer {
 	public static Map<String, List<String>> userHistory = new TreeMap<String, List<String>>();
 	public static HashMap<String, HashMap<String, Integer>> userlist = new HashMap<String, HashMap<String, Integer>>();
 	public static ArrayList<String> managerUserList = new ArrayList<String>();
-	List<String> itemHistory = new ArrayList<String>();
+	private static List<String> itemHistory;
 	public static String convalues = null;
 	private static boolean running;
 	String nextItem = "";
@@ -40,6 +40,7 @@ public class ConcordiaServer {
 	 */
 	public ConcordiaServer() {
 
+		itemHistory = new ArrayList<String>();
 		conLibrary.put("CON1111", "COMPILER DESIGN,4");
 		conLibrary.put("CON2222", "DISCRETE MATHEMATICAL STRUCTURE,0");
 		conLibrary.put("CON3333", "GRAPH THEORY,2");
@@ -257,7 +258,7 @@ public class ConcordiaServer {
 				System.out.println("User " + userID + " has borrowed the item " + itemID
 						+ " from Concordia library!! Availablity : " + value);
 			} else if (quantity == 0) {
-				response = "Cannot be Borrowed";
+				response = "Unavailable";
 			}
 		} catch (Exception e) {
 			response = "Failure";
