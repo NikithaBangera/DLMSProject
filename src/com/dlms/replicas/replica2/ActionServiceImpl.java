@@ -19,12 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.omg.CORBA.ORB;
-
-import com.dlms.replicas.replica1.Concordia;
-import com.dlms.replicas.replica1.McGill;
-import com.dlms.replicas.replica1.Montreal;
-
 public class ActionServiceImpl implements ActionService {
 	private static final long serialVersionUID = 1L;
 	// ConcordiaServer conObj = new ConcordiaServer();
@@ -51,7 +45,7 @@ public class ActionServiceImpl implements ActionService {
 
 			switch (managerID.substring(0, 3)) {
 			case "CON":
-				if (ConcordiaServer.conLibrary.containsKey(itemID)) {
+				if (ConcordiaServer.conLibrary.containsKey(itemID) && (ConcordiaServer.conLibrary.get(itemID).split(",")[0]).equalsIgnoreCase(itemName)) {
 					String value = ConcordiaServer.conLibrary.get(itemID);
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
@@ -90,10 +84,10 @@ public class ActionServiceImpl implements ActionService {
 					return ("Success:" + "Item ID " + itemID + " added to the Concordia Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Fail:" + "Concordia:Add item operation not successfull");
+				return ("Fail:A book with item ID " + itemID + " already exists with a different name");
 
 			case "MCG":
-				if (McgillServer.mcgLibrary.containsKey(itemID)) {
+				if (McgillServer.mcgLibrary.containsKey(itemID) && (McgillServer.mcgLibrary.get(itemID).split(",")[0]).equalsIgnoreCase(itemName)) {
 					String value = McgillServer.mcgLibrary.get(itemID);
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
@@ -131,10 +125,10 @@ public class ActionServiceImpl implements ActionService {
 					return ("Success:" + "Item ID " + itemID + " added to the Mcgill Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Fail:" + "Mcgill:Add item operation not successfull");
+				return ("Fail:A book with item ID " + itemID + " already exists with a different name");
 
 			case "MON":
-				if (MontrealServer.monLibrary.containsKey(itemID)) {
+				if (MontrealServer.monLibrary.containsKey(itemID) && (MontrealServer.monLibrary.get(itemID).split(",")[0]).equalsIgnoreCase(itemName)) {
 					String value = MontrealServer.monLibrary.get(itemID);
 					int val1 = Integer.parseInt(value.substring(value.lastIndexOf(',') + 1)) + quantity;
 					if (waitList.get(itemID) != null) {
@@ -172,7 +166,7 @@ public class ActionServiceImpl implements ActionService {
 					return ("Success:" + "Item ID " + itemID + " added to the Montreal Library.");
 				} else
 					logInformationOnServer(managerID, itemID, "Failure", "AddItem", false, serverName);
-				return ("Fail:" + "Montreal:Add item operation not successfull");
+				return ("Fail:A book with item ID " + itemID + " already exists with a different name");
 			}
 
 		} catch (Exception e) {
@@ -775,7 +769,6 @@ public class ActionServiceImpl implements ActionService {
 	public void populateReturnItemsList(String userID, HashMap<String, String> returnItems) {
 		List<String> userHistoryList = new ArrayList<String>();
 		if (userID.substring(0, 3).equalsIgnoreCase("CON")) {
-
 			userHistoryList.addAll(ConcordiaServer.userHistory.get(userID));
 		} else if (userID.substring(0, 3).equalsIgnoreCase("MCG")) {
 			userHistoryList.addAll(McgillServer.userHistory.get(userID));
