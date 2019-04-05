@@ -118,8 +118,9 @@ public class MontrealLibrary {
 						if (flag == 0)
 
 						{
-							message = "fail: Item with Item name: " + itemName
-									+ " does not exist in the Montreal library\n";
+						//	message = "fail: Item with Item name: " + itemName
+							//		+ " does not exist in the Montreal library\n";
+							message = "";
 
 							monStub.LOG.info("Item not present in the library.");
 							monStub.LOG.info("----FAILED----");
