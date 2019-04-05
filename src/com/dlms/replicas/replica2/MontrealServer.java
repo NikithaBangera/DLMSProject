@@ -30,7 +30,7 @@ public class MontrealServer {
 	public static Map<String, List<String>> userHistory = new TreeMap<String, List<String>>();
 	public static HashMap<String, HashMap<String, Integer>> userlist = new HashMap<String, HashMap<String, Integer>>();
 	public static ArrayList<String> managerUserList = new ArrayList<String>();
-	List<String> itemHistory = new ArrayList<String>();
+	private static List<String> itemHistory;
 	public static String monvalues = null;
 	private static boolean running;
 	String nextItem = "";
@@ -40,6 +40,7 @@ public class MontrealServer {
 	 */
 	public MontrealServer() {
 
+		itemHistory = new ArrayList<String>();
 //		monLibrary.put("MON2011", "Computer Networks,7");
 //		monLibrary.put("MON2012", "Systems Software,6");
 //		monLibrary.put("MON2013", "Distributed Systems,0");
@@ -284,7 +285,7 @@ public class MontrealServer {
 				System.out.println("User " + userID + " has borrowed the item " + itemID
 						+ " from Montreal library!! Availablity : " + value);
 			} else if (quantity == 0) {
-				response = "Cannot be Borrowed";
+				response = "Unavailable";
 			}
 		} catch (Exception e) {
 			response = "Failure";
