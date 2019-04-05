@@ -202,9 +202,10 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 			majorityElement = majorityOfResult(message1, message2, message3);
 
+		
 			if (replicaNumber > 0) {
-				String faultIntimation = bugC++ + "," + "" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + ","
-						+ "" + "," + 0 + "," + 0 + "," + "faultyBug";
+				String faultIntimation = bugC++ + "," + "" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
+						+ "," + 0 + "," + 0 + "," + "faultyBug";
 
 				System.out.println("\n------------Sending intimation to faulty replica: " + faultIntimation
 						+ "------------------");

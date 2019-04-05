@@ -15,6 +15,7 @@ public class ReplicaManager {
 	private static String result = "";
 	private static int Bugcount = 0;
 	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
+	private static PriorityQueue<String> messageBuffer = new PriorityQueue<String>(new MessageComparator());
 
 	public static void main(String[] args) {
 		try {
@@ -49,10 +50,12 @@ public class ReplicaManager {
 					// String dataArray[] = data.split(",");
 
 					// set data in queue
-					if (queue.contains(data)) {
-						System.out.println("Duplicate message.");
+					if (messageBuffer.contains(data)) {
+						System.out.println("Duplicate message");
+						continue;
 					} else {
 						queue.add(data);
+						messageBuffer.add(data);
 					}
 
 					String message[] = queue.poll().split(",");
@@ -112,7 +115,7 @@ public class ReplicaManager {
 		try {
 			aSocket = new DatagramSocket();
 			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("132.205.64.201"); // add Front End Address
+			InetAddress aHost = InetAddress.getByName("132.205.64.197"); // add Front End Address
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
 
