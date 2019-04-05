@@ -24,7 +24,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	private ORB orb;
 	private String timetaken;
-	private long duration = 5000;
+	private long duration = 100000;
 	private static String majorityElement = null;
 	private static String majorityMessage = "";
 	private int invalidElement;
@@ -37,7 +37,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 	public FrontEndImplementation(String replicaName) {
 
 		this.replicaName = replicaName;
-		badReplicaMap.put(1, 0);
+		badReplicaMap.put(1, 0); 
 		badReplicaMap.put(2, 0);
 		badReplicaMap.put(3, 0);
 
@@ -174,7 +174,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 					System.out.println("Sending message to replica manager at replica 3 to recover from crash");
 					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
-							InetAddress.getByName("132.205.64.106"), 1314)); // For Crash failure
+							InetAddress.getByName("132.205.64.41"), 1314)); // For Crash failure
 
 					message1 = new String(reply[0].getData()).trim();
 					System.out.println("message1: " + message1);
@@ -228,8 +228,8 @@ public class FrontEndImplementation extends ActionServicePOA {
 				System.out.println("Sending intimation to faulty replica: " + faultIntimation);
 
 				aSocket.send(new DatagramPacket(faultIntimation.getBytes(), faultIntimation.length(),
-						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.19"
-								: replicaNumber == 2 ? "132.205.64.191" : "132.205.64.106"),
+						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.38"
+								: replicaNumber == 2 ? "132.205.64.61" : "132.205.64.41"),
 						1314));
 			}
 
