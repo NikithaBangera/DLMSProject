@@ -120,7 +120,8 @@ public class McGillLibrary {
 					if (flag == 0)
 
 					{
-						message = "fail: Item with Item name: " + itemName + " does not exist in the McGill library\n";
+						//message = "fail: Item with Item name: " + itemName + " does not exist in the McGill library\n";
+						message = "";
 						mcStub.LOG.info("Item not present in the library.");
 						mcStub.LOG.info("----FAILED----");
 						
