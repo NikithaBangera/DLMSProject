@@ -1,7 +1,7 @@
-Apr 04, 2019 4:51:43 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+Apr 05, 2019 6:11:22 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
 INFO: 
 *****Entering Concordia Server*****
-Apr 04, 2019 4:51:43 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
-INFO: Request Type: List items , Request params: managerID CONM1012
-Apr 04, 2019 4:51:43 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+Apr 05, 2019 6:11:22 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
+INFO: Request Type: List items , Request params: managerID CONM1013
+Apr 05, 2019 6:11:22 PM com.dlms.replicas.replica1.ActionServiceImpl listItemAvailability
 INFO: Response returned: {CON1111=COMPILER DESIGN,4, CON2222=DISCRETE MATHEMATICAL STRUCTURE,0, CON3333=GRAPH THEORY,2, CON4444=DATA STRUCTURE,8}

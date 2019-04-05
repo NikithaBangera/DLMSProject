@@ -59,7 +59,7 @@ public class ReplicaManager {
 
 			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
-			System.out.println("Server Started............");
+			System.out.println("\nReplica manager 3 Started............");
 
 			new Thread(() -> {
 				while (true) {
@@ -85,9 +85,9 @@ public class ReplicaManager {
 						e.printStackTrace();
 					}
 
-					System.out.println("abcd---" + request.getData().toString());
 					String data = new String(request.getData());
 					System.out.println(data);
+					System.out.println("\n------------Request received at Replica 3 " + data + "---------");
 					// String dataArray[] = data.split(",");
 					// set data in queue
 
@@ -96,7 +96,7 @@ public class ReplicaManager {
 					duplicateMessSet.add(data.trim());
 
 					if (duplicateMessSet.size() == s) {
-						System.out.println("Duplicate message. Message already in queue");
+						System.out.println("\n Duplicate message. Message already in queue");
 						continue;
 					} else {
 
@@ -110,6 +110,7 @@ public class ReplicaManager {
 
 					}
 					int c = 0;
+					System.out.println("\n Request Messages in buffer");
 					for (String string : messageBuffer) {
 
 						System.out.println(++c + ". " + string);
@@ -136,7 +137,7 @@ public class ReplicaManager {
 					if (failureType.equalsIgnoreCase("faultyBug")) {
 						Bugcount += 1;
 						System.out
-								.println("Number of fault intimation received by FE to Replica Manager 2: " + Bugcount);
+								.println("\nNumber of fault intimation received by FE to Replica Manager 2: " + Bugcount);
 					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 
@@ -182,8 +183,8 @@ public class ReplicaManager {
 							//
 							// }).start();
 							crashCounter++;
-							System.out.println(crashCounter);
-							System.out.println("  " + aSocket.getPort() + "is closed " + aSocket.isClosed());
+//							System.out.println(crashCounter);
+//							System.out.println("  " + aSocket.getPort() + "is closed " + aSocket.isClosed());
 						} else {
 
 							ConcordiaLibrary.startConcordiaLibrary();
@@ -218,7 +219,7 @@ public class ReplicaManager {
 
 							}
 							crashCounter--;
-							System.out.println("Result RM3: " + result);
+							System.out.println("\n---------RESULT in RM3:" + result + "---------");
 							// sendUDPMessage(11111, "rm3:" + result);
 
 						}
@@ -229,7 +230,7 @@ public class ReplicaManager {
 						System.out.println(userID + "userID");
 						System.out.println(managerID + "managerID");
 						if (!userID.equalsIgnoreCase("")) {
-							System.out.println("Inside If");
+//							System.out.println("Inside If");
 							String idPrefix = userID.substring(0, 3).toUpperCase().trim();
 							action = idPrefix.equalsIgnoreCase("CON") ? conStub
 									: idPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
@@ -264,11 +265,11 @@ public class ReplicaManager {
 							result = action.exchangeItem(userID, newItemID, oldItemID);
 
 						}
-						System.out.println("Result RM3: " + result);
+						System.out.println("\n---------RESULT in RM3:" + result + "---------");
 						sendUDPMessage(11111, "rm3:" + result);
 
 					}
-					System.out.println("At the end");
+					// System.out.println("At the end");
 
 				}
 			}).start();
@@ -328,7 +329,7 @@ public class ReplicaManager {
 			result = action.exchangeItem(userID, newItemID, oldItemID);
 
 		}
-		System.out.println("Operation: " + m[0] + "    result: " + result);
+		System.out.println("\nOperation: " + m[0] + "    result: " + result);
 	}
 
 }

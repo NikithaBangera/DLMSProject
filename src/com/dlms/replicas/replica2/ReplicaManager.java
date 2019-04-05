@@ -32,27 +32,24 @@ public class ReplicaManager {
 
 			aSocket.joinGroup(InetAddress.getByName("234.1.1.1"));
 
-			System.out.println("Replica manager 2 Started............");
+			System.out.println("\nReplica manager 2 Started............");
 			new Thread(() -> {
 				while (true) {
 					byte[] buffer = new byte[1000];
 					DatagramPacket request = new DatagramPacket(buffer, buffer.length);
 					try {
 						aSocket.receive(request);
-						System.out.println("RM2:" + request.getData().toString());
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println("abcd---" + request.getData().toString());
+
 					String data = new String(request.getData()).trim();
-					System.out.println(data);
-					// String dataArray[] = data.split(",");
+					System.out.println("\n------------Request received at Replica 2 " + data + "---------");
 
 					// set data in queue
-					if (messageBuffer.contains(data)) {
-						System.out.println("Duplicate message");
-						continue;
+
+					if (queue.contains(data)) {
+						System.out.println("\n Duplicate message. Message already in queue");
 					} else {
 						queue.add(data);
 						messageBuffer.add(data);
@@ -72,7 +69,8 @@ public class ReplicaManager {
 
 					if (failureType.equalsIgnoreCase("faultyBug")) {
 						Bugcount += 1;
-						System.out.println("Number of fault intimation received by FE to Replica Manager 2: " + Bugcount);
+						System.out.println(
+								"\nNumber of fault intimation received by FE to Replica Manager 2: " + Bugcount);
 					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 
@@ -98,7 +96,7 @@ public class ReplicaManager {
 							result = actionServiceImpl.exchangeItem(userID, newItemID, oldItemID);
 						}
 					}
-					System.out.println(result);
+					System.out.println("\n---------RESULT in RM2 :" + result + "---------");
 					sendUDPMessage(11111, "rm2:" + result);
 				}
 
