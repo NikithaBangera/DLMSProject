@@ -607,7 +607,7 @@ public class ActionserviceImpl implements ActionService {
 						String answer = borrowItem(s[0], s[1], 0);
 						message = "success:Item returned to the library successfully. Have a nice day!";
 						LOG.info("----SUCCESS----");
-						message = message + "Waiting queue result: " + answer;
+						message = message +"\n"+ "Waiting queue result: " + answer;
 
 					}
 
@@ -679,16 +679,19 @@ public class ActionserviceImpl implements ActionService {
 			LOG.info("----SUCCESS----");
 			waitListMap.put(itemID, new LinkedList<String>());
 			waitListMap.get(itemID).add(userID);
+			
+			System.out.println("Wait List Map Output:- "+ waitListMap.get(itemID));
 
 		} else if (waitListMap.containsKey(itemID) & userID != null) {
 
 			LOG.info("Adding user with userID: " + userID + " in the waiting list for an item with itemID: " + itemID);
 			waitListMap.get(itemID).add(userID);
 			LOG.info("--SUCCESS");
+			System.out.println("Wait List Map Output:- "+ waitListMap.get(itemID));
 		} else {
 			if (waitListMap.containsKey(itemID) && !waitListMap.get(itemID).isEmpty()) {
 				userID = waitListMap.get(itemID).poll();
-				LOG.info(" UserID: " + userID + "Removing this user ID from the Waiting queue.");
+				LOG.info(" UserID: " + userID + " Removing this user ID from the Waiting queue.");
 				System.out.println(userID + "added");
 				LOG.info("----SUCCESS----");
 				return userID + "," + itemID;
@@ -699,7 +702,7 @@ public class ActionserviceImpl implements ActionService {
 			}
 		}
 		LOG.info("User has been added in the wait List. Sending response back to the client.");
-		return "fail:User has been added in the wait list";
+		return "success:User has been added in the wait list";
 
 	}
 
@@ -805,7 +808,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 
-							if (reply1.equalsIgnoreCase("Unavailable")) {
+							if (reply1.contains("Unavailable")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -835,7 +838,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 
-							if (reply1.equalsIgnoreCase("Unavailable")) {
+							if (reply1.contains("Unavailable")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -865,7 +868,7 @@ public class ActionserviceImpl implements ActionService {
 								LOG.info(message);
 							}
 						} else {
-							if (reply1.equalsIgnoreCase("Unavailable")) {
+							if (reply1.contains("Unavailable")) {
 								message = "fail: Sorry. Item to be exchanged is currently not available";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
@@ -931,7 +934,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("Unavailable")) {
+				if (reply1.contains("Unavailable")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -983,7 +986,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("Unavailable")) {
+				if (reply1.contains("Unavailable")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -1034,7 +1037,7 @@ public class ActionserviceImpl implements ActionService {
 					LOG.info(message);
 				}
 			} else {
-				if (reply1.equalsIgnoreCase("Unavailable")) {
+				if (reply1.contains("Unavailable")) {
 					message = "fail: Sorry. Item to be exchanged is currently not available";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
@@ -1045,7 +1048,10 @@ public class ActionserviceImpl implements ActionService {
 				}
 			}
 		}
-
+		
+		if(message.contains("Unavailable")) {
+			message = "fail: Cannot be exchange. Either user already borrowed or the asked item is already issued";
+		}
 		return message;
 	}
 
