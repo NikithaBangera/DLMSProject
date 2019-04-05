@@ -397,9 +397,10 @@ public class ActionServiceImpl implements ActionService {
 						: (userID.substring(0, 3).equalsIgnoreCase("MON") ? "Montreal" : "")));
 		try {
 			if (validateBookAvailability(userID, itemID)) {
-				populateReturnItemsList(userID, userItems);
+//				populateReturnItemsList(userID, userItems);
 				switch (userID.substring(0, 3)) {
 				case "CON":
+					populateReturnItemsList(userID, userItems);
 					if (itemID.substring(0, 3).equalsIgnoreCase("CON")) {
 						if (userItems.get(itemID) == null || (userItems.get(itemID) != null
 								&& userItems.get(itemID).equalsIgnoreCase("Returned"))) {
@@ -433,6 +434,7 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				case "MCG":
+					populateReturnItemsList(userID, userItems);
 					if (itemID.substring(0, 3).equalsIgnoreCase("MCG")) {
 						if (userItems.get(itemID) == null || (userItems.get(itemID) != null
 								&& userItems.get(itemID).equalsIgnoreCase("Returned"))) {
@@ -469,6 +471,7 @@ public class ActionServiceImpl implements ActionService {
 					}
 
 				case "MON":
+					populateReturnItemsList(userID, userItems);
 					if (itemID.substring(0, 3).equalsIgnoreCase("MON")) {
 						if (userItems.get(itemID) == null || (userItems.get(itemID) != null
 								&& userItems.get(itemID).equalsIgnoreCase("Returned"))) {
@@ -970,6 +973,7 @@ public class ActionServiceImpl implements ActionService {
 		System.out.println(reqMsg);
 		if (!(borrowItemFromOtherLibrary(itemID))) {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
+			System.out.println("Borrow item");
 			return "Fail:"+"Cannot borrow more books from this library.";
 		}
 		borrowResponse = sendMessage(port, reqMsg);
@@ -978,12 +982,13 @@ public class ActionServiceImpl implements ActionService {
 			saveUserHistoryDetails(userID, userItems);
 			logInformationOnServer(userID, itemID, "Success", "BorrowItem", true, serverName);
 			return "Success:"+"Item " + itemID + " borrowed by user " + userID + " successfully!";
-		} else if (borrowResponse.equalsIgnoreCase("Cannot be Borrowed")) {
+		} else if (borrowResponse.equalsIgnoreCase("Unavailable")) {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
 			return "Fail:"+borrowResponse;
 		} else {
 			logInformationOnServer(userID, itemID, "Failure", "BorrowItem", false, serverName);
-			return "Fail:"+"Error/No response";
+			//return "Fail:"+"Error/No response";
+			return "Fail:Unavailable";
 		}
 
 	}
