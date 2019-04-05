@@ -24,16 +24,15 @@ public class ReplicaManager {
 	private static PriorityQueue<String> messageBuffer = new PriorityQueue<String>(new MessageComparator());
 	private static PriorityQueue<String> tempBuffer = new PriorityQueue<String>(new MessageComparator());
 	private static HashSet<String> duplicateMessSet = new HashSet<String>();
- 
+
 	public static void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
 		try {
 			aSocket = new DatagramSocket();
 			byte[] msg = message.getBytes();
-			InetAddress aHost = InetAddress.getByName("132.205.64.38");
+			InetAddress aHost = InetAddress.getByName("132.205.64.197");
 			DatagramPacket request = new DatagramPacket(msg, msg.length, aHost, serverPort);
 			aSocket.send(request);
-			
 
 		} catch (SocketException e) {
 			System.out.println("Socket: " + e.getMessage());
@@ -92,11 +91,11 @@ public class ReplicaManager {
 					// String dataArray[] = data.split(",");
 					// set data in queue
 
-					System.out.println("Message recieved is : "+data);
+					System.out.println("Message recieved is : " + data);
 					int s = duplicateMessSet.size();
 					duplicateMessSet.add(data.trim());
-					
-					if (duplicateMessSet.size()==s) {
+
+					if (duplicateMessSet.size() == s) {
 						System.out.println("Duplicate message. Message already in queue");
 						continue;
 					} else {
@@ -106,7 +105,7 @@ public class ReplicaManager {
 							System.out.println(data);
 							queue.add(data.trim());
 							messageBuffer.add(data.trim());
-							
+
 						}
 
 					}
@@ -136,7 +135,8 @@ public class ReplicaManager {
 
 					if (failureType.equalsIgnoreCase("faultyBug")) {
 						Bugcount += 1;
-						System.out.println("Number of fault intimation received by FE to Replica Manager 2: " + Bugcount);
+						System.out
+								.println("Number of fault intimation received by FE to Replica Manager 2: " + Bugcount);
 					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 
@@ -209,10 +209,6 @@ public class ReplicaManager {
 								size--;
 
 							}
-							for (String string : tempBuffer) {
-								System.out.println(string + "  Temp");
-
-							}
 							messageBuffer.addAll(tempBuffer);
 							tempBuffer.clear();
 							result = conStub.listItemAvailability("CONM1234");
@@ -255,6 +251,10 @@ public class ReplicaManager {
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
 							result = action.borrowItem(userID, oldItemID, numberOfDays);
 						} else if (operation.equalsIgnoreCase("waitList")) {
+							String itemIdPrefix = oldItemID.substring(0, 3).toUpperCase().trim();
+							action = itemIdPrefix.equalsIgnoreCase("CON") ? conStub
+									: itemIdPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
+
 							result = action.waitList(userID, oldItemID, numberOfDays);
 						} else if (operation.equalsIgnoreCase("findItem")) {
 							result = action.findItem(userID, itemName);
@@ -315,6 +315,10 @@ public class ReplicaManager {
 		} else if (operation.equalsIgnoreCase("borrowItem")) {
 			result = action.borrowItem(userID, oldItemID, numberOfDays);
 		} else if (operation.equalsIgnoreCase("waitList")) {
+			String itemIdPrefix = oldItemID.substring(0, 3).toUpperCase().trim();
+			action = itemIdPrefix.equalsIgnoreCase("CON") ? conStub
+					: itemIdPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
+
 			result = action.waitList(userID, oldItemID, numberOfDays);
 		} else if (operation.equalsIgnoreCase("findItem")) {
 			result = action.findItem(userID, itemName);
