@@ -73,7 +73,7 @@ public class ConcordiaLibrary {
 				{
 					
 					
-					
+  					
 					conStub.LOG.info("---------Request recieved to remove an item---------");
 					int flag = 0;
 					for (String str : conStub.userInfo.keySet()) {
@@ -120,7 +120,8 @@ public class ConcordiaLibrary {
 					if (flag == 0)
 
 					{
-						message = "fail: Item with Item name: " + itemName + " does not exist in the Concordia library\n";
+					//	message = "fail: Item with Item name: " + itemName + " does not exist in the Concordia library\n";
+						message = "";
 						conStub.LOG.info("Item not present in the library.");
 						conStub.LOG.info("----FAILED----");
 					}
