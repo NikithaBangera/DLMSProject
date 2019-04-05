@@ -14,6 +14,7 @@ public class ReplicaManager {
 	private static String replicaId = "rm1:";
 	private static int Bugcount = 0;
 	private static PriorityQueue<String> queue = new PriorityQueue<String>(new MessageComparator());
+	private static PriorityQueue<String> messageBuffer = new PriorityQueue<String>(new MessageComparator());
 
 	static public void sendUDPMessage(int serverPort, String message) {
 		DatagramSocket aSocket = null;
@@ -63,14 +64,30 @@ public class ReplicaManager {
 					String data = new String(request.getData()).trim();
 					System.out.println("----" + data);
 					// String dataArray[] = data.split(",");
-
+//					for (String s : queue) {
+//						System.out.print("---------before q " + s);
+//					}
+//					System.out.println();
+//					for (String s : messageBuffer) {
+//						System.out.print("--------before msg " + s);
+//					}
+//					System.out.println();
 					// set data in queue
-					if (queue.contains(data)) {
+					if (messageBuffer.contains(data)) {
 						System.out.println("Duplicate message");
+						continue;
 					} else {
 						queue.add(data);
+						messageBuffer.add(data);
 					}
-
+//					for (String s : queue) {
+//						System.out.print("-----------after q " + s);
+//					}
+//					System.out.println();
+//					for (String s : messageBuffer) {
+//						System.out.print("----------after msg " + s);
+//					}
+//					System.out.println();
 					String message[] = queue.poll().split(",");
 					String seqNum = message[0];
 					String operation = message[1];
@@ -82,10 +99,11 @@ public class ReplicaManager {
 					int quantity = Integer.parseInt(message[7]);
 					int numberOfDays = Integer.parseInt(message[8]);
 					String failureType = message[9];
-//					System.out.println("failureType " + failureType);
+					// System.out.println("failureType " + failureType);
 					if (failureType.equalsIgnoreCase("faultyBug")) {
 						Bugcount += 1;
-						System.out.println("Number of fault intimation received by FE to Replica Manager 1: " + Bugcount);
+						System.out
+								.println("Number of fault intimation received by FE to Replica Manager 1: " + Bugcount);
 					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 						result = action.listItemAvailability(managerID);
