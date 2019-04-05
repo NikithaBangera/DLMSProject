@@ -48,7 +48,7 @@ public class ReplicaManager {
 
 					// set data in queue
 
-					if (queue.contains(data)) {
+					if (messageBuffer.contains(data)) {
 						System.out.println("\n Duplicate message. Message already in queue");
 					} else {
 						queue.add(data);
@@ -78,7 +78,7 @@ public class ReplicaManager {
 
 					} else {
 						if (operation.equalsIgnoreCase("addItem")) {
-							System.out.println("Add item started");
+							//System.out.println("Add item started");
 							result = actionServiceImpl.addItem(managerID, oldItemID, itemName, quantity);
 						} else if (operation.equalsIgnoreCase("removeItem")) {
 							result = actionServiceImpl.removeItem(managerID, oldItemID, quantity);
