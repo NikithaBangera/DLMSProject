@@ -95,7 +95,7 @@ public class Sequencer {
 			mcPacket.setAddress(mcIPAddress);
 			// mcPacket.setPort(mcPort);
 			aSocket.send(mcPacket);
-
+			aSocket.send(mcPacket);
 			System.out.println("Sent a  multicast message.");
 			System.out.println("Exiting application");
 			System.out.println("mcPacket" + mcPacket.getData().toString());
