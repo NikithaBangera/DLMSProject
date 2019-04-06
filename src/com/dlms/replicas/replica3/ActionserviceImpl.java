@@ -23,7 +23,7 @@ import org.omg.CORBA.ORB;
 
 import com.dlms.replicas.replica1.ActionServiceImpl;
 import com.dlms.replicas.replica1.Concordia;
-import com.dlms.replicas.replica1.McGill; 
+import com.dlms.replicas.replica1.McGill;
 import com.dlms.replicas.replica1.Montreal;
 
 public class ActionserviceImpl implements ActionService {
@@ -66,7 +66,6 @@ public class ActionserviceImpl implements ActionService {
 	public void setORB(ORB orb_val) {
 		orb = orb_val;
 	}
-	
 
 	public void createLoggingFile(String library) {
 		File file = null;
@@ -114,10 +113,9 @@ public class ActionserviceImpl implements ActionService {
 
 			libraryInfo.put("CON4444", new HashMap<String, Integer>());
 			libraryInfo.get("CON4444").put("DATA STRUCTURE", 8);
-			
 
 		} else if (library.equalsIgnoreCase("McGill")) {
-			
+
 			libraryInfo.put("MCG1111", new HashMap<String, Integer>());
 			libraryInfo.get("MCG1111").put("COMPILER DESIGN", 4);
 
@@ -129,7 +127,7 @@ public class ActionserviceImpl implements ActionService {
 
 			libraryInfo.put("MCG4444", new HashMap<String, Integer>());
 			libraryInfo.get("MCG4444").put("DATA STRUCTURE", 8);
-			
+
 			userInfo.put("CONU1111", new ArrayList<String>());
 			userInfo.get("CONU1111").add("MCG1111");
 
@@ -145,7 +143,7 @@ public class ActionserviceImpl implements ActionService {
 		}
 
 		else {
-			
+
 			libraryInfo.put("MON1111", new HashMap<String, Integer>());
 			libraryInfo.get("MON1111").put("COMPILER DESIGN", 4);
 
@@ -157,7 +155,7 @@ public class ActionserviceImpl implements ActionService {
 
 			libraryInfo.put("MON4444", new HashMap<String, Integer>());
 			libraryInfo.get("MON4444").put("DATA STRUCTURE", 8);
-			
+
 		}
 
 	}
@@ -194,18 +192,53 @@ public class ActionserviceImpl implements ActionService {
 
 				if (a == 0) {
 					String result = waitList(null, itemID, 0);
-					message1 = message1 + "\nsuccess:The following user from wait list have been issued the item";
+					message1 = message1 + "\nThe following user from wait list have been issued the item";
 
 					String answer = null;
+					
 					while (result != null && b != 0) {
 
 						String s[] = result.split(",");
-						answer = borrowItem(s[0], s[1], 10);
+						
+						Map.Entry<String, Integer> entry = libraryInfo.get(s[1]).entrySet().iterator().next();
+						if (entry.getValue() > 0) {
+							if (userInfo.containsKey(s[0]) && !userInfo.get(s[0]).contains(s[1])) {
+								if (!s[0].substring(0, 3).equalsIgnoreCase(s[1].substring(0, 3))) {
+									if (userInfo.get(s[0]).size() == 0) {
 
-						message1 = message1 + "\n" + answer;
+										userInfo.get(s[0]).add(itemID);
+										entry.setValue(entry.getValue() - 1);
+										libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
+										message1 = message1 + "\n" + "Issued to user " + s[0];
+
+									} else {
+										message1 = message1 + "\n" + "cannot issue more than one item to user " + s[0];
+
+									}
+								} else {
+
+									userInfo.get(s[0]).add(itemID);
+									entry.setValue(entry.getValue() - 1);
+									libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());
+									message1 = message1 + "\n" + "Success: Issued to user " + s[0];
+
+								}
+
+							}
+							else {
+								userInfo.put(s[0], new ArrayList<String>());
+								userInfo.get(s[0]).add(s[1]);
+								entry.setValue(entry.getValue()-1);
+								libraryInfo.get(itemID).put(entry.getKey(), entry.getValue());	
+								message1 = message1 + "\n" + "Issued to user " + s[0];
+								
+							}
+						}
+
 						result = waitList(null, itemID, 0);
+
 						--b;
-						libraryInfo.get(itemID).put(itemName.toUpperCase(), b);
+				//		libraryInfo.get(itemID).put(itemName.toUpperCase(), b);
 						LOG.info(result + "\n");
 						LOG.info("---SUCCESS---");
 
@@ -360,18 +393,20 @@ public class ActionserviceImpl implements ActionService {
 			Map.Entry<String, Integer> entry = libraryInfo.get(s).entrySet().iterator().next();
 			itemName = entry.getKey();
 			quantity = entry.getValue();
-//			booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" + thisEntry.getValue().split(",")[0] + ","
-//					+ thisEntry.getValue().split(",")[1] + ";");
-		//	message = message + "Item Id: " + s + "    Item Name: " + itemName + "    Quantity: " + quantity + "\n"; 
-			message = message.concat(s+"-"+itemName+","+quantity+";");
+			// booksInLibrary = booksInLibrary.concat(thisEntry.getKey() + "-" +
+			// thisEntry.getValue().split(",")[0] + ","
+			// + thisEntry.getValue().split(",")[1] + ";");
+			// message = message + "Item Id: " + s + " Item Name: " + itemName + " Quantity:
+			// " + quantity + "\n";
+			message = message.concat(s + "-" + itemName + "," + quantity + ";");
 
 		}
 		LOG.info("---SUCCESS---");
 
 		LOG.info(message);
 
-		return "Success:"+message;
-		
+		return "Success:" + message;
+
 	}
 
 	@Override
@@ -388,10 +423,6 @@ public class ActionserviceImpl implements ActionService {
 
 			return message;
 		}
-		for (int i = 0; i < 5; i++) {
-			System.out.println(i);
-		}
-
 		LOG.info("The current Date and time for this request is: " + getCurrentDate());
 
 		LOG.info("Starting -----BORROW ITEM------  operation for User with ID: " + userID + " and ITEM ID: " + itemID
@@ -510,8 +541,8 @@ public class ActionserviceImpl implements ActionService {
 		for (String s : libraryInfo.keySet()) {
 
 			if (libraryInfo.get(s).containsKey(itemName)) {
-                                Map.Entry<String, Integer> bookName = libraryInfo.get(s).entrySet().iterator().next();
-				message = s + "-" + bookName.getKey() +","+libraryInfo.get(s).get(itemName) + "'";
+				Map.Entry<String, Integer> bookName = libraryInfo.get(s).entrySet().iterator().next();
+				message = s + "-" + bookName.getKey() + "," + libraryInfo.get(s).get(itemName) + "'";
 				LOG.info("----SUCCESS----");
 				break;
 			}
@@ -526,9 +557,9 @@ public class ActionserviceImpl implements ActionService {
 			LOG.info(" SENDING REQUEST to MONTREAL library to find an item");
 			reply2 = send("finditem", null, itemName, 7777, userID);
 			LOG.info("RESPONSE recieved from MONTREAL library.");
-//			message = message + "\n" + reply1 + "\n" + reply2;
-                        
-                        message = message + reply1 + reply2;
+			// message = message + "\n" + reply1 + "\n" + reply2;
+
+			message = message + reply1 + reply2;
 		}
 
 		else if (userID.substring(0, 3).equalsIgnoreCase("MCG")) {
@@ -541,8 +572,8 @@ public class ActionserviceImpl implements ActionService {
 			reply2 = send("finditem", null, itemName, 7777, userID);
 			LOG.info("RESPONSE recieved from MONTREAL library.");
 
-//			message = message + "\n" + reply1 + "\n" + reply2;
-                        message = message + reply1 + reply2;
+			// message = message + "\n" + reply1 + "\n" + reply2;
+			message = message + reply1 + reply2;
 		} else {
 
 			LOG.info(" SENDING REQUEST to MCGILL library to find an item");
@@ -553,16 +584,16 @@ public class ActionserviceImpl implements ActionService {
 			reply2 = send("finditem", null, itemName, 5555, userID);
 			LOG.info("RESPONSE recieved from CONCORDIA library.");
 
-//			message = message + "\n" + reply1 + "\n" + reply2;
-                        message = message + reply1 + reply2;
+			// message = message + "\n" + reply1 + "\n" + reply2;
+			message = message + reply1 + reply2;
 
 		}
 
 		LOG.info("Result is: " + message);
 		LOG.info("Sending result back to the user.");
-                message = message.substring(0,message.length()-1 );
+		message = message.substring(0, message.length() - 1);
 
-		return "success:"+message;
+		return "success:" + message;
 	}
 
 	@Override
@@ -607,7 +638,7 @@ public class ActionserviceImpl implements ActionService {
 						String answer = borrowItem(s[0], s[1], 0);
 						message = "success:Item returned to the library successfully. Have a nice day!";
 						LOG.info("----SUCCESS----");
-						message = message +"\n"+ "Waiting queue result: " + answer;
+						message = message + "\n" + "Waiting queue result: " + answer;
 
 					}
 
@@ -660,16 +691,15 @@ public class ActionserviceImpl implements ActionService {
 		return message;
 
 	}
+
 	public void crashListItemAvailability(String managerID) {
-		
+
 		System.exit(0);
-		
-//		int n = 50/0;
-//		
-//		return "Replica 3 Crashed";	
+
+		// int n = 50/0;
+		//
+		// return "Replica 3 Crashed";
 	}
-	
-	
 
 	public String waitList(String userID, String itemID, int numberOfDays) {
 
@@ -679,15 +709,15 @@ public class ActionserviceImpl implements ActionService {
 			LOG.info("----SUCCESS----");
 			waitListMap.put(itemID, new LinkedList<String>());
 			waitListMap.get(itemID).add(userID);
-			
-			System.out.println("Wait List Map Output:- "+ waitListMap.get(itemID));
+
+			System.out.println("Wait List Map Output:- " + waitListMap.get(itemID));
 
 		} else if (waitListMap.containsKey(itemID) & userID != null) {
 
 			LOG.info("Adding user with userID: " + userID + " in the waiting list for an item with itemID: " + itemID);
 			waitListMap.get(itemID).add(userID);
 			LOG.info("--SUCCESS");
-			System.out.println("Wait List Map Output:- "+ waitListMap.get(itemID));
+			System.out.println("Wait List Map Output:- " + waitListMap.get(itemID));
 		} else {
 			if (waitListMap.containsKey(itemID) && !waitListMap.get(itemID).isEmpty()) {
 				userID = waitListMap.get(itemID).poll();
@@ -1048,8 +1078,8 @@ public class ActionserviceImpl implements ActionService {
 				}
 			}
 		}
-		
-		if(message.contains("Unavailable")) {
+
+		if (message.contains("Unavailable")) {
 			message = "fail: Cannot be exchange. Either user already borrowed or the asked item is already issued";
 		}
 		return message;
@@ -1096,43 +1126,43 @@ public class ActionserviceImpl implements ActionService {
 
 	}
 
-//	@Override
-//	public boolean validateUser(String userID) {
-//		boolean flag = false;
-//		switch (userID.substring(0, 3)) {
-//		case "CON":
-//			if (userID.charAt(3) == 'U') {
-//				if (userlist.containsKey(userID))
-//					flag = true;
-//			} else {
-//				if (managerUserList.contains(userID)) {
-//					flag = true;
-//				}
-//			}
-//			break;
-//		case "MON":
-//			if (userID.charAt(3) == 'U') {
-//				if (userlist.containsKey(userID))
-//					flag = true;
-//			} else {
-//				if (managerUserList.contains(userID)) {
-//					flag = true;
-//				}
-//			}
-//			break;
-//
-//		case "MCG":
-//			if (userID.charAt(3) == 'U') {
-//				if (userlist.containsKey(userID))
-//					flag = true;
-//			} else {
-//				if (managerUserList.contains(userID)) {
-//					flag = true;
-//				}
-//			}
-//			break;
-//		}
-//		return flag;
-//	}
+	// @Override
+	// public boolean validateUser(String userID) {
+	// boolean flag = false;
+	// switch (userID.substring(0, 3)) {
+	// case "CON":
+	// if (userID.charAt(3) == 'U') {
+	// if (userlist.containsKey(userID))
+	// flag = true;
+	// } else {
+	// if (managerUserList.contains(userID)) {
+	// flag = true;
+	// }
+	// }
+	// break;
+	// case "MON":
+	// if (userID.charAt(3) == 'U') {
+	// if (userlist.containsKey(userID))
+	// flag = true;
+	// } else {
+	// if (managerUserList.contains(userID)) {
+	// flag = true;
+	// }
+	// }
+	// break;
+	//
+	// case "MCG":
+	// if (userID.charAt(3) == 'U') {
+	// if (userlist.containsKey(userID))
+	// flag = true;
+	// } else {
+	// if (managerUserList.contains(userID)) {
+	// flag = true;
+	// }
+	// }
+	// break;
+	// }
+	// return flag;
+	// }
 
 }

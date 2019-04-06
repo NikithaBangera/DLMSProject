@@ -86,8 +86,8 @@ public class ReplicaManager {
 					}
 
 					String data = new String(request.getData());
-					System.out.println(data);
-					System.out.println("\n------------Request received at Replica 3 " + data + "---------");
+//					System.out.println(data);
+//					System.out.println("\n------------Request received at Replica 3 " + data + "---------");
 					// String dataArray[] = data.split(",");
 					// set data in queue
 
@@ -128,8 +128,7 @@ public class ReplicaManager {
 						quantity = Integer.parseInt(message[7]);
 						numberOfDays = Integer.parseInt(message[8]);
 						failureType = message[9];
-						System.out.println(aSocket.getPort());
-						System.out.println(aSocket.isBound() + "bound");
+						
 					} else {
 						failureType = "faultyCrash";
 					}
@@ -145,46 +144,8 @@ public class ReplicaManager {
 							ConcordiaLibrary.aSocket.close();
 							McGillLibrary.aSocket.close();
 							MontrealLibrary.aSocket.close();
-							// System.out.println(
-							// ConcordiaLibrary.aSocket.isClosed() + " " +
-							// ConcordiaLibrary.aSocket.isBound());
-							// new Thread(() -> {
-							// try {
-							// System.out.println("aSocket: " + ConcordiaLibrary.aSocket.getPort());
-							// conStub.crashListItemAvailability("CONM1234");
-							// }
-							// catch(Exception e) {
-							// System.out.println("Inside catch of first thread");
-							// }
-							//
-							// }).start();
-							//
-							// new Thread(() -> {
-							// try {
-							// System.out.println("aSocket: " + McGillLibrary.aSocket.getPort());
-							// mcStub.crashListItemAvailability("CONM2345");
-							// }
-							// catch(Exception e) {
-							// System.out.println("Inside catch of second thread");
-							// }
-							//
-							//
-							// }).start();
-							//
-							// new Thread(() -> {
-							// try {
-							// System.out.println("aSocket: " + MontrealLibrary.aSocket.getPort());
-							// monStub.crashListItemAvailability("CONM4567");
-							// }
-							//
-							// catch(Exception e) {
-							// System.out.println("Inside catch of third thread");
-							// }
-							//
-							// }).start();
-							crashCounter++;
-//							System.out.println(crashCounter);
-//							System.out.println("  " + aSocket.getPort() + "is closed " + aSocket.isClosed());
+							
+							crashCounter++;				
 						} else {
 
 							ConcordiaLibrary.startConcordiaLibrary();
@@ -212,7 +173,7 @@ public class ReplicaManager {
 							}
 							messageBuffer.addAll(tempBuffer);
 							tempBuffer.clear();
-							result = conStub.listItemAvailability("CONM1234");
+						//	result = conStub.listItemAvailability(managerID);
 
 							for (String string : messageBuffer) {
 								System.out.println(string + "  Message");
@@ -227,10 +188,8 @@ public class ReplicaManager {
 					} else {
 
 						ActionserviceImpl action = new ActionserviceImpl("Montreal");
-						System.out.println(userID + "userID");
-						System.out.println(managerID + "managerID");
-						if (!userID.equalsIgnoreCase("")) {
-//							System.out.println("Inside If");
+					
+						if (!userID.equalsIgnoreCase("")) {					
 							String idPrefix = userID.substring(0, 3).toUpperCase().trim();
 							action = idPrefix.equalsIgnoreCase("CON") ? conStub
 									: idPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
@@ -245,32 +204,24 @@ public class ReplicaManager {
 						if (operation.equalsIgnoreCase("addItem")) {
 
 							result = action.addItem(managerID, oldItemID, itemName, quantity);
-							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("removeItem")) {
 							result = action.removeItem(managerID, oldItemID, quantity);
-							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("listItemAvailability")) {
 							result = action.listItemAvailability(managerID);
-							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
 							result = action.borrowItem(userID, oldItemID, numberOfDays);
-							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("waitList")) {
 							String itemIdPrefix = oldItemID.substring(0, 3).toUpperCase().trim();
 							action = itemIdPrefix.equalsIgnoreCase("CON") ? conStub
 									: itemIdPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
 
 							result = action.waitList(userID, oldItemID, numberOfDays);
-							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("findItem")) {
 							result = action.findItem(userID, itemName);
-							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("returnItem")) {
 							result = action.returnItem(userID, oldItemID);
-							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("exchangeItem")) {
 							result = action.exchangeItem(userID, newItemID, oldItemID);
-							Bugcount = 0;
 
 						}
 						System.out.println("\n---------RESULT in RM3:" + result + "---------");
