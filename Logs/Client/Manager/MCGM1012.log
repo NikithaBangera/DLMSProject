@@ -1,0 +1,21 @@
+Apr 03, 2019 2:28:49 AM com.dlms.client.Client managerOperation
+INFO: Manager with manager id MCGM1012 opted to list all the books in the library
+Apr 03, 2019 2:28:49 AM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 03, 2019 2:28:49 AM com.dlms.client.Client managerOperation
+INFO: Response received from server : MCG4444-DATA STRUCTURE,8;MCG1111-COMPILER DESIGN,4;MCG2222-DISCRETE MATHEMATICAL STRUCTURE,0;MCG3333-GRAPH THEORY,2
+Apr 03, 2019 2:28:58 AM com.dlms.client.Client managerOperation
+INFO: Manager with manager id MCGM1012 opted to add a book
+Apr 03, 2019 2:29:09 AM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID MCGM1012initiated an add book request for book id 
+MCG2222 book name DISCRETE MATHEMATICAL STRUCTURE quantity 2 in MCG library
+Apr 03, 2019 2:29:09 AM com.dlms.client.Client managerOperation
+INFO: **** Entering addItem operation ***
+Apr 03, 2019 2:29:09 AM com.dlms.client.Client managerOperation
+INFO: Response received from server : Item MCG2222 exists, hence increased item's quantity by 2 Successfully, and assigned to users existed in Waitlist
+Apr 03, 2019 2:29:24 AM com.dlms.client.Client managerOperation
+INFO: Manager with manager id MCGM1012 opted to list all the books in the library
+Apr 03, 2019 2:29:24 AM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 03, 2019 2:29:24 AM com.dlms.client.Client managerOperation
+INFO: Response received from server : MCG4444-DATA STRUCTURE,8;MCG1111-COMPILER DESIGN,4;MCG2222-DISCRETE MATHEMATICAL STRUCTURE,1;MCG3333-GRAPH THEORY,2

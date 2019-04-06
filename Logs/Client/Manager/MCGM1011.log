@@ -1,0 +1,6 @@
+Apr 05, 2019 9:15:52 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id MCGM1011 opted to add a book
+Apr 05, 2019 9:15:58 PM com.dlms.client.Client managerOperation
+SEVERE: 
+The entered book id has an invalid format
+

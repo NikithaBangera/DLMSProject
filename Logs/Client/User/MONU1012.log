@@ -1,0 +1,16 @@
+Apr 05, 2019 9:06:44 PM com.dlms.client.Client userOperation
+INFO: User with user id MONU1012opted for borrow a book
+Apr 05, 2019 9:06:50 PM com.dlms.client.Client userOperation
+INFO: ***** User with user ID MONU1012 initiated a borrow request for a book MON0000in MON library
+Apr 05, 2019 9:06:50 PM com.dlms.client.Client userOperation
+INFO: **** Entering borrowItem operation ***
+Apr 05, 2019 9:06:50 PM com.dlms.client.Client userOperation
+INFO: Response received from server : Book ID is Invalid. No Book exist in library with provide Name.
+Apr 05, 2019 9:07:29 PM com.dlms.client.Client userOperation
+INFO: User with user id MONU1012opted for borrow a book
+Apr 05, 2019 9:07:36 PM com.dlms.client.Client userOperation
+INFO: ***** User with user ID MONU1012 initiated a borrow request for a book MCG0000in MON library
+Apr 05, 2019 9:07:36 PM com.dlms.client.Client userOperation
+INFO: **** Entering borrowItem operation ***
+Apr 05, 2019 9:07:36 PM com.dlms.client.Client userOperation
+INFO: Response received from server : Item MCG0000 borrowed by user MONU1012 successfully!

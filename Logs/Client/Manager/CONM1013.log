@@ -1,0 +1,24 @@
+Apr 05, 2019 6:10:46 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1013 opted to list all the books in the library
+Apr 05, 2019 6:10:46 PM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 05, 2019 6:10:46 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : CON1111-COMPILER DESIGN,4;CON2222-DISCRETE MATHEMATICAL STRUCTURE,0;CON3333-GRAPH THEORY,2;CON4444-DATA STRUCTURE,8
+Apr 05, 2019 6:11:00 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1013 opted to list all the books in the library
+Apr 05, 2019 6:11:00 PM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 05, 2019 6:11:00 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : CON1111-COMPILER DESIGN,4;CON2222-DISCRETE MATHEMATICAL STRUCTURE,0;CON3333-GRAPH THEORY,2;CON4444-DATA STRUCTURE,8
+Apr 05, 2019 6:11:11 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1013 opted to list all the books in the library
+Apr 05, 2019 6:11:11 PM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 05, 2019 6:11:11 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : CON1111-COMPILER DESIGN,4;CON2222-DISCRETE MATHEMATICAL STRUCTURE,0;CON3333-GRAPH THEORY,2;CON4444-DATA STRUCTURE,8
+Apr 05, 2019 6:11:22 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1013 opted to list all the books in the library
+Apr 05, 2019 6:11:22 PM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 05, 2019 6:11:22 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : CON1111-COMPILER DESIGN,4;CON2222-DISCRETE MATHEMATICAL STRUCTURE,0;CON3333-GRAPH THEORY,2;CON4444-DATA STRUCTURE,8

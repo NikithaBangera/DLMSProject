@@ -1,0 +1,19 @@
+Apr 04, 2019 5:50:54 PM com.dlms.client.Client userOperation
+INFO: User with user id MCGU1013opted for borrow a book
+Apr 04, 2019 5:50:59 PM com.dlms.client.Client userOperation
+INFO: ***** User with user ID MCGU1013 initiated a borrow request for a book MON6231in MCG library
+Apr 04, 2019 5:50:59 PM com.dlms.client.Client userOperation
+INFO: **** Entering borrowItem operation ***
+Apr 04, 2019 5:50:59 PM com.dlms.client.Client userOperation
+INFO: Response received from server : Cannot borrow more books from this library.
+Apr 04, 2019 5:51:10 PM com.dlms.client.Client userOperation
+SEVERE: 
+Invalid choice entered by user
+Apr 04, 2019 5:51:14 PM com.dlms.client.Client userOperation
+INFO: User with user id MCGU1013opted for borrow a book
+Apr 04, 2019 5:51:18 PM com.dlms.client.Client userOperation
+INFO: ***** User with user ID MCGU1013 initiated a borrow request for a book MON6231in MCG library
+Apr 04, 2019 5:51:18 PM com.dlms.client.Client userOperation
+INFO: **** Entering borrowItem operation ***
+Apr 04, 2019 5:51:18 PM com.dlms.client.Client userOperation
+INFO: Response received from server : Cannot borrow more books from this library.

@@ -1,0 +1,10 @@
+Apr 03, 2019 12:40:21 AM com.dlms.client.Client userOperation
+INFO: User with user id CONU1122opted for borrow a book
+Apr 03, 2019 12:40:33 AM com.dlms.client.Client userOperation
+INFO: ***** User with user ID CONU1122 initiated a borrow request for a book con1111in CON library
+Apr 03, 2019 12:40:33 AM com.dlms.client.Client userOperation
+INFO: **** Entering borrowItem operation ***
+Apr 03, 2019 12:40:33 AM com.dlms.client.Client userOperation
+INFO: Response received from server :  CON1111-COMPILER DESIGN,4;CON2222-DISCRETE MATHEMATICAL STRUCTURE,0;CON3333-GRAPH THEORY,2;CON4444-DATA STRUCTURE,8;
+Apr 03, 2019 12:40:43 AM com.dlms.client.Client userOperation
+INFO: User with user id CONU1122opted for borrow a book

@@ -1,0 +1,16 @@
+Apr 05, 2019 9:15:25 PM com.dlms.client.Client userOperation
+INFO: User with user id CONU1012opted for borrow a book
+Apr 05, 2019 9:15:34 PM com.dlms.client.Client userOperation
+INFO: ***** User with user ID CONU1012 initiated a borrow request for a book MON0000in CON library
+Apr 05, 2019 9:15:34 PM com.dlms.client.Client userOperation
+INFO: **** Entering borrowItem operation ***
+Apr 05, 2019 9:15:34 PM com.dlms.client.Client userOperation
+INFO: Response received from server : Unavailable
+Apr 05, 2019 9:15:36 PM com.dlms.client.Client userOperation
+INFO: User opted to enter a waitlist
+Apr 05, 2019 9:15:36 PM com.dlms.client.Client userOperation
+INFO: ***** User with user ID CONU1012initiated a waitlist request for a book MON0000 in CON library for number of days: 3
+Apr 05, 2019 9:15:36 PM com.dlms.client.Client userOperation
+INFO: **** Entering waitList operation ***
+Apr 05, 2019 9:15:36 PM com.dlms.client.Client userOperation
+INFO: Response received from server : CONU1012 added to the waitlist successfully!

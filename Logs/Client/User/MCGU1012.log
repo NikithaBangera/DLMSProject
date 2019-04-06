@@ -1,0 +1,16 @@
+Apr 05, 2019 9:14:41 PM com.dlms.client.Client userOperation
+INFO: User with user id MCGU1012opted for borrow a book
+Apr 05, 2019 9:14:45 PM com.dlms.client.Client userOperation
+INFO: ***** User with user ID MCGU1012 initiated a borrow request for a book MON0000in MCG library
+Apr 05, 2019 9:14:45 PM com.dlms.client.Client userOperation
+INFO: **** Entering borrowItem operation ***
+Apr 05, 2019 9:14:45 PM com.dlms.client.Client userOperation
+INFO: Response received from server : Unavailable
+Apr 05, 2019 9:14:47 PM com.dlms.client.Client userOperation
+INFO: User opted to enter a waitlist
+Apr 05, 2019 9:14:47 PM com.dlms.client.Client userOperation
+INFO: ***** User with user ID MCGU1012initiated a waitlist request for a book MON0000 in MCG library for number of days: 4
+Apr 05, 2019 9:14:47 PM com.dlms.client.Client userOperation
+INFO: **** Entering waitList operation ***
+Apr 05, 2019 9:14:47 PM com.dlms.client.Client userOperation
+INFO: Response received from server : MCGU1012 added to the waitlist successfully!

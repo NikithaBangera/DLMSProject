@@ -1,0 +1,4 @@
+Apr 03, 2019 10:06:37 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1234 opted to list all the books in the library
+Apr 03, 2019 10:06:37 PM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to display crash failure operation ***

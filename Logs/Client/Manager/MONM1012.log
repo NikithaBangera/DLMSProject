@@ -1,0 +1,12 @@
+Apr 04, 2019 5:35:36 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id MONM1012 opted to add a book
+Apr 04, 2019 5:35:46 PM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID MONM1012initiated an add book request for book id 
+MON6231 book name DISTRIBUTED quantity 1 in MON library
+Apr 04, 2019 5:35:46 PM com.dlms.client.Client managerOperation
+INFO: **** Entering addItem operation ***
+Apr 04, 2019 5:35:46 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : Item MON6231 added to the library Successfully
+Apr 04, 2019 5:35:59 PM com.dlms.client.Client managerOperation
+SEVERE: 
+Invalid choice entered by user

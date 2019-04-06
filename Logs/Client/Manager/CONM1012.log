@@ -1,0 +1,27 @@
+Apr 03, 2019 11:48:41 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1012 opted to add a book
+Apr 03, 2019 11:48:53 PM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID CONM1012initiated an add book request for book id 
+CON1234 book name DS quantity 1 in CON library
+Apr 03, 2019 11:48:53 PM com.dlms.client.Client managerOperation
+INFO: **** Entering addItem operation ***
+Apr 03, 2019 11:48:53 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : Item CON1234 added to the library Successfully
+Apr 03, 2019 11:49:00 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1012 opted to add a book
+Apr 03, 2019 11:49:07 PM com.dlms.client.Client managerOperation
+INFO: ***** Manager with manager ID CONM1012initiated an add book request for book id 
+CON1234 book name DS quantity 1 in CON library
+Apr 03, 2019 11:49:07 PM com.dlms.client.Client managerOperation
+INFO: **** Entering addItem operation ***
+Apr 03, 2019 11:49:07 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : Item CON1234 exists, hence increased item's quantity to 2 Successfully
+Apr 03, 2019 11:49:10 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id CONM1012 opted to list all the books in the library
+Apr 03, 2019 11:49:10 PM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 03, 2019 11:49:10 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : CON1111-COMPILER DESIGN,4;CON2222-DISCRETE MATHEMATICAL STRUCTURE,0;CON3333-GRAPH THEORY,2;CON4444-DATA STRUCTURE,8;CON1234-DS,2
+Apr 03, 2019 11:49:18 PM com.dlms.client.Client managerOperation
+SEVERE: 
+Invalid choice entered by user

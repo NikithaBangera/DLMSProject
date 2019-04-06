@@ -1,0 +1,6 @@
+Apr 05, 2019 10:45:54 PM com.dlms.client.Client managerOperation
+INFO: Manager with manager id MONM1011 opted to list all the books in the library
+Apr 05, 2019 10:45:54 PM com.dlms.client.Client managerOperation
+INFO: **** Entering listItemAvailability operation to list all the books in library ***
+Apr 05, 2019 10:45:54 PM com.dlms.client.Client managerOperation
+INFO: Response received from server : MON1111-COMPILER DESIGN,4;MON2222-DISCRETE MATHEMATICAL STRUCTURE,0;MON3333-GRAPH THEORY,2;MON4444-DATA STRUCTURE,8
