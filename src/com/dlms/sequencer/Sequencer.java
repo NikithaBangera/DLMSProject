@@ -17,7 +17,7 @@ public class Sequencer {
 
 	public static void main(String[] args) throws Exception {
 
-		System.out.println("Sequencer has been started successfully");
+		System.out.println("\nSequencer has been started successfully");
 
 		new Thread(() -> receiveRequest()).start();
 
@@ -30,7 +30,7 @@ public class Sequencer {
 		try {
 
 			aSocket = new DatagramSocket(22222);
-			System.out.println("Server 22222 Started............");
+			System.out.println("\n---------Sequencer started on server 22222 Started-----------------");
 			while (true) {
 				byte[] bufferData = new byte[1024];
 				DatagramPacket request = null;
@@ -41,7 +41,7 @@ public class Sequencer {
 				/*
 				 * Checking for a duplicate message
 				 */
-				System.out.println(message + "sssss");
+//				System.out.println(message + "sssss");
 				// boolean isDuplicate = checkDuplicateMessage(message);
 				// if (isDuplicate) {
 				// continue;
@@ -50,8 +50,8 @@ public class Sequencer {
 				 * Attaching a unique sequencer number and multi-casting message to all replicas
 				 */
 				sequenceNumber++;
-				message = sequenceNumber + "," + message;
-				System.out.println(message + " : seq msg");
+				message = sequenceNumber + "," + message.trim();
+				System.out.println("\nMessage received: "+message);
 				multicastMessage(message);
 				DatagramPacket reply = null;
 
@@ -96,9 +96,7 @@ public class Sequencer {
 			// mcPacket.setPort(mcPort);
 			aSocket.send(mcPacket);
 			aSocket.send(mcPacket);
-			System.out.println("Sent a  multicast message.");
-			System.out.println("Exiting application");
-			System.out.println("mcPacket" + mcPacket.getData().toString());
+			System.out.println("\nSent a  multicast message.");
 		} catch (SocketException e) {
 			System.out.println("Socket: " + e.getMessage());
 		} catch (IOException e) {

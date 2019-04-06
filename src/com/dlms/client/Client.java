@@ -285,7 +285,7 @@ public class Client {
 				logger.info("Manager with manager id " + managerID + " opted to list all the books in the library");
 				bookList = "";
 				logger.info("**** Entering listItemAvailability operation to display crash failure operation ***");
-				bookList = serverRef.listItemAvailability("CONM1012:faultyCrash");
+				bookList = serverRef.listItemAvailability(managerID+":faultyCrash");
 
 				logger.info("Response received from server : " + result);
 
@@ -520,7 +520,7 @@ public class Client {
 			while (!stopRunning) {
 				System.out.println("\n* Welcome to Library *");
 				System.out.println(
-						"\n(At any point of time type 'Quit' to exit and enter Invalid ID to 'Crash' the system)");
+						"\n(At any point of time type 'Quit' to exit)");
 				System.out.println("\nPlease enter a valid User Id or Manager Id : ");
 				operatorID = (reader.readLine()).toUpperCase();
 

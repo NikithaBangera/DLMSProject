@@ -245,24 +245,32 @@ public class ReplicaManager {
 						if (operation.equalsIgnoreCase("addItem")) {
 
 							result = action.addItem(managerID, oldItemID, itemName, quantity);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("removeItem")) {
 							result = action.removeItem(managerID, oldItemID, quantity);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("listItemAvailability")) {
 							result = action.listItemAvailability(managerID);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
 							result = action.borrowItem(userID, oldItemID, numberOfDays);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("waitList")) {
 							String itemIdPrefix = oldItemID.substring(0, 3).toUpperCase().trim();
 							action = itemIdPrefix.equalsIgnoreCase("CON") ? conStub
 									: itemIdPrefix.equalsIgnoreCase("MCG") ? mcStub : monStub;
 
 							result = action.waitList(userID, oldItemID, numberOfDays);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("findItem")) {
 							result = action.findItem(userID, itemName);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("returnItem")) {
 							result = action.returnItem(userID, oldItemID);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("exchangeItem")) {
 							result = action.exchangeItem(userID, newItemID, oldItemID);
+							Bugcount = 0;
 
 						}
 						System.out.println("\n---------RESULT in RM3:" + result + "---------");

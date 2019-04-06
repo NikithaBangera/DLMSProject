@@ -80,20 +80,28 @@ public class ReplicaManager {
 					} else {
 						if (operation.equalsIgnoreCase("addItem")) {
 							result = actionServiceImpl.addItem(managerID, oldItemID, itemName, quantity);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("removeItem")) {
 							result = actionServiceImpl.removeItem(managerID, oldItemID, quantity);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("listItemAvailability")) {
 							result = actionServiceImpl.listItemAvailability(managerID);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
 							result = actionServiceImpl.borrowItem(userID, oldItemID, numberOfDays);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("waitList")) {
 							result = actionServiceImpl.waitList(userID, oldItemID, numberOfDays);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("findItem")) {
 							result = actionServiceImpl.findItem(userID, itemName);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("returnItem")) {
 							result = actionServiceImpl.returnItem(userID, oldItemID);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("exchangeItem")) {
 							result = actionServiceImpl.exchangeItem(userID, newItemID, oldItemID);
+							Bugcount = 0;
 						}
 					}
 					System.out.println("\n---------RESULT in RM2 :" + result + "---------");

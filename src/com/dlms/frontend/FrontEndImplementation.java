@@ -24,7 +24,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 	private ORB orb;
 	private String timetaken;
-	private long duration = 100000;
+	private long duration = 5000;
 	private static String majorityElement = null;
 	private static String majorityMessage = "";
 	private int invalidElement;
@@ -118,7 +118,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 			key = operation + "," + managerID + "," + userID + "," + exchangeItemID + "," + itemID + "," + itemName
 					+ "," + quantity + "," + numberOfDays + "," + failureType;
 			aSocket = new DatagramSocket(11111);
-			aSocket.setSoTimeout((int) duration * 2);
+			
 
 			byte[] mess = key.getBytes();
 			InetAddress aHost = InetAddress.getByName("localhost"); // address of Sequencer
@@ -139,6 +139,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 			for (int i = 0; i < 3; i++) {
 
 				try {
+					aSocket.setSoTimeout((int) duration * 4);
 					startTime = System.currentTimeMillis();
 					aSocket.receive(reply[i]);
 					endTime = System.currentTimeMillis();
@@ -172,9 +173,10 @@ public class FrontEndImplementation extends ActionServicePOA {
 				if (reply[i] != null) {
 
 					waitTimeList.add(endTime - startTime);
+					duration = Collections.max(waitTimeList);
 				}
 			}
-			// duration = Collections.max(waitTimeList);
+			
 			new String(request.getData());
 			message1 = new String(reply[0].getData()).trim();
 			message2 = new String(reply[1].getData()).trim();
@@ -204,7 +206,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 
 		
 			if (replicaNumber > 0) {
-				String faultIntimation = bugC++ + "," + "" + "," + "CONM1013" + "," + "" + "," + "" + "," + "" + "," + ""
+				String faultIntimation = bugC++ + "," + "" + "," + managerID + "," + "" + "," + "" + "," + "" + "," + ""
 						+ "," + 0 + "," + 0 + "," + "faultyBug";
 
 				System.out.println("\n------------Sending intimation to faulty replica: " + faultIntimation

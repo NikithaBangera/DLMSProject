@@ -90,26 +90,29 @@ public class ReplicaManager {
 					}
 					if (failureType.equalsIgnoreCase("faultyCrash")) {
 						result = action.listItemAvailability(managerID);
+						Bugcount = 0;
 
 					} else {
 						if (operation.equalsIgnoreCase("addItem")) {
 							result = action.addItem(managerID, oldItemID, itemName, quantity);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("removeItem")) {
 							result = action.removeItem(managerID, oldItemID, quantity);
+							Bugcount = 0;
 						} else if (operation.equalsIgnoreCase("listItemAvailability")) {
 
-							if (managerID.equalsIgnoreCase("CONM1013")) {
-								if (Bugcount < 3) {
-									result = "success:someJunkValue";
-								} else {
-									Bugcount = 0;
-									result = action.listItemAvailability(managerID);
-
-								}
+							// if (managerID.equalsIgnoreCase("CONM1013")) {
+							if (Bugcount < 3) {
+								result = "success:someJunkValue";
 							} else {
 								Bugcount = 0;
 								result = action.listItemAvailability(managerID);
+
 							}
+							// } else {
+							// Bugcount = 0;
+							// result = action.listItemAvailability(managerID);
+							// }
 
 						} else if (operation.equalsIgnoreCase("borrowItem")) {
 							Bugcount = 0;
