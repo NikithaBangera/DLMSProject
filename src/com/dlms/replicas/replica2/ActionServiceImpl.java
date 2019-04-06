@@ -552,7 +552,7 @@ public class ActionServiceImpl implements ActionService {
 			// "\\src\\Logs\\" + serverName + "Logs.txt",
 			// true);
 			FileWriter fw = new FileWriter(
-					System.getProperty("user.dir") + "\\Logs\\Server\\" + serverName + "Logs.txt", true);
+					System.getProperty("user.dir") + "\\Logs\\Server\\Replica2\\" + serverName + "Logs.txt", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.newLine();
 			bw.write(dateTime + "\t" + typeOfRequest + "\t" + userID + "\t" + item + "\t" + reqStatus

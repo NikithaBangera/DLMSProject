@@ -72,7 +72,7 @@ public class Concordia {
 			logger.setUseParentHandlers(false);
 			try {
 				// This block configure the logger with handler and formatter
-				fileHandler = new FileHandler("Logs/Server/Concordia.log");
+				fileHandler = new FileHandler("Logs/Server/Replica1/Concordia.log");
 				logger.addHandler(fileHandler);
 				SimpleFormatter formatter = new SimpleFormatter();
 				fileHandler.setFormatter(formatter);
@@ -106,7 +106,7 @@ public class Concordia {
 		logger.setUseParentHandlers(false);
 		try {
 			// This block configure the logger with handler and formatter
-			fileHandler = new FileHandler("Logs/Server/Concordia.log");
+			fileHandler = new FileHandler("Logs/Server/Replica1/Concordia.log");
 			logger.addHandler(fileHandler);
 			SimpleFormatter formatter = new SimpleFormatter();
 			fileHandler.setFormatter(formatter);

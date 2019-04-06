@@ -77,7 +77,7 @@ public class McGill {
 			logger.setUseParentHandlers(false);
 			try {
 				// This block configure the logger with handler and formatter
-				fileHandler = new FileHandler("Logs/Server/McGill.log");
+				fileHandler = new FileHandler("Logs/Server/Replica1/McGill.log");
 				logger.addHandler(fileHandler);
 
 				SimpleFormatter formatter = new SimpleFormatter();
@@ -111,7 +111,7 @@ public class McGill {
 		logger.setUseParentHandlers(false);
 		try {
 			// This block configure the logger with handler and formatter
-			fileHandler = new FileHandler("Logs/Server/McGill.log");
+			fileHandler = new FileHandler("Logs/Server/Replica1/McGill.log");
 			logger.addHandler(fileHandler);
 
 			SimpleFormatter formatter = new SimpleFormatter();

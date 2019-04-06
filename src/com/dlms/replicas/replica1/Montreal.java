@@ -77,7 +77,7 @@ public class Montreal {
 			logger.setUseParentHandlers(false);
 			try {
 				// This block configure the logger with handler and formatter
-				fileHandler = new FileHandler("Logs/Server/Montreal.log");
+				fileHandler = new FileHandler("Logs/Server/Replica1/Montreal.log");
 				logger.addHandler(fileHandler);
 
 				SimpleFormatter formatter = new SimpleFormatter();
@@ -113,7 +113,7 @@ public class Montreal {
 		logger.setUseParentHandlers(false);
 		try {
 			// This block configure the logger with handler and formatter
-			fileHandler = new FileHandler("Logs/Server/Montreal.log");
+			fileHandler = new FileHandler("Logs/Server/Replica1/Montreal.log");
 			logger.addHandler(fileHandler);
 
 			SimpleFormatter formatter = new SimpleFormatter();

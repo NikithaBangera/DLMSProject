@@ -73,7 +73,7 @@ public class ActionserviceImpl implements ActionService {
 		FileHandler handler = null;
 		LogManager.getLogManager().reset();
 
-		file = new File("G:\\My Documents");
+		file = new File("Logs\\Server\\Replica3\\");
 
 		if (!file.exists()) {
 			file.mkdirs();
