@@ -378,9 +378,13 @@ public class ConcordiaServer {
 	public static void populateReturnItemsList(String userID, HashMap<String, String> returnItems) throws Exception {
 		List<String> userHistoryList = new ArrayList<String>();
 		userHistoryList.addAll(ConcordiaServer.userHistory.get(userID));
-		for (String userHistory : userHistoryList) {
-			String[] itemStatus = userHistory.split(",");
-			returnItems.put(itemStatus[0], itemStatus[1]);
+		if (userHistoryList.isEmpty()) {
+			returnItems.clear();
+		} else {
+			for (String userHistory : userHistoryList) {
+				String[] itemStatus = userHistory.split(",");
+				returnItems.put(itemStatus[0], itemStatus[1]);
+			}
 		}
 	}
 
