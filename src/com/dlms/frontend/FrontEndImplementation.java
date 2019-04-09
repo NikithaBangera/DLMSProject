@@ -156,7 +156,7 @@ public class FrontEndImplementation extends ActionServicePOA {
 					System.out.println(
 							"\n----------Sending message to replica manager at replica 3 to recover from crash----------");
 					aSocket.send(new DatagramPacket(crashIntimation.getBytes(), crashIntimation.length(),
-							InetAddress.getByName("132.205.64.22"), 1314)); // For Crash failure
+							InetAddress.getByName("132.205.64.194"), 1314)); // For Crash failure
 
 					message1 = new String(reply[0].getData()).trim();
 					System.out.println("\nmessage1: " + message1);
@@ -213,8 +213,8 @@ public class FrontEndImplementation extends ActionServicePOA {
 						+ "------------------");
 
 				aSocket.send(new DatagramPacket(faultIntimation.getBytes(), faultIntimation.length(),
-						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.197"
-								: replicaNumber == 2 ? "132.205.64.21" : "132.205.64.22"),
+						InetAddress.getByName(replicaNumber == 1 ? "132.205.64.195"
+								: replicaNumber == 2 ? "132.205.64.105" : "132.205.64.194"),
 						1314));
 			}
 

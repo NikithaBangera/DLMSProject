@@ -839,7 +839,7 @@ public class ActionserviceImpl implements ActionService {
 						} else {
 
 							if (reply1.contains("Unavailable")) {
-								message = "fail: Sorry. Item to be exchanged is currently not available";
+								message = "fail: Sorry. Item cannot be exchanged";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							} else {
@@ -869,7 +869,7 @@ public class ActionserviceImpl implements ActionService {
 						} else {
 
 							if (reply1.contains("Unavailable")) {
-								message = "fail: Sorry. Item to be exchanged is currently not available";
+								message = "fail: Sorry. Item cannot be exchanged";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							} else {
@@ -899,7 +899,7 @@ public class ActionserviceImpl implements ActionService {
 							}
 						} else {
 							if (reply1.contains("Unavailable")) {
-								message = "fail: Sorry. Item to be exchanged is currently not available";
+								message = "fail: Sorry. Item cannot be exchanged";
 								LOG.info("----FAILURE----");
 								LOG.info(message);
 							} else {
@@ -965,7 +965,7 @@ public class ActionserviceImpl implements ActionService {
 				}
 			} else {
 				if (reply1.contains("Unavailable")) {
-					message = "fail: Sorry. Item to be exchanged is currently not available";
+					message = "fail: Sorry. Item cannot be exchanged";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
@@ -1017,7 +1017,7 @@ public class ActionserviceImpl implements ActionService {
 				}
 			} else {
 				if (reply1.contains("Unavailable")) {
-					message = "fail: Sorry. Item to be exchanged is currently not available";
+					message = "fail: Sorry. Item cannot be exchanged";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
@@ -1068,7 +1068,7 @@ public class ActionserviceImpl implements ActionService {
 				}
 			} else {
 				if (reply1.contains("Unavailable")) {
-					message = "fail: Sorry. Item to be exchanged is currently not available";
+					message = "fail: Sorry. Item cannot be exchanged";
 					LOG.info("----FAILURE----");
 					LOG.info(message);
 				} else {
